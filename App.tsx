@@ -115,7 +115,7 @@ export default function App() {
       {/* Main Dashboard Layout */}
       <main className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
 
-        {/* CARD 1: MON PROFIL (Mis à jour) */}
+        {/* CARD 1: MON PROFIL */}
         <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
           <div>
             <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON PROFIL</h2>
@@ -236,74 +236,75 @@ export default function App() {
           </div>
         </section>
 
-        {/* CARD 4: MON HISTORIQUE */}
-        <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
-          <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-1">MON HISTORIQUE</h2>
-          <p className="text-[#8e7dae] italic text-[11px] mb-2">⚡ Déroulez le tableau pour explorer toutes les expériences</p>
+        {/* CARD 4: MON HISTORIQUE (Plein espace) */}
+        <section className="lg:col-span-5 h-full min-h-0 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
+          <div className="flex min-h-0 flex-1 flex-col">
+            <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON HISTORIQUE</h2>
 
-          <div className="max-h-56 overflow-y-auto pr-1 space-y-1">
-            <table className="w-full text-left text-xs">
-              <thead className="sticky top-0 bg-[#150d21] z-10">
-                <tr className="text-[#8e7dae] border-b border-[#261838]">
-                  <th className="pb-1.5">Année</th>
-                  <th className="pb-1.5">Équipe</th>
-                  <th className="pb-1.5">Championnat</th>
-                  <th className="pb-1.5">Position</th>
-                  <th className="pb-1.5">Pays</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#1c112e]">
-                <tr>
-                  <td className="py-1.5 text-[#8e7dae]">2025 -</td>
-                  <td className="py-1.5 font-bold text-white">Jour de Stade</td>
-                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Réseaux sociaux</span></td>
-                  <td className="py-1.5 text-[#e2d9f3]">Le monde</td>
-                  <td className="py-1.5"><Globe className="w-4 h-4 text-purple-400" /></td>
-                </tr>
-                <tr>
-                  <td className="py-1.5 text-[#8e7dae]">2025 -</td>
-                  <td className="py-1.5 font-bold text-white">Sport 2000</td>
-                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-                  <td className="py-1.5 text-[#e2d9f3]">Marseille</td>
-                  <td className="py-1.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
-                </tr>
-                <tr>
-                  <td className="py-1.5 text-[#8e7dae]">2025</td>
-                  <td className="py-1.5 font-bold text-white">Realsport</td>
-                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-                  <td className="py-1.5 text-[#e2d9f3]">Antofagasta</td>
-                  <td className="py-1.5"><img src="https://flagcdn.com/w20/cl.png" alt="Chili" className="w-4 h-auto rounded-sm" /></td>
-                </tr>
-                <tr>
-                  <td className="py-1.5 text-[#8e7dae]">2024-25</td>
-                  <td className="py-1.5 font-bold text-white">Pariwana Hostel</td>
-                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Hôtellerie</span></td>
-                  <td className="py-1.5 text-[#e2d9f3]">Santiago</td>
-                  <td className="py-1.5"><img src="https://flagcdn.com/w20/cl.png" alt="Chili" className="w-4 h-auto rounded-sm" /></td>
-                </tr>
-                <tr>
-                  <td className="py-1.5 text-[#8e7dae]">2019-24</td>
-                  <td className="py-1.5 font-bold text-white">Decathlon</td>
-                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-                  <td className="py-1.5 text-[#e2d9f3]">Marseille</td>
-                  <td className="py-1.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
-                </tr>
-                <tr>
-                  <td className="py-1.5 text-[#8e7dae]">2018</td>
-                  <td className="py-1.5 font-bold text-white">Rugby Club Flers P.B.</td>
-                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Stage</span></td>
-                  <td className="py-1.5 text-[#e2d9f3]">Flers</td>
-                  <td className="py-1.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
-                </tr>
-                <tr>
-                  <td className="py-1.5 text-[#8e7dae]">2013-15</td>
-                  <td className="py-1.5 font-bold text-white">Crédit Agricole</td>
-                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Alternance</span></td>
-                  <td className="py-1.5 text-[#e2d9f3]">La Ferté Macé</td>
-                  <td className="py-1.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="min-h-0 flex-1 overflow-auto">
+              <table className="h-full w-full text-left text-xs">
+                <thead>
+                  <tr className="text-[#8e7dae] border-b border-[#261838]">
+                    <th className="pb-2">Année</th>
+                    <th className="pb-2">Équipe</th>
+                    <th className="pb-2">Championnat</th>
+                    <th className="pb-2">Position</th>
+                    <th className="pb-2">Pays</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#1c112e]">
+                  <tr>
+                    <td className="py-2.5 text-[#8e7dae]">2025 -</td>
+                    <td className="py-2.5 font-bold text-white">Jour de Stade</td>
+                    <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Réseaux sociaux</span></td>
+                    <td className="py-2.5 text-[#e2d9f3]">Le monde</td>
+                    <td className="py-2.5"><Globe className="w-4 h-4 text-purple-400" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 text-[#8e7dae]">2025 -</td>
+                    <td className="py-2.5 font-bold text-white">Sport 2000</td>
+                    <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                    <td className="py-2.5 text-[#e2d9f3]">Marseille</td>
+                    <td className="py-2.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 text-[#8e7dae]">2025</td>
+                    <td className="py-2.5 font-bold text-white">Realsport</td>
+                    <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                    <td className="py-2.5 text-[#e2d9f3]">Antofagasta</td>
+                    <td className="py-2.5"><img src="https://flagcdn.com/w20/cl.png" alt="Chili" className="w-4 h-auto rounded-sm" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 text-[#8e7dae]">2024-25</td>
+                    <td className="py-2.5 font-bold text-white">Pariwana Hostel</td>
+                    <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Hôtellerie</span></td>
+                    <td className="py-2.5 text-[#e2d9f3]">Santiago</td>
+                    <td className="py-2.5"><img src="https://flagcdn.com/w20/cl.png" alt="Chili" className="w-4 h-auto rounded-sm" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 text-[#8e7dae]">2019-24</td>
+                    <td className="py-2.5 font-bold text-white">Decathlon</td>
+                    <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                    <td className="py-2.5 text-[#e2d9f3]">Marseille</td>
+                    <td className="py-2.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 text-[#8e7dae]">2018</td>
+                    <td className="py-2.5 font-bold text-white">Rugby Club Flers P.B.</td>
+                    <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Stage</span></td>
+                    <td className="py-2.5 text-[#e2d9f3]">Flers</td>
+                    <td className="py-2.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
+                  </tr>
+                  <tr>
+                    <td className="py-2.5 text-[#8e7dae]">2013-15</td>
+                    <td className="py-2.5 font-bold text-white">Crédit Agricole</td>
+                    <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Alternance</span></td>
+                    <td className="py-2.5 text-[#e2d9f3]">La Ferté Macé</td>
+                    <td className="py-2.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
     {/* CARD 5: STATS DE GESTION */}
