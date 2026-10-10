@@ -1,7 +1,35 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import { Search, Phone, Mail, Compass, Award, Shield, ChevronRight } from 'lucide-react';
 
 export default function App() {
+  const [time, setTime] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setTime(new Date());
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatDate = (date: Date) => {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const formatTime = (date: Date) => {
+    const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+    const dayName = days[date.getDay()];
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${dayName} ${hours}:${minutes}:${seconds}`;
+  };
+
   return (
     <div className="min-h-screen bg-[#0b0713] text-[#e2d9f3] font-sans text-xs p-3 leading-normal flex flex-col justify-between">
       {/* Top Navigation Bar */}
@@ -21,9 +49,9 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="bg-[#0b0713] border border-[#261838] px-3 py-1 rounded text-center">
-            <div className="text-[10px] text-[#8e7dae]">11/10/2026</div>
-            <div className="font-bold text-[#fbbf24] text-xs">Dim 00:02</div>
+          <div className="bg-[#0b0713] border border-[#261838] px-3 py-1 rounded text-center min-w-[100px]">
+            <div className="text-[10px] text-[#8e7dae]">{time ? formatDate(time) : '--/--/----'}</div>
+            <div className="font-bold text-[#fbbf24] text-xs">{time ? formatTime(time) : '--- --:--:--'}</div>
           </div>
           <button className="bg-[#8b5cf6] hover:bg-[#7c3aed] text-white font-bold px-4 py-2 rounded flex items-center gap-1.5 text-xs shadow-md">
             Me suivre »
@@ -125,109 +153,113 @@ export default function App() {
               </div>
             </div>
           </div>
-      <div className="space-y-2 border-t border-[#261838] pt-3">
-        <p className="text-[#8e7dae] font-bold text-xs uppercase">CLAUSE(S)</p>
-        <p className="text-[#e2d9f3] text-xs">Mobilité Marseille / France • Télétravail partiel</p>
-        <p className="text-[#8e7dae] font-bold text-xs uppercase pt-1">PRIMES</p>
-        <p className="text-[#e2d9f3] text-xs">Performance • Engagement long terme</p>
-      </div>
-    </section>
-    {/* CARD 3: MES QUALIFICATIONS */}
-    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
-      <div>
-        <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MES QUALIFICATIONS</h2>
-        <h3 className="font-bold text-white text-sm mb-1">3 diplômes</h3>
-        <p className="text-[#8e7dae] text-xs mb-3 leading-relaxed">
-          ◌ Double cursus sport & banque, base économique solide.
-        </p>
-        <div className="flex gap-2 mb-4">
-          {[...Array(7)].map((_, i) => (
-            <div key={i} className="w-4 h-4 rounded-full border border-[#a855f7]/40"></div>
-          ))}
-        </div>
-      </div>
-      <div className="space-y-2 border-t border-[#261838] pt-3">
-        <div className="text-xs">
-          <p className="font-bold text-white">Licence STAPS <span className="text-[#8e7dae] font-normal">- Management du sport</span></p>
-        </div>
-        <div className="text-xs">
-          <p className="font-bold text-white">BTS Banque</p>
-        </div>
-        <div className="text-xs">
-          <p className="font-bold text-white">BAC Économique et social</p>
-        </div>
-      </div>
-    </section>
-    {/* CARD 4: MON HISTORIQUE */}
-    <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
-      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-1">MON HISTORIQUE</h2>
-      <p className="text-[#8e7dae] italic text-[11px] mb-2">⚡ Déroulez le tableau pour explorer toutes les expériences</p>
 
-      <div className="max-h-56 overflow-y-auto pr-1 space-y-1">
-        <table className="w-full text-left text-xs">
-          <thead className="sticky top-0 bg-[#150d21] z-10">
-            <tr className="text-[#8e7dae] border-b border-[#261838]">
-              <th className="pb-1.5">Année</th>
-              <th className="pb-1.5">Équipe</th>
-              <th className="pb-1.5">Championnat</th>
-              <th className="pb-1.5">Position</th>
-              <th className="pb-1.5">Récomp.</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#1c112e]">
-            <tr>
-              <td className="py-1.5 text-[#8e7dae]">2025 -</td>
-              <td className="py-1.5 font-bold text-white">Jour de Stade</td>
-              <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Réseaux sociaux</span></td>
-              <td className="py-1.5 text-[#8e7dae]">—</td>
-              <td className="py-1.5 text-[#fbbf24]">🏆</td>
-            </tr>
-            <tr>
-              <td className="py-1.5 text-[#8e7dae]">2025 -</td>
-              <td className="py-1.5 font-bold text-white">Sport 2000</td>
-              <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-              <td className="py-1.5 text-[#8e7dae]">—</td>
-              <td className="py-1.5 text-[#fbbf24]">🏆</td>
-            </tr>
-            <tr>
-              <td className="py-1.5 text-[#8e7dae]">2025</td>
-              <td className="py-1.5 font-bold text-white">Realsport</td>
-              <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-              <td className="py-1.5 text-[#8e7dae]">—</td>
-              <td className="py-1.5 text-[#fbbf24]">🏆</td>
-            </tr>
-            <tr>
-              <td className="py-1.5 text-[#8e7dae]">2024-25</td>
-              <td className="py-1.5 font-bold text-white">Pariwana Hostel</td>
-              <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Hôtellerie</span></td>
-              <td className="py-1.5 text-[#8e7dae]">—</td>
-              <td className="py-1.5 text-[#fbbf24]">🏆</td>
-            </tr>
-            <tr>
-              <td className="py-1.5 text-[#8e7dae]">2019-24</td>
-              <td className="py-1.5 font-bold text-white">Decathlon</td>
-              <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-              <td className="py-1.5 text-[#8e7dae]">—</td>
-              <td className="py-1.5 text-[#fbbf24]">🏆</td>
-            </tr>
-            <tr>
-              <td className="py-1.5 text-[#8e7dae]">2018</td>
-              <td className="py-1.5 font-bold text-white">Rugby Club Flers P.B.</td>
-              <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Stage</span></td>
-              <td className="py-1.5 text-[#8e7dae]">—</td>
-              <td className="py-1.5 text-[#fbbf24]">🏆</td>
-            </tr>
-            <tr>
-              <td className="py-1.5 text-[#8e7dae]">2013-15</td>
-              <td className="py-1.5 font-bold text-white">Crédit Agricole</td>
-              <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Alternance</span></td>
-              <td className="py-1.5 text-[#8e7dae]">—</td>
-              <td className="py-1.5 text-[#fbbf24]">🏆</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+          <div className="space-y-2 border-t border-[#261838] pt-3">
+            <p className="text-[#8e7dae] font-bold text-xs uppercase">CLAUSE(S)</p>
+            <p className="text-[#e2d9f3] text-xs">Mobilité Marseille / France • Télétravail partiel</p>
+            <p className="text-[#8e7dae] font-bold text-xs uppercase pt-1">PRIMES</p>
+            <p className="text-[#e2d9f3] text-xs">Performance • Engagement long terme</p>
+          </div>
+        </section>
+
+        {/* CARD 3: MES QUALIFICATIONS */}
+        <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
+          <div>
+            <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MES QUALIFICATIONS</h2>
+            <h3 className="font-bold text-white text-sm mb-1">3 diplômes</h3>
+            <p className="text-[#8e7dae] text-xs mb-3 leading-relaxed">
+              ◌ Double cursus sport & banque, base économique solide.
+            </p>
+            <div className="flex gap-2 mb-4">
+              {[...Array(7)].map((_, i) => (
+                <div key={i} className="w-4 h-4 rounded-full border border-[#a855f7]/40"></div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2 border-t border-[#261838] pt-3">
+            <div className="text-xs">
+              <p className="font-bold text-white">Licence STAPS <span className="text-[#8e7dae] font-normal">- Management du sport</span></p>
+            </div>
+            <div className="text-xs">
+              <p className="font-bold text-white">BTS Banque</p>
+            </div>
+            <div className="text-xs">
+              <p className="font-bold text-white">BAC Économique et social</p>
+            </div>
+          </div>
+        </section>
+
+        {/* CARD 4: MON HISTORIQUE */}
+        <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
+          <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-1">MON HISTORIQUE</h2>
+          <p className="text-[#8e7dae] italic text-[11px] mb-2">⚡ Déroulez le tableau pour explorer toutes les expériences</p>
+
+          <div className="max-h-56 overflow-y-auto pr-1 space-y-1">
+            <table className="w-full text-left text-xs">
+              <thead className="sticky top-0 bg-[#150d21] z-10">
+                <tr className="text-[#8e7dae] border-b border-[#261838]">
+                  <th className="pb-1.5">Année</th>
+                  <th className="pb-1.5">Équipe</th>
+                  <th className="pb-1.5">Championnat</th>
+                  <th className="pb-1.5">Position</th>
+                  <th className="pb-1.5">Récomp.</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#1c112e]">
+                <tr>
+                  <td className="py-1.5 text-[#8e7dae]">2025 -</td>
+                  <td className="py-1.5 font-bold text-white">Jour de Stade</td>
+                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Réseaux sociaux</span></td>
+                  <td className="py-1.5 text-[#8e7dae]">—</td>
+                  <td className="py-1.5 text-[#fbbf24]">🏆</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 text-[#8e7dae]">2025 -</td>
+                  <td className="py-1.5 font-bold text-white">Sport 2000</td>
+                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                  <td className="py-1.5 text-[#8e7dae]">—</td>
+                  <td className="py-1.5 text-[#fbbf24]">🏆</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 text-[#8e7dae]">2025</td>
+                  <td className="py-1.5 font-bold text-white">Realsport</td>
+                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                  <td className="py-1.5 text-[#8e7dae]">—</td>
+                  <td className="py-1.5 text-[#fbbf24]">🏆</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 text-[#8e7dae]">2024-25</td>
+                  <td className="py-1.5 font-bold text-white">Pariwana Hostel</td>
+                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Hôtellerie</span></td>
+                  <td className="py-1.5 text-[#8e7dae]">—</td>
+                  <td className="py-1.5 text-[#fbbf24]">🏆</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 text-[#8e7dae]">2019-24</td>
+                  <td className="py-1.5 font-bold text-white">Decathlon</td>
+                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                  <td className="py-1.5 text-[#8e7dae]">—</td>
+                  <td className="py-1.5 text-[#fbbf24]">🏆</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 text-[#8e7dae]">2018</td>
+                  <td className="py-1.5 font-bold text-white">Rugby Club Flers P.B.</td>
+                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Stage</span></td>
+                  <td className="py-1.5 text-[#8e7dae]">—</td>
+                  <td className="py-1.5 text-[#fbbf24]">🏆</td>
+                </tr>
+                <tr>
+                  <td className="py-1.5 text-[#8e7dae]">2013-15</td>
+                  <td className="py-1.5 font-bold text-white">Crédit Agricole</td>
+                  <td className="py-1.5"><span className="bg-[#221435] px-1.5 py-0.5 rounded text-[#d8b4fe]">Alternance</span></td>
+                  <td className="py-1.5 text-[#8e7dae]">—</td>
+                  <td className="py-1.5 text-[#fbbf24]">🏆</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
     {/* CARD 5: STATS DE GESTION */}
     <section className="lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">STATS DE GESTION</h2>
