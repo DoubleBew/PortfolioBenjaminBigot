@@ -288,11 +288,18 @@ return (
           aria-label={`Afficher les informations de ${gallerySlides[activeGallerySlide].title}`}
           className={`absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc] ${activeGallerySlide < 2 ? 'bg-[#0f1021]' : ''}`}
         >
+          {activeGallerySlide < 2 && (
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 scale-110 bg-cover bg-center opacity-50 blur-xl"
+              style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
+            />
+          )}
           <span aria-hidden="true" className={`absolute inset-0 ${activeGallerySlide < 2 ? 'bg-transparent' : 'bg-[#0b0713]/25'}`} />
           <img
             src={gallerySlides[activeGallerySlide].image}
             alt=""
-            className={`absolute inset-0 h-full w-full object-center ${activeGallerySlide < 2 ? 'object-contain' : 'object-cover'}`}
+            className={`absolute inset-0 h-full w-full ${activeGallerySlide < 2 ? `object-contain ${activeGallerySlide === 0 ? 'object-top' : 'object-center'}` : 'object-cover object-center'}`}
           />
           <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
         </button>
@@ -494,11 +501,11 @@ return (
         className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="relative mx-auto w-fit max-w-full overflow-hidden">
+        <div className={`relative mx-auto overflow-hidden ${![0, 1, 5].includes(selectedGallerySlide) ? 'h-[min(55vh,440px)] w-full' : 'w-fit max-w-full'}`}>
           <img
             src={gallerySlides[selectedGallerySlide].image}
             alt=""
-            className="block max-h-[min(55vh,440px)] max-w-full"
+            className={`block ${![0, 1, 5].includes(selectedGallerySlide) ? 'h-full w-full object-cover object-center' : 'max-h-[min(55vh,440px)] max-w-full'}`}
           />
           <div className="absolute inset-0 bg-[#0f1021]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/40 to-[#0f1021]/10" />
