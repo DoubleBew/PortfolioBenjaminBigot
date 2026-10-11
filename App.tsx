@@ -286,13 +286,18 @@ return (
           type="button"
           onClick={() => setSelectedGallerySlide(activeGallerySlide)}
           aria-label={`Afficher les informations de ${gallerySlides[activeGallerySlide].title}`}
-          className={`absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc] ${activeGallerySlide < 2 ? 'bg-[#0f1021]' : ''}`}
+          className="absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
         >
-          <span aria-hidden="true" className={`absolute inset-0 ${activeGallerySlide < 2 ? 'bg-transparent' : 'bg-[#0b0713]/25'}`} />
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 scale-110 bg-cover bg-top opacity-50 blur-xl"
+            style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
+          />
+          <span aria-hidden="true" className="absolute inset-0 bg-[#0b0713]/25" />
           <img
             src={gallerySlides[activeGallerySlide].image}
             alt=""
-            className={`absolute inset-0 h-full w-full object-center ${activeGallerySlide < 2 ? 'object-contain' : 'object-cover'}`}
+            className="absolute inset-0 h-full w-full object-cover object-top"
           />
           <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
         </button>
