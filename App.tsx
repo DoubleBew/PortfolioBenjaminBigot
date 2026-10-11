@@ -12,10 +12,10 @@ export default function App() {
       metadata: 'Réseaux sociaux / Monde / Jour de Stade',
     },
     {
-      image: '/photos/IMG_0312.jpg',
-      title: 'Football et culture',
-      description: "À l'image de Colo-Colo, chaque club raconte, à sa façon, l'histoire du pays. La culture Mapuche est très présente et revendiquée chez \"l'éterno campéon\".",
-      metadata: 'Photographie / Estadio Monumental / Jour De Stade',
+      image: '/photos/IMG_1735.jpg',
+      title: 'Raconter le football chilien',
+      description: "Regarder le football d'une autre manière. À travers la photographie, je souhaite faire connaître ce championnat encore méconnu en Europe. Au-delà de l'aspect du jeu, le but est de faire connaître le côté culturel du pays via le football. Rendre beau le football chilien.",
+      metadata: 'Photographie / Chili / Jour de Stade',
     },
     {
       image: '/photos/IMG_1236.jpg',
@@ -48,10 +48,10 @@ export default function App() {
       metadata: 'Photographie / Stade Vélodrome / Jour de Stade',
     },
     {
-      image: '/photos/IMG_1735.jpg',
-      title: 'Raconter le football chilien',
-      description: "Regarder le football d'une autre manière. À travers la photographie, je souhaite faire connaître ce championnat encore méconnu en Europe. Au-delà de l'aspect du jeu, le but est de faire connaître le côté culturel du pays via le football. Rendre beau le football chilien.",
-      metadata: 'Photographie / Chili / Jour de Stade',
+      image: '/photos/IMG_0312.jpg',
+      title: 'Football et culture',
+      description: "À l'image de Colo-Colo, chaque club raconte, à sa façon, l'histoire du pays. La culture Mapuche est très présente et revendiquée chez \"l'éterno campéon\".",
+      metadata: 'Photographie / Estadio Monumental / Jour De Stade',
     },
   ];
   const [time, setTime] = useState<Date>(new Date());
