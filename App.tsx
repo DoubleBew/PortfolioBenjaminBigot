@@ -12,6 +12,12 @@ export default function App() {
       metadata: 'Photographie / Chili / Jour de Stade',
     },
     {
+      image: '/photos/IMG_0312.jpg',
+      title: 'Football et culture',
+      description: "À l'image de Colo-Colo, chaque club raconte, à sa façon, l'histoire du pays. La culture Mapuche est très présente et revendiquée chez \"l'éterno campéon\".",
+      metadata: 'Photographie / Estadio Monumental / Jour De Stade',
+    },
+    {
       image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
       title: 'La beauté du jeu',
       description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
