@@ -143,6 +143,23 @@ export default function App() {
     }
   };
 
+  const focusSantiago = () => {
+    const viewport = stadiumMapViewport.current;
+    if (!viewport) return;
+
+    const zoom = 4;
+    const centerX = ((-70.616905 + 180) / 360) * viewport.clientWidth;
+    const centerY = ((90 - -33.50808) / 180) * viewport.clientHeight;
+    const maxX = viewport.clientWidth * (zoom - 1) / 2;
+    const maxY = viewport.clientHeight * (zoom - 1) / 2;
+
+    setStadiumMapZoom(zoom);
+    setStadiumMapOffset({
+      x: Math.max(-maxX, Math.min(maxX, (viewport.clientWidth / 2 - centerX) * (zoom - 1))),
+      y: Math.max(-maxY, Math.min(maxY, (viewport.clientHeight / 2 - centerY) * (zoom - 1))),
+    });
+  };
+
   const startStadiumMapDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     if (stadiumMapZoom <= 1 || event.button !== 0) return;
     event.preventDefault();
@@ -253,6 +270,15 @@ export default function App() {
       ))}
       {expanded && (
         <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 rounded-lg border border-white/20 bg-[#150d21]/95 p-1 shadow-lg">
+          <button
+            type="button"
+            onClick={focusSantiago}
+            onPointerDown={(event) => event.stopPropagation()}
+            aria-label="Zoomer sur Santiago"
+            className="rounded px-2 py-2 text-xs font-semibold text-white hover:bg-violet-500/30"
+          >
+            Santiago
+          </button>
           <button
             type="button"
             onClick={() => zoomStadiumMap(-1)}
@@ -729,7 +755,7 @@ return (
               <h2 id="expanded-stadium-map-title" className="text-sm font-bold uppercase tracking-wider text-[#d8b4fe] sm:text-base">
                 Carte interactive / Stades visités
               </h2>
-              <p className="mt-1 text-xs text-[#8e7dae]">Zoomez avec les boutons, puis maintenez et faites glisser la carte. Sélectionnez un marqueur pour afficher le stade.</p>
+              <p className="mt-1 text-xs text-[#8e7dae]">Zoomez sur Santiago ou avec les boutons, puis maintenez et faites glisser la carte. Sélectionnez un marqueur pour afficher le stade.</p>
             </div>
             <button
               type="button"
