@@ -23,6 +23,48 @@ export default function App() {
       description: 'Les instants qui précèdent le coup d’envoi et font vibrer tout un stade.',
       metadata: 'Photographie | Jour de match | Jour de Stade',
     },
+    {
+      image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=85',
+      title: 'Jour de Stade en tournage',
+      description: 'Les coulisses d’un reportage consacré aux histoires qui font le football.',
+      metadata: 'Reportage | Création de contenu | Jour de Stade',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85',
+      title: 'L’énergie du collectif',
+      description: 'Partager les moments de préparation, de rencontre et de vie en équipe.',
+      metadata: 'Événementiel | Sport | Jour de Stade',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=85',
+      title: 'Le football en format court',
+      description: 'Des images pensées pour raconter le sport sur les réseaux sociaux.',
+      metadata: 'Vidéo | Réseaux sociaux | Jour de Stade',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=85',
+      title: 'Le sport au quotidien',
+      description: 'Mettre en lumière les équipes et les expériences qui font vivre le sport.',
+      metadata: 'Reportage | Retail sport | Jour de Stade',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85',
+      title: 'Rencontres sans frontières',
+      description: 'Une expérience internationale nourrie par les échanges et la découverte.',
+      metadata: 'Reportage | Voyage | Jour de Stade',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1542744094-3a3121693493?auto=format&fit=crop&w=1200&q=85',
+      title: 'Raconter en images',
+      description: 'Construire une identité visuelle cohérente pour chaque histoire.',
+      metadata: 'Photographie | Identité visuelle | Jour de Stade',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85',
+      title: 'De nouvelles perspectives',
+      description: 'Croiser les univers et les idées pour faire grandir chaque projet.',
+      metadata: 'Projet | Communication | Jour de Stade',
+    },
   ];
   const [time, setTime] = useState<Date>(new Date());
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
@@ -43,11 +85,11 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const galleryTimer = setInterval(() => {
+    const galleryTimer = setTimeout(() => {
       setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
     }, 5000);
-    return () => clearInterval(galleryTimer);
-  }, [gallerySlides.length]);
+    return () => clearTimeout(galleryTimer);
+  }, [activeGallerySlide, gallerySlides.length]);
 
   const showGallerySlide = (index: number) => {
     setActiveGallerySlide((index + gallerySlides.length) % gallerySlides.length);
@@ -224,7 +266,7 @@ return (
       </div>
     </section>
     {/* CARD 2: GALERIE & REPORTAGES */}
-    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
+    <section className="lg:col-span-7 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">GALERIE &amp; REPORTAGES</h2>
       <div
         className="relative flex min-h-[320px] flex-1 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] bg-cover bg-center"
@@ -280,7 +322,7 @@ return (
       `}</style>
     </section>
     {/* CARD 3: MES QUALIFICATIONS */}
-    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
+    <section className="lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
       <div>
         <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MES QUALIFICATIONS</h2>
         <h3 className="font-bold text-white text-sm mb-1">3 diplômes</h3>
