@@ -275,55 +275,32 @@ return (
       </div>
     </section>
     {/* CARD 2: GALERIE & REPORTAGES */}
-    <section
-      className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-400"
-      role="group"
-      tabIndex={0}
-      aria-label={`Ouvrir les informations du reportage ${gallerySlides[activeGallerySlide].title}`}
-      onClick={() => setSelectedGallerySlide(activeGallerySlide)}
-      onKeyDown={(event) => {
-        if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
-          event.preventDefault();
-          setSelectedGallerySlide(activeGallerySlide);
-        }
-      }}
-    >
+    <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">GALERIE &amp; REPORTAGES</h2>
       <div
         className="relative flex h-[420px] shrink-0 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] sm:h-[380px] lg:h-[360px]"
         role="group"
         aria-label={`Galerie photo: ${gallerySlides[activeGallerySlide].title}`}
       >
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 scale-110 bg-cover bg-center opacity-50 blur-xl"
-          style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
-        />
-        <div className="absolute inset-0 bg-[#0b0713]/25" />
-        <img
-          src={gallerySlides[activeGallerySlide].image}
-          alt=""
-          className={`absolute inset-0 h-full w-full object-contain ${activeGallerySlide === 0 ? 'object-top' : 'object-center'}`}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
         <button
           type="button"
-          onClick={(event) => {
-            event.stopPropagation();
-            showGallerySlide(activeGallerySlide - 1);
-          }}
-          aria-label="Photo précédente"
-          className="absolute inset-y-0 left-0 z-10 w-1/3 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
-        />
-        <button
-          type="button"
-          onClick={(event) => {
-            event.stopPropagation();
-            showGallerySlide(activeGallerySlide + 1);
-          }}
-          aria-label="Photo suivante"
-          className="absolute inset-y-0 right-0 z-10 w-1/3 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
-        />
+          onClick={() => setSelectedGallerySlide(activeGallerySlide)}
+          aria-label={`Afficher les informations de ${gallerySlides[activeGallerySlide].title}`}
+          className="absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
+        >
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 scale-110 bg-cover bg-center opacity-50 blur-xl"
+            style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
+          />
+          <span aria-hidden="true" className="absolute inset-0 bg-[#0b0713]/25" />
+          <img
+            src={gallerySlides[activeGallerySlide].image}
+            alt=""
+            className={`absolute inset-0 h-full w-full object-contain ${activeGallerySlide === 0 ? 'object-top' : 'object-center'}`}
+          />
+          <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
+        </button>
         <div className="pointer-events-none relative z-10 p-4 pt-16">
           <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#d8b4fe]">
             Reportage {String(activeGallerySlide + 1).padStart(2, '0')} / {String(gallerySlides.length).padStart(2, '0')}
@@ -337,10 +314,7 @@ return (
             <button
               key={slide.title}
               type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                showGallerySlide(index);
-              }}
+              onClick={() => showGallerySlide(index)}
               aria-label={`Afficher la photo ${index + 1}: ${slide.title}`}
               aria-current={index === activeGallerySlide ? 'true' : undefined}
               className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/30"
@@ -517,8 +491,14 @@ return (
     </section>
   </main>
   ) : (
-    <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-3 shadow-xl sm:p-5">
-      <article className="mx-auto max-w-5xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl">
+    <main
+      className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-3 shadow-xl sm:p-5"
+      onClick={() => setSelectedGallerySlide(null)}
+    >
+      <article
+        className="mx-auto max-w-5xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="relative h-[300px] overflow-hidden sm:h-[400px]">
           <img
             src={gallerySlides[selectedGallerySlide].image}
