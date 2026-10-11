@@ -208,7 +208,7 @@ export default function App() {
               aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
               aria-pressed={selectedStadium === index}
               title={`${stadium.name} - ${stadium.city}`}
-              className={`absolute z-10 flex h-7 w-7 items-center justify-center rounded-full text-[15px] leading-none transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-2 ring-white/80' : 'bg-[#150d21]/80'}`}
+              className={`absolute z-10 flex h-4 w-4 items-center justify-center rounded-full text-[9px] leading-none transition-transform hover:scale-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-1 ring-white/80' : 'bg-[#150d21]/80'}`}
               style={{
                 left: `${((stadium.lon + 180) / 360) * 100}%`,
                 top: `${((90 - stadium.lat) / 180) * 100}%`,
@@ -241,7 +241,7 @@ export default function App() {
           aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
           aria-pressed={selectedStadium === index}
           title={`${stadium.name} - ${stadium.city}`}
-          className={`absolute z-10 flex h-7 w-7 items-center justify-center rounded-full text-[15px] leading-none transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-2 ring-white/80' : 'bg-[#150d21]/80'}`}
+          className={`absolute z-10 flex h-4 w-4 items-center justify-center rounded-full text-[9px] leading-none transition-transform hover:scale-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-1 ring-white/80' : 'bg-[#150d21]/80'}`}
           style={{
             left: `${((stadium.lon + 180) / 360) * 100}%`,
             top: `${((90 - stadium.lat) / 180) * 100}%`,
