@@ -324,7 +324,7 @@ return (
         <img
           src={gallerySlides[activeGallerySlide].image}
           alt=""
-          className="absolute inset-0 h-full w-full object-contain object-center"
+          className={`absolute inset-0 h-full w-full object-contain ${activeGallerySlide === 7 ? 'object-top' : 'object-center'}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
         <button
