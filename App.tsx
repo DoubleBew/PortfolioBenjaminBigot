@@ -36,6 +36,12 @@ export default function App() {
       metadata: 'Photographie / Estadio municipal de la Cisterna / Jour de Stade',
     },
     {
+      image: '/photos/IMG_1829.jpg',
+      title: 'Football et culture générale',
+      description: 'Pourquoi el "Estadio Zorros del desierto" s’appelle ainsi ? Pourquoi Cobreloa s’appelle ainsi ? Tant de choses à connaître via le football. Il s’agit ici du club professionnel de la ville de Calama.',
+      metadata: 'Photographie / Estadio Zorros del desierto / Jour de Stade',
+    },
+    {
       image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
       title: 'La beauté du jeu',
       description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
