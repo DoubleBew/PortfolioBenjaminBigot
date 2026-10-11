@@ -775,6 +775,31 @@ return (
         Création de contenu, montage & écriture
       </div>
     </section>
+    {/* CARD 6: GALERIE TIKTOK */}
+    <section className="order-6 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
+      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Galerie</h2>
+      <div className="flex flex-1 flex-col items-center">
+        <iframe
+          src="https://www.tiktok.com/player/v1/7515221320624393477?autoplay=1&muted=1&controls=1&volume_control=0&description=0&music_info=0&rel=0"
+          title="Vidéo TikTok de Jour de Stade sur les maillots chiliens"
+          className="w-full max-h-[min(65vh,620px)] aspect-[9/16] overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713]"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+        <p className="mt-3 text-center text-xs font-semibold leading-relaxed text-[#e2d9f3]">
+          POV : donner vie aux maillots chiliens
+        </p>
+        <a
+          href="https://www.tiktok.com/@jour.de.stade/video/7515221320624393477?is_from_webapp=1&sender_device=pc&web_id=7693998944007161346"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-3 inline-flex w-full items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/15 px-4 py-2.5 text-sm font-bold text-[#e9d5ff] transition-colors hover:bg-violet-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+        >
+          Visiter sur TikTok
+        </a>
+      </div>
+    </section>
   </main>
   ) : (
     <main
