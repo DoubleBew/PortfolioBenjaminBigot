@@ -500,12 +500,18 @@ return (
         onClick={(event) => event.stopPropagation()}
       >
         <div className="relative h-[300px] overflow-hidden sm:h-[400px]">
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 scale-110 bg-cover bg-center opacity-50 blur-xl"
+            style={{ backgroundImage: `url("${gallerySlides[selectedGallerySlide].image}")` }}
+          />
+          <div className="absolute inset-0 bg-[#0f1021]/30" />
           <img
             src={gallerySlides[selectedGallerySlide].image}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className={`absolute inset-0 h-full w-full object-contain ${selectedGallerySlide === 0 ? 'object-top' : 'object-center'}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/50 to-[#0f1021]/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/40 to-[#0f1021]/10" />
           <h1 className="absolute inset-x-0 bottom-0 p-5 text-2xl font-bold text-white drop-shadow-lg sm:p-8 sm:text-4xl">
             {gallerySlides[selectedGallerySlide].title}
           </h1>
