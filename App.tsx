@@ -509,7 +509,7 @@ return (
           <img
             src={gallerySlides[selectedGallerySlide].image}
             alt=""
-            className="absolute inset-0 h-full w-full object-contain object-center"
+            className="absolute inset-0 h-full w-full object-fill"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/40 to-[#0f1021]/10" />
           <h1 className="absolute inset-x-0 bottom-0 p-5 text-2xl font-bold text-white drop-shadow-lg sm:p-8 sm:text-4xl">
