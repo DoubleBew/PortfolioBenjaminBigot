@@ -379,7 +379,7 @@ return (
         </div>
       </div>
       <div className="border-t border-[#261838] pt-2.5 mt-3 text-[10px] text-[#8e7dae] text-center italic">
-        Création de contenu, montage & stratégie digitale
+        Création de contenu, montage & écriture
       </div>
     </section>
     {/* CARD 6: POSTES VACANTS - MISSIONS CIBLÉES */}
