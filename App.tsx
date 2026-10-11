@@ -27,7 +27,7 @@ fetch('/api/stats')
 .then((data) => {
 if (data?.tiktok) {
 setLiveStats({
-tiktokViews: data.tiktok.views || '128.5K+',
+tiktokViews: data.tiktok.likes || data.tiktok.views || '128.5K+',
 tiktokFollowers: data.tiktok.followers || 'En direct',
 instaTrend: data.instagram?.trend || 'En croissance',
 isLive: true
@@ -344,7 +344,7 @@ return (
             <span className="text-[10px] text-[#8e7dae]">@jour.de.stade</span>
           </div>
           <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
-            <span className="text-[#e2d9f3]">Vues cumulées</span>
+            <span className="text-[#e2d9f3]">Likes cumulés</span>
             <span className="text-[#fbbf24] font-bold">{liveStats.tiktokViews}</span>
           </div>
           <div className="flex justify-between py-0.5">
