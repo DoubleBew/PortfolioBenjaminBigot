@@ -54,10 +54,30 @@ export default function App() {
       metadata: 'Photographie / Estadio Monumental / Jour De Stade',
     },
   ];
+  const visitedStadiums: Array<{ name: string; city: string; country: string; lat: number; lon: number; dx?: number; dy?: number }> = [
+    { name: 'Stade Vélodrome', city: 'Marseille', country: 'France', lat: 43.27, lon: 5.40, dx: -13, dy: 22 },
+    { name: "Stade Michel d'Ornano", city: 'Caen', country: 'France', lat: 49.18, lon: -0.37, dx: -4, dy: -18 },
+    { name: 'Roazhon Park', city: 'Rennes', country: 'France', lat: 48.11, lon: -1.71, dx: -19, dy: -7 },
+    { name: 'Stade Marie-Marvingt', city: 'Le Mans', country: 'France', lat: 47.96, lon: 0.22, dx: 11, dy: -14 },
+    { name: 'Stade de France', city: 'Saint-Denis (93)', country: 'France', lat: 48.92, lon: 2.36, dx: 17, dy: -3 },
+    { name: 'Stade de la Beaujoire', city: 'Nantes', country: 'France', lat: 47.26, lon: -1.52, dx: -17, dy: 12 },
+    { name: 'Stade du Hazé', city: 'Flers', country: 'France', lat: 48.75, lon: -0.57, dx: 2, dy: 16 },
+    { name: 'Stade du Moustoir', city: 'Lorient', country: 'France', lat: 47.75, lon: -3.37, dx: -23, dy: 0 },
+    { name: 'Stade Gerland', city: 'Lyon', country: 'France', lat: 45.72, lon: 4.83, dx: 23, dy: 13 },
+    { name: 'Estadio Regional Calvo y Bascuñán', city: 'Antofagasta', country: 'Chili', lat: -23.65, lon: -70.40 },
+    { name: 'Estadio Monumental David Arellano', city: 'Macul, Santiago', country: 'Chili', lat: -33.50, lon: -70.61, dx: -16, dy: -12 },
+    { name: 'Estadio Nacional Julio Martínez Prádanos', city: 'Ñuñoa, Santiago', country: 'Chili', lat: -33.46, lon: -70.61, dx: 0, dy: -16 },
+    { name: 'Estadio Bicentenario de La Florida', city: 'La Florida, Santiago', country: 'Chili', lat: -33.55, lon: -70.57, dx: 16, dy: -8 },
+    { name: 'Estadio Municipal de La Cisterna', city: 'La Cisterna, Santiago', country: 'Chili', lat: -33.54, lon: -70.66, dx: 0, dy: 8 },
+    { name: 'Estadio Zorros del Desierto', city: 'Calama', country: 'Chili', lat: -22.46, lon: -68.93 },
+    { name: 'Stadion Bâlgarska Armija', city: 'Sofia', country: 'Bulgarie', lat: 42.68, lon: 23.32, dx: 12, dy: -10 },
+    { name: 'Stadio Giuseppe Meazza', city: 'Milan', country: 'Italie', lat: 45.48, lon: 9.12, dx: -12, dy: 10 },
+  ];
   const [time, setTime] = useState<Date>(new Date());
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
+  const [selectedStadium, setSelectedStadium] = useState(0);
   const [liveStats, setLiveStats] = useState<any>({
     tiktokFollowers: '432',
     tiktokLikes: '9.0K',
@@ -337,31 +357,52 @@ return (
         }
       `}</style>
     </section>
-    {/* CARD 3: MES QUALIFICATIONS */}
-    <section className="lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
-      <div>
-        <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MES QUALIFICATIONS</h2>
-        <h3 className="font-bold text-white text-sm mb-1">3 diplômes</h3>
-        <p className="text-[#8e7dae] text-xs mb-3 leading-relaxed">
-          ◌ Double cursus sport & banque, base économique solide.
-        </p>
-        <div className="flex gap-2 mb-4">
-          {[...Array(7)].map((_, i) => (
-            <div key={i} className="w-4 h-4 rounded-full border border-[#a855f7]/40"></div>
-          ))}
-        </div>
+    {/* CARD 3: CARTE INTERACTIVE */}
+    <section className="lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
+      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-2">Carte interactive / Stades visités</h2>
+      <p className="text-[#8e7dae] text-[10px] mb-2">Stades visités · Sélectionnez un marqueur</p>
+      <div className="relative aspect-[2/1] overflow-hidden rounded-lg border border-violet-400/20 bg-[#0f1021]">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 1000 500"
+          className="absolute inset-0 h-full w-full fill-[#352653] stroke-[#725c91]/60 stroke-[2]"
+          preserveAspectRatio="none"
+        >
+          <path d="M73 91 105 68 143 72 160 54 209 61 231 81 264 88 284 113 267 139 242 148 231 176 207 188 195 219 169 234 156 211 133 205 122 177 103 167 91 139 74 127Z" />
+          <path d="M229 232 252 239 270 260 283 286 293 315 310 340 306 366 320 393 313 425 299 455 286 423 277 397 268 367 260 342 250 319 246 288 235 263Z" />
+          <path d="m447 105 22-14 26 5 8 19-17 14-26-3Z" />
+          <path d="m461 137 31-12 30 10 13 27-8 35-21 33-11 41-21 38-16-26-2-39-15-34 5-39Z" />
+          <path d="m503 102 29-22 47 6 30-15 48 11 36-15 65 15 42-4 53 23 30 25-25 24-38-1-29 17-38-5-20 22-37-7-15 19-34-14-34 7-31-15-23 4-27-26-34-3-12-25-28-3Z" />
+          <path d="m770 319 32-18 36 8 28 24-12 25-34 7-33-15Z" />
+          <path d="m928 199 12-7 8 10-8 13Z" />
+          <path d="m375 71 13-18 27-4 17 14-7 28-20 15-24-11Z" />
+        </svg>
+        {visitedStadiums.map((stadium, index) => (
+          <button
+            key={stadium.name}
+            type="button"
+            onClick={() => setSelectedStadium(index)}
+            aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
+            aria-pressed={selectedStadium === index}
+            title={`${stadium.name} - ${stadium.city}`}
+            className={`absolute z-10 flex h-6 w-6 items-center justify-center rounded-full text-[13px] leading-none transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-2 ring-white/80' : 'bg-[#150d21]/80'}`}
+            style={{
+              left: `${((stadium.lon + 180) / 360) * 100}%`,
+              top: `${((90 - stadium.lat) / 180) * 100}%`,
+              transform: `translate(calc(-50% + ${stadium.dx ?? 0}px), calc(-50% + ${stadium.dy ?? 0}px))`,
+            }}
+          >
+            🏟️
+          </button>
+        ))}
       </div>
-      <div className="space-y-2 border-t border-[#261838] pt-3">
-        <div className="text-xs">
-          <p className="font-bold text-white">Licence STAPS <span className="text-[#8e7dae] font-normal">- Management du sport</span></p>
-        </div>
-        <div className="text-xs">
-          <p className="font-bold text-white">BTS Banque</p>
-        </div>
-        <div className="text-xs">
-          <p className="font-bold text-white">BAC Économique et social</p>
-        </div>
+      <div className="mt-3 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3" aria-live="polite">
+        <p className="text-xs font-bold leading-snug text-white">{visitedStadiums[selectedStadium].name}</p>
+        <p className="mt-1 text-[11px] text-[#c4b5d9]">{visitedStadiums[selectedStadium].city} · {visitedStadiums[selectedStadium].country}</p>
       </div>
+      <p className="mt-2 text-center text-[10px] font-semibold uppercase tracking-wider text-[#8e7dae]">
+        🏟️ {visitedStadiums.length} stades visités
+      </p>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
     <section className="lg:col-span-6 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
