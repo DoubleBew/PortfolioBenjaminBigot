@@ -30,6 +30,12 @@ export default function App() {
       metadata: 'Photographie / Estadio Nacional / Jour de Stade',
     },
     {
+      image: '/photos/IMG_0404.jpg',
+      title: 'Histoire et football',
+      description: 'Le football est un formidable moyen de connaître l’histoire du pays. À l’image de Palestino, le club raconte une partie de l’immigration chilienne et aide à comprendre sa démographie actuelle.',
+      metadata: 'Photographie / Estadio municipal de la Cisterna / Jour de Stade',
+    },
+    {
       image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
       title: 'La beauté du jeu',
       description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
