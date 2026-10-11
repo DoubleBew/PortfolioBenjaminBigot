@@ -232,7 +232,7 @@ return (
 
         <div className="flex items-start gap-3.5 mb-4">
           <div className="w-14 h-14 bg-[#221435] rounded-full overflow-hidden border-2 border-[#a855f7]/40 shrink-0 shadow">
-            <img src="https://github.com/identicons/benbigot.png" alt="Benjamin Bigot" className="w-full h-full object-cover" />
+            <img src="/photos/benjamin-bigot.jpg" alt="Benjamin Bigot" className="h-full w-full object-cover object-top" />
           </div>
           <div>
             <h3 className="font-bold text-white text-base">Benjamin Bigot</h3>
