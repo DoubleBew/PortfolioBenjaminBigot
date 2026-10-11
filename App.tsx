@@ -80,6 +80,28 @@ export default function App() {
     { src: '/photos/visiter-04.jpg', alt: 'Rue d’Antofagasta avec les montagnes en arrière-plan' },
     { src: '/photos/visiter-05.jpg', alt: 'Promenade sur le front de mer à Antofagasta' },
     { src: '/photos/visiter-06.jpg', alt: 'Coucher de soleil sur la mer' },
+    { src: '/photos/visiter-07.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-08.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-09.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-10.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-11.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-12.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-13.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-14.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-15.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-16.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-17.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-18.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-19.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-20.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-21.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-22.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-23.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-24.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-25.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-26.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-27.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-28.jpg', alt: 'Photo de stade et de football' },
   ];
   const photoGalleryRotations = ['-3deg', '2.5deg', '-2deg', '3deg', '-2.5deg', '2deg'];
   const photoGalleryLayouts = [
@@ -547,7 +569,13 @@ return (
   )}
   {/* Main Dashboard Layout */}
   {showPhotoGallery ? (
-  <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
+  <main
+    className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6"
+    onContextMenu={(event) => event.preventDefault()}
+    onCopy={(event) => event.preventDefault()}
+    onCut={(event) => event.preventDefault()}
+    onDragStart={(event) => event.preventDefault()}
+  >
     <div className="mb-5 flex items-center justify-between gap-3 border-b border-violet-400/20 pb-3">
       <div>
         <h1 className="text-lg font-bold text-white sm:text-xl">Mes photos</h1>
@@ -567,11 +595,11 @@ return (
           key={photo.src}
           type="button"
           onClick={() => setSelectedPhotoGalleryImage(index)}
-          style={{ transform: `rotate(${photoGalleryRotations[index]})`, animationDelay: `${index * -0.8}s` }}
-          className={`photo-scatter-item group relative overflow-hidden rounded-md border-[6px] border-white bg-white p-1 shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105 hover:!rotate-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300 sm:border-[10px] ${photoGalleryLayouts[index]}`}
+          style={{ transform: `rotate(${photoGalleryRotations[index % photoGalleryRotations.length]})`, animationDelay: `${index * -0.8}s` }}
+          className={`photo-scatter-item group relative select-none overflow-hidden rounded-md border-[6px] border-white bg-white p-1 shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105 hover:!rotate-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300 sm:border-[10px] ${photoGalleryLayouts[index % photoGalleryLayouts.length]}`}
           aria-label={`Afficher en grand : ${photo.alt}`}
         >
-          <img src={photo.src} alt={photo.alt} loading="lazy" className="h-full w-full object-cover" />
+          <img src={photo.src} alt={photo.alt} loading="lazy" draggable={false} className="h-full w-full select-none object-cover" />
         </button>
       ))}
     </div>
@@ -909,7 +937,12 @@ return (
       </article>
     </main>
   )}
-    {isStadiumMapExpanded && (
+      {selectedGallerySlide === null && !showPhotoGallery && (
+        <footer className="mt-4 border-t border-[#261838] py-4 text-center text-xs text-[#8e7dae]">
+          © 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.
+        </footer>
+      )}
+      {isStadiumMapExpanded && (
       <div
         className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/80 p-3 backdrop-blur-sm sm:items-center sm:p-6"
         onClick={() => setIsStadiumMapExpanded(false)}
@@ -965,6 +998,10 @@ return (
         aria-modal="true"
         aria-label={photoGalleryImages[selectedPhotoGalleryImage].alt}
         onClick={() => setSelectedPhotoGalleryImage(null)}
+        onContextMenu={(event) => event.preventDefault()}
+        onCopy={(event) => event.preventDefault()}
+        onCut={(event) => event.preventDefault()}
+        onDragStart={(event) => event.preventDefault()}
       >
         <button
           type="button"
@@ -977,8 +1014,9 @@ return (
         <img
           src={photoGalleryImages[selectedPhotoGalleryImage].src}
           alt={photoGalleryImages[selectedPhotoGalleryImage].alt}
+          draggable={false}
           onClick={(event) => event.stopPropagation()}
-          className="max-h-[92vh] max-w-[96vw] object-contain shadow-2xl"
+          className="max-h-[92vh] max-w-[96vw] select-none object-contain shadow-2xl"
         />
       </div>
     )}
