@@ -278,7 +278,7 @@ return (
     <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">GALERIE &amp; REPORTAGES</h2>
       <div
-        className="relative flex h-[420px] shrink-0 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] sm:h-[380px] lg:h-[360px]"
+        className="relative flex shrink-0 flex-col overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713]"
         role="group"
         aria-label={`Galerie photo: ${gallerySlides[activeGallerySlide].title}`}
       >
@@ -286,20 +286,14 @@ return (
           type="button"
           onClick={() => setSelectedGallerySlide(activeGallerySlide)}
           aria-label={`Afficher les informations de ${gallerySlides[activeGallerySlide].title}`}
-          className="absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
+          className="relative z-0 block w-full shrink-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
         >
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 scale-110 bg-cover bg-center opacity-50 blur-xl"
-            style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
-          />
-          <span aria-hidden="true" className="absolute inset-0 bg-[#0b0713]/25" />
           <img
             src={gallerySlides[activeGallerySlide].image}
             alt=""
-            className={`absolute inset-0 h-full w-full object-contain ${activeGallerySlide === 0 ? 'object-top' : 'object-center'}`}
+            className="block h-auto w-full"
           />
-          <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
+          <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/60 via-transparent to-transparent" />
         </button>
         <div className="pointer-events-none relative z-10 p-4 pt-16">
           <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#d8b4fe]">
@@ -499,19 +493,13 @@ return (
         className="mx-auto max-w-5xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="relative h-[300px] overflow-hidden sm:h-[400px]">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 scale-110 bg-cover bg-center opacity-50 blur-xl"
-            style={{ backgroundImage: `url("${gallerySlides[selectedGallerySlide].image}")` }}
-          />
-          <div className="absolute inset-0 bg-[#0f1021]/30" />
+        <div className="relative overflow-hidden">
           <img
             src={gallerySlides[selectedGallerySlide].image}
             alt=""
-            className={`absolute inset-0 h-full w-full object-contain ${selectedGallerySlide === 0 ? 'object-top' : 'object-center'}`}
+            className="block h-auto w-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/40 to-[#0f1021]/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/20 to-transparent" />
           <h1 className="absolute inset-x-0 bottom-0 p-5 text-2xl font-bold text-white drop-shadow-lg sm:p-8 sm:text-4xl">
             {gallerySlides[selectedGallerySlide].title}
           </h1>
