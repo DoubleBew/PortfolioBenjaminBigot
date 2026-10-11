@@ -48,6 +48,12 @@ export default function App() {
       metadata: 'Photographie / Stade Vélodrome / Jour de Stade',
     },
     {
+      image: '/photos/presentation_jour_de_stade.jpg',
+      title: 'Pourquoi Jour de Stade ?',
+      description: "Jour de Stade est né lors de mon voyage au Chili, où j'ai vécu un an. Ma passion pour le football m'a poussé à découvrir le plus de stades possible. Le but était alors de capturer les plus belles images possible avec mon appareil photo, et de faire des vidéos en format court sur TikTok et Instagram. Raconter le football chilien sous différentes formes : vidéos explicatives, trends, interactions. Les retours que j'ai reçus m'ont poussé à continuer. Ainsi, je peux partager ma passion initiale pour le football et faire découvrir ce championnat méconnu en Europe.",
+      metadata: 'Réseaux sociaux / Monde / Jour de Stade',
+    },
+    {
       image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
       title: 'La beauté du jeu',
       description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
