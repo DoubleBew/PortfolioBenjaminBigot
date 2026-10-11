@@ -295,7 +295,7 @@ return (
       </div>
     </section>
     {/* CARD 2: CE QU'IL FAUT SAVOIR */}
-    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
+    <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Ce qu&apos;il faut savoir</h2>
       <div
         className="relative flex h-[420px] shrink-0 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] sm:h-[380px] lg:h-[360px]"
@@ -358,7 +358,7 @@ return (
       `}</style>
     </section>
     {/* CARD 3: CARTE INTERACTIVE */}
-    <section className="order-5 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
+    <section className="order-5 lg:col-span-6 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-2">Carte interactive / Stades visités</h2>
       <p className="text-[#8e7dae] text-[10px] mb-2">Stades visités · Sélectionnez un marqueur</p>
       <div className="relative aspect-[2/1] overflow-hidden rounded-lg border border-violet-400/20 bg-[#0f1021]">
