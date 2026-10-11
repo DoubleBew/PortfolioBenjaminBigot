@@ -57,6 +57,7 @@ export default function App() {
   const [time, setTime] = useState<Date>(new Date());
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
+  const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
   const [liveStats, setLiveStats] = useState<any>({
     tiktokFollowers: '432',
     tiktokLikes: '9.0K',
@@ -73,15 +74,20 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (selectedGallerySlide !== null) return;
+
     const galleryTimer = setTimeout(() => {
       setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
     }, 5000);
     return () => clearTimeout(galleryTimer);
-  }, [activeGallerySlide, gallerySlides.length]);
+  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide]);
 
   const showGallerySlide = (index: number) => {
     setActiveGallerySlide((index + gallerySlides.length) % gallerySlides.length);
   };
+
+  const truncateDescription = (description: string) =>
+    description.length > 40 ? `${description.slice(0, 37)}...` : description;
 
 // Synchro automatique des stats en direct
 useEffect(() => {
@@ -192,16 +198,31 @@ return (
     </div>
   </header>
   {/* Secondary Navigation Bar */}
-  <div className="bg-[#150d21] border-b border-[#261838] px-5 py-1.5 flex items-center gap-5 text-[#8e7dae] text-xs mb-3 rounded-b-lg">
-    <span className="text-[#fbbf24] font-bold border-b-2 border-[#fbbf24] pb-0.5">Vue d'ensemble</span>
-    <span className="hover:text-white cursor-pointer">Mon profil</span>
-    <span className="hover:text-white cursor-pointer">Mon contrat</span>
-    <span className="hover:text-white cursor-pointer">Mes badges</span>
-    <span className="hover:text-white cursor-pointer">Mes rapports</span>
-    <span className="hover:text-white cursor-pointer">Mon historique</span>
-    <span className="hover:text-white cursor-pointer">Stats de gestion</span>
-  </div>
+  {selectedGallerySlide === null ? (
+    <div className="bg-[#150d21] border-b border-[#261838] px-5 py-1.5 flex items-center gap-5 text-[#8e7dae] text-xs mb-3 rounded-b-lg">
+      <span className="text-[#fbbf24] font-bold border-b-2 border-[#fbbf24] pb-0.5">Vue d'ensemble</span>
+      <span className="hover:text-white cursor-pointer">Mon profil</span>
+      <span className="hover:text-white cursor-pointer">Mon contrat</span>
+      <span className="hover:text-white cursor-pointer">Mes badges</span>
+      <span className="hover:text-white cursor-pointer">Mes rapports</span>
+      <span className="hover:text-white cursor-pointer">Mon historique</span>
+      <span className="hover:text-white cursor-pointer">Stats de gestion</span>
+    </div>
+  ) : (
+    <div className="bg-[#0f1021] border-b border-violet-500/30 px-5 py-2 flex items-center gap-2 text-xs mb-3 rounded-b-lg">
+      <button
+        type="button"
+        onClick={() => setSelectedGallerySlide(null)}
+        className="font-semibold text-violet-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+      >
+        Vue d&apos;ensemble
+      </button>
+      <span className="text-violet-400/70">&gt;</span>
+      <span className="font-semibold text-white">Infos</span>
+    </div>
+  )}
   {/* Main Dashboard Layout */}
+  {selectedGallerySlide === null ? (
   <main className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
 
     {/* CARD 1: MON PROFIL */}
@@ -254,7 +275,19 @@ return (
       </div>
     </section>
     {/* CARD 2: GALERIE & REPORTAGES */}
-    <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
+    <section
+      className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-400"
+      role="group"
+      tabIndex={0}
+      aria-label={`Ouvrir les informations du reportage ${gallerySlides[activeGallerySlide].title}`}
+      onClick={() => setSelectedGallerySlide(activeGallerySlide)}
+      onKeyDown={(event) => {
+        if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          setSelectedGallerySlide(activeGallerySlide);
+        }
+      }}
+    >
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">GALERIE &amp; REPORTAGES</h2>
       <div
         className="relative flex h-[420px] shrink-0 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] sm:h-[380px] lg:h-[360px]"
@@ -275,13 +308,19 @@ return (
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
         <button
           type="button"
-          onClick={() => showGallerySlide(activeGallerySlide - 1)}
+          onClick={(event) => {
+            event.stopPropagation();
+            showGallerySlide(activeGallerySlide - 1);
+          }}
           aria-label="Photo précédente"
           className="absolute inset-y-0 left-0 z-10 w-1/3 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
         />
         <button
           type="button"
-          onClick={() => showGallerySlide(activeGallerySlide + 1)}
+          onClick={(event) => {
+            event.stopPropagation();
+            showGallerySlide(activeGallerySlide + 1);
+          }}
           aria-label="Photo suivante"
           className="absolute inset-y-0 right-0 z-10 w-1/3 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
         />
@@ -290,7 +329,7 @@ return (
             Reportage {String(activeGallerySlide + 1).padStart(2, '0')} / {String(gallerySlides.length).padStart(2, '0')}
           </p>
           <h3 className="mb-2 text-2xl font-bold leading-tight text-white">{gallerySlides[activeGallerySlide].title}</h3>
-          <p className="mb-4 text-xs leading-relaxed text-[#e2d9f3]">{gallerySlides[activeGallerySlide].description}</p>
+          <p className="mb-4 text-xs leading-relaxed text-[#e2d9f3]">{truncateDescription(gallerySlides[activeGallerySlide].description)}</p>
           <p className="text-[10px] font-medium text-[#c4b5d9]">{gallerySlides[activeGallerySlide].metadata}</p>
         </div>
         <div className="relative z-20 flex gap-1.5 px-4 pb-3 pt-2" aria-label="Sélectionner une photo">
@@ -298,7 +337,10 @@ return (
             <button
               key={slide.title}
               type="button"
-              onClick={() => showGallerySlide(index)}
+              onClick={(event) => {
+                event.stopPropagation();
+                showGallerySlide(index);
+              }}
               aria-label={`Afficher la photo ${index + 1}: ${slide.title}`}
               aria-current={index === activeGallerySlide ? 'true' : undefined}
               className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/30"
@@ -474,6 +516,31 @@ return (
       </div>
     </section>
   </main>
+  ) : (
+    <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-3 shadow-xl sm:p-5">
+      <article className="mx-auto max-w-5xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl">
+        <div className="relative h-[300px] overflow-hidden sm:h-[400px]">
+          <img
+            src={gallerySlides[selectedGallerySlide].image}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/50 to-[#0f1021]/10" />
+          <h1 className="absolute inset-x-0 bottom-0 p-5 text-2xl font-bold text-white drop-shadow-lg sm:p-8 sm:text-4xl">
+            {gallerySlides[selectedGallerySlide].title}
+          </h1>
+        </div>
+        <div className="border-t border-violet-400/20 bg-[#0f1021] p-5 sm:p-8">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-violet-300">
+            {gallerySlides[selectedGallerySlide].metadata}
+          </p>
+          <p className="whitespace-pre-line text-sm leading-relaxed text-gray-200 sm:text-base">
+            {gallerySlides[selectedGallerySlide].description}
+          </p>
+        </div>
+      </article>
+    </main>
+  )}
 </div>
 );
 }
