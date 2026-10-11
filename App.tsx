@@ -358,25 +358,11 @@ return (
       `}</style>
     </section>
     {/* CARD 3: CARTE INTERACTIVE */}
-    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
+    <section className="order-5 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-2">Carte interactive / Stades visités</h2>
       <p className="text-[#8e7dae] text-[10px] mb-2">Stades visités · Sélectionnez un marqueur</p>
       <div className="relative aspect-[2/1] overflow-hidden rounded-lg border border-violet-400/20 bg-[#0f1021]">
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 1000 500"
-          className="absolute inset-0 h-full w-full fill-[#352653] stroke-[#725c91]/60 stroke-[2]"
-          preserveAspectRatio="none"
-        >
-          <path d="M73 91 105 68 143 72 160 54 209 61 231 81 264 88 284 113 267 139 242 148 231 176 207 188 195 219 169 234 156 211 133 205 122 177 103 167 91 139 74 127Z" />
-          <path d="M229 232 252 239 270 260 283 286 293 315 310 340 306 366 320 393 313 425 299 455 286 423 277 397 268 367 260 342 250 319 246 288 235 263Z" />
-          <path d="m447 105 22-14 26 5 8 19-17 14-26-3Z" />
-          <path d="m461 137 31-12 30 10 13 27-8 35-21 33-11 41-21 38-16-26-2-39-15-34 5-39Z" />
-          <path d="m503 102 29-22 47 6 30-15 48 11 36-15 65 15 42-4 53 23 30 25-25 24-38-1-29 17-38-5-20 22-37-7-15 19-34-14-34 7-31-15-23 4-27-26-34-3-12-25-28-3Z" />
-          <path d="m770 319 32-18 36 8 28 24-12 25-34 7-33-15Z" />
-          <path d="m928 199 12-7 8 10-8 13Z" />
-          <path d="m375 71 13-18 27-4 17 14-7 28-20 15-24-11Z" />
-        </svg>
+        <img src="/world-map.svg" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
         {visitedStadiums.map((stadium, index) => (
           <button
             key={stadium.name}
@@ -405,7 +391,7 @@ return (
       </p>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
-    <section className="lg:col-span-6 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
+    <section className="order-4 lg:col-span-6 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
       <div>
         <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON HISTORIQUE</h2>
 
@@ -476,7 +462,7 @@ return (
       </div>
     </section>
     {/* CARD 5: STATS DE GESTION - DONNÉES RÉELLES VÉRIFIÉES */}
-    <section className="lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
+    <section className="order-3 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
       <div>
         <div className="flex items-center justify-between border-b border-[#261838] pb-1.5 mb-3">
           <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase">STATS DE GESTION</h2>
