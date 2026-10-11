@@ -54,24 +54,24 @@ export default function App() {
       metadata: 'Photographie / Estadio Monumental / Jour De Stade',
     },
   ];
-  const visitedStadiums: Array<{ name: string; city: string; country: string; lat: number; lon: number; dx?: number; dy?: number }> = [
-    { name: 'Stade Vélodrome', city: 'Marseille', country: 'France', lat: 43.27, lon: 5.40, dx: -13, dy: 22 },
-    { name: "Stade Michel d'Ornano", city: 'Caen', country: 'France', lat: 49.18, lon: -0.37, dx: -4, dy: -18 },
-    { name: 'Roazhon Park', city: 'Rennes', country: 'France', lat: 48.11, lon: -1.71, dx: -19, dy: -7 },
-    { name: 'Stade Marie-Marvingt', city: 'Le Mans', country: 'France', lat: 47.96, lon: 0.22, dx: 11, dy: -14 },
-    { name: 'Stade de France', city: 'Saint-Denis (93)', country: 'France', lat: 48.92, lon: 2.36, dx: 17, dy: -3 },
-    { name: 'Stade de la Beaujoire', city: 'Nantes', country: 'France', lat: 47.26, lon: -1.52, dx: -17, dy: 12 },
-    { name: 'Stade du Hazé', city: 'Flers', country: 'France', lat: 48.75, lon: -0.57, dx: 2, dy: 16 },
-    { name: 'Stade du Moustoir', city: 'Lorient', country: 'France', lat: 47.75, lon: -3.37, dx: -23, dy: 0 },
-    { name: 'Stade Gerland', city: 'Lyon', country: 'France', lat: 45.72, lon: 4.83, dx: 23, dy: 13 },
-    { name: 'Estadio Regional Calvo y Bascuñán', city: 'Antofagasta', country: 'Chili', lat: -23.65, lon: -70.40 },
-    { name: 'Estadio Monumental David Arellano', city: 'Macul, Santiago', country: 'Chili', lat: -33.50, lon: -70.61, dx: -16, dy: -12 },
-    { name: 'Estadio Nacional Julio Martínez Prádanos', city: 'Ñuñoa, Santiago', country: 'Chili', lat: -33.46, lon: -70.61, dx: 0, dy: -16 },
-    { name: 'Estadio Bicentenario de La Florida', city: 'La Florida, Santiago', country: 'Chili', lat: -33.55, lon: -70.57, dx: 16, dy: -8 },
-    { name: 'Estadio Municipal de La Cisterna', city: 'La Cisterna, Santiago', country: 'Chili', lat: -33.54, lon: -70.66, dx: 0, dy: 8 },
-    { name: 'Estadio Zorros del Desierto', city: 'Calama', country: 'Chili', lat: -22.46, lon: -68.93 },
-    { name: 'Stadion Bâlgarska Armija', city: 'Sofia', country: 'Bulgarie', lat: 42.68, lon: 23.32, dx: 12, dy: -10 },
-    { name: 'Stadio Giuseppe Meazza', city: 'Milan', country: 'Italie', lat: 45.48, lon: 9.12, dx: -12, dy: 10 },
+  const visitedStadiums: Array<{ name: string; city: string; country: string; lat: number; lon: number }> = [
+    { name: 'Stade Vélodrome', city: 'Marseille', country: 'France', lat: 43.2698474, lon: 5.3959082 },
+    { name: "Stade Michel d'Ornano", city: 'Caen', country: 'France', lat: 49.1794925, lon: -0.3969526 },
+    { name: 'Roazhon Park', city: 'Rennes', country: 'France', lat: 48.1075655, lon: -1.7126543 },
+    { name: 'Stade Marie-Marvingt', city: 'Le Mans', country: 'France', lat: 47.9591652, lon: 0.2231087 },
+    { name: 'Stade de France', city: 'Saint-Denis (93)', country: 'France', lat: 48.9244726, lon: 2.3601325 },
+    { name: 'Stade de la Beaujoire', city: 'Nantes', country: 'France', lat: 47.256005, lon: -1.5247552 },
+    { name: 'Stade du Hazé', city: 'Flers', country: 'France', lat: 48.7464799, lon: -0.58124282 },
+    { name: 'Stade du Moustoir', city: 'Lorient', country: 'France', lat: 47.7488021, lon: -3.3695412 },
+    { name: 'Stade Gerland', city: 'Lyon', country: 'France', lat: 45.7237756, lon: 4.8322517 },
+    { name: 'Estadio Regional Calvo y Bascuñán', city: 'Antofagasta', country: 'Chili', lat: -23.6701523, lon: -70.4052848 },
+    { name: 'Estadio Monumental David Arellano', city: 'Macul, Santiago', country: 'Chili', lat: -33.5064746, lon: -70.6049202 },
+    { name: 'Estadio Nacional Julio Martínez Prádanos', city: 'Ñuñoa, Santiago', country: 'Chili', lat: -33.4643821, lon: -70.6106181 },
+    { name: 'Estadio Bicentenario de La Florida', city: 'La Florida, Santiago', country: 'Chili', lat: -33.5408024, lon: -70.578182 },
+    { name: 'Estadio Municipal de La Cisterna', city: 'La Cisterna, Santiago', country: 'Chili', lat: -33.5206721, lon: -70.673901 },
+    { name: 'Estadio Zorros del Desierto', city: 'Calama', country: 'Chili', lat: -22.4605187, lon: -68.9205829 },
+    { name: 'Stadion Bâlgarska Armija', city: 'Sofia', country: 'Bulgarie', lat: 42.6842389, lon: 23.339692 },
+    { name: 'Stadio Giuseppe Meazza', city: 'Milan', country: 'Italie', lat: 45.4782003, lon: 9.123964 },
   ];
   const [time, setTime] = useState<Date>(new Date());
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
@@ -149,7 +149,7 @@ export default function App() {
           style={{
             left: `${((stadium.lon + 180) / 360) * 100}%`,
             top: `${((90 - stadium.lat) / 180) * 100}%`,
-            transform: `translate(calc(-50% + ${(stadium.dx ?? 0) * (expanded ? 2 : 1)}px), calc(-50% + ${(stadium.dy ?? 0) * (expanded ? 2 : 1)}px))`,
+            transform: 'translate(-50%, -50%)',
           }}
         >
           🏟️
@@ -411,6 +411,17 @@ return (
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-2">Carte interactive / Stades visités</h2>
       <p className="text-[#8e7dae] text-[10px] mb-2">Cliquez sur la carte pour agrandir · Sélectionnez un stade</p>
       {renderStadiumMap()}
+      <label htmlFor="stadium-selector" className="mt-3 block text-[10px] font-semibold uppercase tracking-wider text-[#8e7dae]">Choisir un stade</label>
+      <select
+        id="stadium-selector"
+        value={selectedStadium}
+        onChange={(event) => setSelectedStadium(Number(event.target.value))}
+        className="mt-1 w-full rounded-lg border border-violet-400/20 bg-[#0f1021] p-2 text-xs text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+      >
+        {visitedStadiums.map((stadium, index) => (
+          <option key={stadium.name} value={index}>{stadium.name} — {stadium.city}</option>
+        ))}
+      </select>
       <div className="mt-3 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3" aria-live="polite">
         <p className="text-xs font-bold leading-snug text-white">{visitedStadiums[selectedStadium].name}</p>
         <p className="mt-1 text-[11px] text-[#c4b5d9]">{visitedStadiums[selectedStadium].city} · {visitedStadiums[selectedStadium].country}</p>
@@ -608,6 +619,17 @@ return (
             </button>
           </div>
           {renderStadiumMap(true)}
+          <label htmlFor="expanded-stadium-selector" className="mt-3 block text-[10px] font-semibold uppercase tracking-wider text-[#8e7dae]">Choisir un stade</label>
+          <select
+            id="expanded-stadium-selector"
+            value={selectedStadium}
+            onChange={(event) => setSelectedStadium(Number(event.target.value))}
+            className="mt-1 w-full rounded-lg border border-violet-400/20 bg-[#0f1021] p-2 text-xs text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+          >
+            {visitedStadiums.map((stadium, index) => (
+              <option key={stadium.name} value={index}>{stadium.name} — {stadium.city}</option>
+            ))}
+          </select>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3" aria-live="polite">
             <div>
               <p className="text-sm font-bold leading-snug text-white">{visitedStadiums[selectedStadium].name}</p>
