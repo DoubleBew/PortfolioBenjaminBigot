@@ -18,6 +18,12 @@ export default function App() {
       metadata: 'Photographie / Estadio Monumental / Jour De Stade',
     },
     {
+      image: '/photos/IMG_1236.jpg',
+      title: 'Trouver le cliché parfait.',
+      description: 'Le football chilien manque de moyen, la vétusté des stades en est la preuve. Cependant, ils ne manquent pas de charme de par leur architecture et leur emplacement. À Antofagasta, il est impossible de passer à côté de l’Estadio Regional Calvo y Bascuñán, aux couleurs du club.',
+      metadata: 'Photographie / Estadio Regional Calvo y Bascuñán / Jour de Stade',
+    },
+    {
       image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
       title: 'La beauté du jeu',
       description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
