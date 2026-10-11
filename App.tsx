@@ -266,7 +266,7 @@ return (
       </div>
     </section>
     {/* CARD 2: GALERIE & REPORTAGES */}
-    <section className="lg:col-span-7 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
+    <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">GALERIE &amp; REPORTAGES</h2>
       <div
         className="relative flex h-[420px] shrink-0 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] sm:h-[380px] lg:h-[360px]"
