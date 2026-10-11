@@ -273,10 +273,16 @@ return (
         role="group"
         aria-label={`Galerie photo: ${gallerySlides[activeGallerySlide].title}`}
       >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 scale-110 bg-cover bg-center opacity-50 blur-xl"
+          style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
+        />
+        <div className="absolute inset-0 bg-[#0b0713]/25" />
         <img
           src={gallerySlides[activeGallerySlide].image}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-contain object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
         <button
