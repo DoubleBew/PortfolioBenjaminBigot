@@ -3,9 +3,28 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Phone, Mail, Compass, Award, Shield, ChevronRight, Instagram, Globe, MessageSquare } from 'lucide-react';
 
+type SocialStats = {
+  tiktok: {
+    handle: string;
+    views: string;
+    followers: string;
+    engagement: string;
+  };
+  instagram: {
+    handle: string;
+    trend: string;
+    status: string;
+  };
+  isLive: boolean;
+  updatedAt?: string;
+  error?: string;
+};
+
 export default function App() {
   const [time, setTime] = useState<Date | null>(null);
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
+  const [socialStats, setSocialStats] = useState<SocialStats | null>(null);
+  const [socialStatsError, setSocialStatsError] = useState<string | null>(null);
 
   useEffect(() => {
     setTime(new Date());
@@ -13,6 +32,53 @@ export default function App() {
       setTime(new Date());
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const loadSocialStats = async () => {
+      try {
+        const response = await fetch('/api/stats', { signal: controller.signal });
+        if (!response.ok) {
+          throw new Error(`Stats API returned HTTP ${response.status}`);
+        }
+
+        const data = (await response.json()) as SocialStats;
+        setSocialStats(data);
+        setSocialStatsError(data.error ?? null);
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        const message = error instanceof Error ? error.message : 'Unable to load social stats.';
+        setSocialStats({
+          tiktok: {
+            handle: '@jour.de.stade',
+            views: '128.5K+',
+            followers: 'Indisponible',
+            engagement: 'Élevé',
+          },
+          instagram: {
+            handle: '@jour_de_stade',
+            trend: 'En hausse',
+            status: 'Actif',
+          },
+          isLive: false,
+          error: message,
+        });
+        setSocialStatsError(message);
+      }
+    };
+
+    void loadSocialStats();
+    const timer = setInterval(() => void loadSocialStats(), 300_000);
+
+    return () => {
+      controller.abort();
+      clearInterval(timer);
+    };
   }, []);
 
   const formatDate = (date: Date) => {
@@ -319,7 +385,7 @@ export default function App() {
         </div>
         <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
           <span className="text-[#e2d9f3]">Contenu TikTok / Instagram</span>
-          <span className="text-[#fbbf24] font-bold">128K vues</span>
+          <span className="text-[#fbbf24] font-bold">{socialStats?.tiktok.views ?? 'Chargement…'}</span>
         </div>
         <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
           <span className="text-[#e2d9f3]">Photographie</span>
@@ -345,6 +411,35 @@ export default function App() {
         <div className="flex justify-between py-0.5">
           <span className="text-[#e2d9f3]">Formateur sports collectifs</span>
           <span className="text-[#c084fc]">Decathlon</span>
+        </div>
+        <div className="border-t border-[#1c112e] pt-2">
+          <div className="mb-1 flex items-center justify-between">
+            <p className="text-[#8e7dae] font-bold uppercase text-[10px]">STATS SOCIALES</p>
+            <span className={socialStats?.isLive ? 'text-emerald-400' : 'text-amber-400'}>
+              {socialStats?.isLive ? 'TIKTOK LIVE' : socialStats ? 'TIKTOK INDISPONIBLE' : 'CHARGEMENT'}
+            </span>
+          </div>
+          <div className="flex justify-between py-0.5">
+            <span className="text-[#e2d9f3]">TikTok · abonnés</span>
+            <span className="text-[#c084fc] font-semibold">{socialStats?.tiktok.followers ?? '—'}</span>
+          </div>
+          <div className="flex justify-between py-0.5">
+            <span className="text-[#e2d9f3]">TikTok · engagement</span>
+            <span className="text-[#c084fc] font-semibold">{socialStats?.tiktok.engagement ?? '—'}</span>
+          </div>
+          <div className="flex justify-between py-0.5">
+            <span className="text-[#e2d9f3]">Instagram · {socialStats?.instagram.handle ?? '@jour_de_stade'}</span>
+            <span className="text-[#c084fc] font-semibold">{socialStats?.instagram.trend ?? 'En hausse'}</span>
+          </div>
+          <div className="flex justify-between py-0.5">
+            <span className="text-[#e2d9f3]">Instagram · statut</span>
+            <span className="text-[#c084fc] font-semibold">{socialStats?.instagram.status ?? 'Actif'}</span>
+          </div>
+          {socialStatsError && (
+            <p className="mt-1 text-[10px] text-amber-400" role="status">
+              TikTok indisponible. Valeurs indicatives affichées; Instagram reste informatif.
+            </p>
+          )}
         </div>
       </div>
     </section>
