@@ -269,12 +269,21 @@ return (
     <section className="lg:col-span-7 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">GALERIE &amp; REPORTAGES</h2>
       <div
-        className="relative flex min-h-[320px] flex-1 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] bg-cover bg-center"
-        style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
+        className="relative flex min-h-[320px] flex-1 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713]"
         role="group"
         aria-label={`Galerie photo: ${gallerySlides[activeGallerySlide].title}`}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0713] via-[#0b0713]/45 to-black/10" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 scale-110 bg-cover bg-center opacity-60 blur-xl"
+          style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
+        <img
+          src={gallerySlides[activeGallerySlide].image}
+          alt=""
+          className="absolute inset-0 m-auto max-h-full max-w-full object-contain"
+        />
         <button
           type="button"
           onClick={() => showGallerySlide(activeGallerySlide - 1)}
