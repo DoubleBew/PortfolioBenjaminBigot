@@ -6,10 +6,10 @@ import { Phone, Mail, Compass, Instagram, Globe, MessageSquare } from 'lucide-re
 export default function App() {
   const gallerySlides = [
     {
-      image: '/photos/IMG_1735.jpg',
-      title: 'Raconter le football chilien',
-      description: "Regarder le football d'une autre manière. À travers la photographie, je souhaite faire connaître ce championnat encore méconnu en Europe. Au-delà de l'aspect du jeu, le but est de faire connaître le côté culturel du pays via le football. Rendre beau le football chilien.",
-      metadata: 'Photographie / Chili / Jour de Stade',
+      image: '/photos/presentation_jour_de_stade.jpg',
+      title: 'Pourquoi Jour de Stade ?',
+      description: "Jour de Stade est né lors de mon voyage au Chili, où j'ai vécu un an. Ma passion pour le football m'a poussé à découvrir le plus de stades possible. Le but était alors de capturer les plus belles images possible avec mon appareil photo, et de faire des vidéos en format court sur TikTok et Instagram. Raconter le football chilien sous différentes formes : vidéos explicatives, trends, interactions. Les retours que j'ai reçus m'ont poussé à continuer. Ainsi, je peux partager ma passion initiale pour le football et faire découvrir ce championnat méconnu en Europe.",
+      metadata: 'Réseaux sociaux / Monde / Jour de Stade',
     },
     {
       image: '/photos/IMG_0312.jpg',
@@ -48,64 +48,10 @@ export default function App() {
       metadata: 'Photographie / Stade Vélodrome / Jour de Stade',
     },
     {
-      image: '/photos/presentation_jour_de_stade.jpg',
-      title: 'Pourquoi Jour de Stade ?',
-      description: "Jour de Stade est né lors de mon voyage au Chili, où j'ai vécu un an. Ma passion pour le football m'a poussé à découvrir le plus de stades possible. Le but était alors de capturer les plus belles images possible avec mon appareil photo, et de faire des vidéos en format court sur TikTok et Instagram. Raconter le football chilien sous différentes formes : vidéos explicatives, trends, interactions. Les retours que j'ai reçus m'ont poussé à continuer. Ainsi, je peux partager ma passion initiale pour le football et faire découvrir ce championnat méconnu en Europe.",
-      metadata: 'Réseaux sociaux / Monde / Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
-      title: 'La beauté du jeu',
-      description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
-      metadata: 'Reportage | Football | Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=85',
-      title: 'Sous les projecteurs',
-      description: 'Les instants qui précèdent le coup d’envoi et font vibrer tout un stade.',
-      metadata: 'Photographie | Jour de match | Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=85',
-      title: 'Jour de Stade en tournage',
-      description: 'Les coulisses d’un reportage consacré aux histoires qui font le football.',
-      metadata: 'Reportage | Création de contenu | Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=85',
-      title: 'L’énergie du collectif',
-      description: 'Partager les moments de préparation, de rencontre et de vie en équipe.',
-      metadata: 'Événementiel | Sport | Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1200&q=85',
-      title: 'Le football en format court',
-      description: 'Des images pensées pour raconter le sport sur les réseaux sociaux.',
-      metadata: 'Vidéo | Réseaux sociaux | Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=85',
-      title: 'Le sport au quotidien',
-      description: 'Mettre en lumière les équipes et les expériences qui font vivre le sport.',
-      metadata: 'Reportage | Retail sport | Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85',
-      title: 'Rencontres sans frontières',
-      description: 'Une expérience internationale nourrie par les échanges et la découverte.',
-      metadata: 'Reportage | Voyage | Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1542744094-3a3121693493?auto=format&fit=crop&w=1200&q=85',
-      title: 'Raconter en images',
-      description: 'Construire une identité visuelle cohérente pour chaque histoire.',
-      metadata: 'Photographie | Identité visuelle | Jour de Stade',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85',
-      title: 'De nouvelles perspectives',
-      description: 'Croiser les univers et les idées pour faire grandir chaque projet.',
-      metadata: 'Projet | Communication | Jour de Stade',
+      image: '/photos/IMG_1735.jpg',
+      title: 'Raconter le football chilien',
+      description: "Regarder le football d'une autre manière. À travers la photographie, je souhaite faire connaître ce championnat encore méconnu en Europe. Au-delà de l'aspect du jeu, le but est de faire connaître le côté culturel du pays via le football. Rendre beau le football chilien.",
+      metadata: 'Photographie / Chili / Jour de Stade',
     },
   ];
   const [time, setTime] = useState<Date>(new Date());
@@ -324,7 +270,7 @@ return (
         <img
           src={gallerySlides[activeGallerySlide].image}
           alt=""
-          className={`absolute inset-0 h-full w-full object-contain ${activeGallerySlide === 7 ? 'object-top' : 'object-center'}`}
+          className={`absolute inset-0 h-full w-full object-contain ${activeGallerySlide === 0 ? 'object-top' : 'object-center'}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
         <button
