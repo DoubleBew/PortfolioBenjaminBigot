@@ -286,18 +286,13 @@ return (
           type="button"
           onClick={() => setSelectedGallerySlide(activeGallerySlide)}
           aria-label={`Afficher les informations de ${gallerySlides[activeGallerySlide].title}`}
-          className="absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
+          className={`absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc] ${activeGallerySlide < 2 ? 'bg-[#0f1021]' : ''}`}
         >
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 scale-110 bg-cover bg-top opacity-50 blur-xl"
-            style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
-          />
-          <span aria-hidden="true" className="absolute inset-0 bg-[#0b0713]/25" />
+          <span aria-hidden="true" className={`absolute inset-0 ${activeGallerySlide < 2 ? 'bg-transparent' : 'bg-[#0b0713]/25'}`} />
           <img
             src={gallerySlides[activeGallerySlide].image}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-top"
+            className={`absolute inset-0 h-full w-full object-center ${activeGallerySlide < 2 ? 'object-contain' : 'object-cover'}`}
           />
           <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b0713]/90 via-[#0b0713]/35 to-black/10" />
         </button>
@@ -492,18 +487,18 @@ return (
   </main>
   ) : (
     <main
-      className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-3 shadow-xl sm:p-5"
+      className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-2 shadow-xl sm:p-4"
       onClick={() => setSelectedGallerySlide(null)}
     >
       <article
-        className="mx-auto max-w-5xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl"
+        className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="relative mx-auto w-fit max-w-full overflow-hidden">
           <img
             src={gallerySlides[selectedGallerySlide].image}
             alt=""
-            className="block max-h-[min(60vh,480px)] max-w-full"
+            className="block max-h-[min(55vh,440px)] max-w-full"
           />
           <div className="absolute inset-0 bg-[#0f1021]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/40 to-[#0f1021]/10" />
