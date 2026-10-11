@@ -1,17 +1,22 @@
 import { NextResponse } from 'next/server';
 
+type CountikStats = {
+  followerCount?: number;
+  heartCount?: number;
+};
+
 export async function GET() {
   const fallbackStats = {
     tiktok: {
       handle: '@jour.de.stade',
       views: '128.5K+',
       followers: 'En direct',
-      engagement: 'Élevé',
+      likes: 'En direct',
     },
     instagram: {
       handle: '@jour_de_stade',
+      followers: 'En direct',
       trend: 'En croissance',
-      status: 'Actif',
     },
     isLive: true,
     updatedAt: new Date().toISOString(),
@@ -23,20 +28,19 @@ export async function GET() {
   try {
     const ttRes = await fetch('https://countik.com/api/user/exist/jour.de.stade', {
       headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       },
       signal: controller.signal,
       next: { revalidate: 300 },
     });
 
     if (ttRes.ok) {
-      const ttData = await ttRes.json();
-      if (ttData?.followerCount) {
+      const ttData = (await ttRes.json()) as CountikStats;
+      if (typeof ttData.followerCount === 'number' && ttData.followerCount > 0) {
         fallbackStats.tiktok.followers = `${(ttData.followerCount / 1000).toFixed(1)}K`;
       }
-      if (ttData?.heartCount) {
-        fallbackStats.tiktok.views = `${(ttData.heartCount / 1000).toFixed(1)}K+`;
+      if (typeof ttData.heartCount === 'number' && ttData.heartCount > 0) {
+        fallbackStats.tiktok.likes = `${(ttData.heartCount / 1000).toFixed(1)}K`;
       }
     }
 
