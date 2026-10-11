@@ -42,6 +42,12 @@ export default function App() {
       metadata: 'Photographie / Estadio Zorros del desierto / Jour de Stade',
     },
     {
+      image: '/photos/IMG_OM_Chili.jpg',
+      title: "L'OM et le Chili",
+      description: "Faire connaître l'Olympique de Marseille aux Chiliens me tient à cœur. Ayant connu le Chili un an, je trouve beaucoup de similitudes entre les clubs chiliens et l'OM, deux clubs à très forte identité.",
+      metadata: 'Photographie / Stade Vélodrome / Jour de Stade',
+    },
+    {
       image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
       title: 'La beauté du jeu',
       description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
