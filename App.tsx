@@ -79,6 +79,7 @@ export default function App() {
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
   const [isStadiumMapExpanded, setIsStadiumMapExpanded] = useState(false);
+  const [stadiumMapView, setStadiumMapView] = useState<'world' | 'santiago'>('world');
   const [stadiumMapZoom, setStadiumMapZoom] = useState(1);
   const [stadiumMapOffset, setStadiumMapOffset] = useState({ x: 0, y: 0 });
   const stadiumMapDrag = useRef<{ pointerId: number; x: number; y: number; offsetX: number; offsetY: number } | null>(null);
@@ -143,21 +144,10 @@ export default function App() {
     }
   };
 
-  const focusSantiago = () => {
-    const viewport = stadiumMapViewport.current;
-    if (!viewport) return;
-
-    const zoom = 4;
-    const centerX = ((-70.616905 + 180) / 360) * viewport.clientWidth;
-    const centerY = ((90 - -33.50808) / 180) * viewport.clientHeight;
-    const maxX = viewport.clientWidth * (zoom - 1) / 2;
-    const maxY = viewport.clientHeight * (zoom - 1) / 2;
-
-    setStadiumMapZoom(zoom);
-    setStadiumMapOffset({
-      x: Math.max(-maxX, Math.min(maxX, (viewport.clientWidth / 2 - centerX) * (zoom - 1))),
-      y: Math.max(-maxY, Math.min(maxY, (viewport.clientHeight / 2 - centerY) * (zoom - 1))),
-    });
+  const switchStadiumMapView = () => {
+    setStadiumMapView((currentView) => currentView === 'world' ? 'santiago' : 'world');
+    setStadiumMapZoom(1);
+    setStadiumMapOffset({ x: 0, y: 0 });
   };
 
   const startStadiumMapDrag = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -211,12 +201,92 @@ export default function App() {
         <div
           className="absolute inset-0"
           style={{
-            transform: `translate(${stadiumMapOffset.x}px, ${stadiumMapOffset.y}px) scale(${stadiumMapZoom})`,
+            transform: `translate(${stadiumMapOffset.x}px, ${stadiumMapOffset.y}px) scale(${stadiumMapView === 'santiago' ? stadiumMapZoom / (2 ** Math.floor(Math.log2(stadiumMapZoom))) : stadiumMapZoom})`,
             transformOrigin: 'center',
           }}
         >
-          <img src="/world-map.svg" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
-          {visitedStadiums.map((stadium, index) => (
+          {stadiumMapView === 'world' ? (
+            <img src="/world-map.svg" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
+          ) : (() => {
+            const viewport = stadiumMapViewport.current;
+            const width = viewport?.clientWidth ?? 1024;
+            const height = viewport?.clientHeight ?? 512;
+            const tileZoom = 12 + Math.floor(Math.log2(stadiumMapZoom));
+            const worldSize = 256 * 2 ** tileZoom;
+            const centerLat = -33.50808;
+            const centerLon = -70.616905;
+            const centerX = ((centerLon + 180) / 360) * worldSize;
+            const centerY = (1 - Math.asinh(Math.tan(centerLat * Math.PI / 180)) / Math.PI) / 2 * worldSize;
+            const scale = stadiumMapZoom / (2 ** Math.floor(Math.log2(stadiumMapZoom)));
+            const mapCenterX = centerX - stadiumMapOffset.x / scale;
+            const mapCenterY = centerY - stadiumMapOffset.y / scale;
+            const minTileX = Math.floor((mapCenterX - width / (2 * scale)) / 256) - 1;
+            const maxTileX = Math.floor((mapCenterX + width / (2 * scale)) / 256) + 1;
+            const minTileY = Math.floor((mapCenterY - height / (2 * scale)) / 256) - 1;
+            const maxTileY = Math.floor((mapCenterY + height / (2 * scale)) / 256) + 1;
+            const tileCount = 2 ** tileZoom;
+            const tiles: React.ReactNode[] = [];
+
+            for (let tileX = minTileX; tileX <= maxTileX; tileX += 1) {
+              for (let tileY = minTileY; tileY <= maxTileY; tileY += 1) {
+                if (tileY < 0 || tileY >= tileCount) continue;
+                const wrappedTileX = ((tileX % tileCount) + tileCount) % tileCount;
+                tiles.push(
+                  <img
+                    key={`${tileZoom}-${tileX}-${tileY}`}
+                    src={`https://tile.openstreetmap.org/${tileZoom}/${wrappedTileX}/${tileY}.png`}
+                    alt=""
+                    aria-hidden="true"
+                    draggable={false}
+                    className="absolute h-64 w-64 max-w-none"
+                    style={{ left: width / 2 + tileX * 256 - centerX, top: height / 2 + tileY * 256 - centerY }}
+                  />,
+                );
+              }
+            }
+
+            return (
+              <>
+                {tiles}
+                {visitedStadiums.filter((stadium) => stadium.city.includes('Santiago')).map((stadium) => {
+                  const latitude = stadium.lat * Math.PI / 180;
+                  const stadiumX = ((stadium.lon + 180) / 360) * worldSize;
+                  const stadiumY = (1 - Math.asinh(Math.tan(latitude)) / Math.PI) / 2 * worldSize;
+                  const stadiumIndex = visitedStadiums.indexOf(stadium);
+
+                  return (
+                    <button
+                      key={stadium.name}
+                      type="button"
+                      onClick={() => setSelectedStadium(stadiumIndex)}
+                      onPointerDown={(event) => event.stopPropagation()}
+                      aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
+                      aria-pressed={selectedStadium === stadiumIndex}
+                      title={`${stadium.name} - ${stadium.city}`}
+                      className={`absolute z-10 flex h-4 w-4 items-center justify-center rounded-full text-[9px] leading-none transition-transform hover:scale-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === stadiumIndex ? 'bg-violet-500 ring-1 ring-white/80' : 'bg-[#150d21]/80'}`}
+                      style={{
+                        left: width / 2 + stadiumX - centerX,
+                        top: height / 2 + stadiumY - centerY,
+                        transform: 'translate(-50%, -50%)',
+                      }}
+                    >
+                      🏟️
+                    </button>
+                  );
+                })}
+                <a
+                  href="https://www.openstreetmap.org/copyright"
+                  target="_blank"
+                  rel="noreferrer"
+                  onPointerDown={(event) => event.stopPropagation()}
+                  className="absolute bottom-1 left-1 z-20 rounded bg-white/90 px-1.5 py-0.5 text-[10px] text-[#333] shadow"
+                >
+                  © OpenStreetMap
+                </a>
+              </>
+            );
+          })()}
+          {stadiumMapView === 'world' && visitedStadiums.map((stadium, index) => (
             <button
               key={stadium.name}
               type="button"
@@ -272,12 +342,12 @@ export default function App() {
         <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 rounded-lg border border-white/20 bg-[#150d21]/95 p-1 shadow-lg">
           <button
             type="button"
-            onClick={focusSantiago}
+            onClick={switchStadiumMapView}
             onPointerDown={(event) => event.stopPropagation()}
-            aria-label="Zoomer sur Santiago"
+            aria-label={stadiumMapView === 'world' ? 'Afficher la carte des stades de Santiago' : 'Revenir à la carte du monde'}
             className="rounded px-2 py-2 text-xs font-semibold text-white hover:bg-violet-500/30"
           >
-            Santiago
+            {stadiumMapView === 'world' ? 'Santiago' : 'Monde'}
           </button>
           <button
             type="button"
@@ -755,7 +825,7 @@ return (
               <h2 id="expanded-stadium-map-title" className="text-sm font-bold uppercase tracking-wider text-[#d8b4fe] sm:text-base">
                 Carte interactive / Stades visités
               </h2>
-              <p className="mt-1 text-xs text-[#8e7dae]">Zoomez sur Santiago ou avec les boutons, puis maintenez et faites glisser la carte. Sélectionnez un marqueur pour afficher le stade.</p>
+              <p className="mt-1 text-xs text-[#8e7dae]">Affichez la carte détaillée de Santiago, puis zoomez ou déplacez-la. Sélectionnez un marqueur pour afficher le stade.</p>
             </div>
             <button
               type="button"
