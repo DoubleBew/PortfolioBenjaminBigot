@@ -6,10 +6,10 @@ import { Phone, Mail, Compass, Instagram, Globe, MessageSquare } from 'lucide-re
 export default function App() {
   const gallerySlides = [
     {
-      image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=85',
-      title: 'Au cœur du Vélodrome',
-      description: 'L’intensité des tribunes et la passion marseillaise, au plus près du terrain.',
-      metadata: 'Photographie | Stade Vélodrome | Jour de Stade',
+      image: '/photos/IMG_1735.jpg',
+      title: 'Raconter le football chilien',
+      description: "Regarder le football d'une autre manière. À travers la photographie, je souhaite faire connaître ce championnat encore méconnu en Europe. Au-delà de l'aspect du jeu, le but est de faire connaître le côté culturel du pays via le football. Rendre beau le football chilien.",
+      metadata: 'Photographie / Chili / Jour de Stade',
     },
     {
       image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
