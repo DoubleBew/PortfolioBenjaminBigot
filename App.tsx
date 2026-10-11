@@ -9,6 +9,7 @@ export default function App() {
   const [liveStats, setLiveStats] = useState<any>({
     tiktokViews: '128.5K+',
     tiktokFollowers: 'En direct',
+    instaFollowers: 'En direct',
     instaTrend: 'En croissance',
     isLive: true
   });
@@ -29,6 +30,7 @@ if (data?.tiktok) {
 setLiveStats({
 tiktokViews: data.tiktok.likes || data.tiktok.views || '128.5K+',
 tiktokFollowers: data.tiktok.followers || 'En direct',
+instaFollowers: data.instagram?.followers || 'En direct',
 instaTrend: data.instagram?.trend || 'En croissance',
 isLive: true
 });
@@ -362,12 +364,12 @@ return (
             <span className="text-[10px] text-[#8e7dae]">@jour_de_stade</span>
           </div>
           <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
+            <span className="text-[#e2d9f3]">Abonnés</span>
+            <span className="text-[#c084fc] font-semibold">{liveStats.instaFollowers}</span>
+          </div>
+          <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
             <span className="text-[#e2d9f3]">Portée / Vues</span>
             <span className="text-[#fbbf24] font-bold">{liveStats.instaTrend}</span>
-          </div>
-          <div className="flex justify-between py-0.5">
-            <span className="text-[#e2d9f3]">Contenu</span>
-            <span className="text-[#c084fc] font-semibold">Reels & Photos</span>
           </div>
         </div>
       </div>
