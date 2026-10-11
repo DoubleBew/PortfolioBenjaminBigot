@@ -117,6 +117,7 @@ export default function App() {
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
+  const [showLegalNotices, setShowLegalNotices] = useState(false);
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
   const [isStadiumMapExpanded, setIsStadiumMapExpanded] = useState(false);
@@ -141,13 +142,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (selectedGallerySlide !== null || showPhotoGallery) return;
+    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices) return;
 
     const galleryTimer = setTimeout(() => {
       setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
     }, 5000);
     return () => clearTimeout(galleryTimer);
-  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showPhotoGallery]);
+  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery]);
 
   useEffect(() => {
     if (selectedPhotoGalleryImage === null) return;
@@ -534,10 +535,16 @@ return (
     </div>
   </header>
   {/* Secondary Navigation Bar */}
-  {selectedGallerySlide === null && !showPhotoGallery ? (
+  {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices ? (
     <div className="bg-[#150d21] border-b border-[#261838] px-5 py-1.5 flex items-center gap-5 text-[#8e7dae] text-xs mb-3 rounded-b-lg">
       <span className="text-[#fbbf24] font-bold border-b-2 border-[#fbbf24] pb-0.5">Vue d'ensemble</span>
-      <span className="hover:text-white cursor-pointer">Mon profil</span>
+      <button
+        type="button"
+        onClick={() => setShowLegalNotices(true)}
+        className="hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+      >
+        Mentions légales
+      </button>
       <span className="hover:text-white cursor-pointer">Mon contrat</span>
       <span className="hover:text-white cursor-pointer">Mes badges</span>
       <span className="hover:text-white cursor-pointer">Mes rapports</span>
@@ -551,6 +558,7 @@ return (
         onClick={() => {
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
+          setShowLegalNotices(false);
         }}
         className="font-semibold text-violet-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
       >
@@ -559,6 +567,8 @@ return (
       <span className="text-violet-400/70">&gt;</span>
       {showPhotoGallery ? (
         <span className="font-semibold text-white">Galerie</span>
+      ) : showLegalNotices ? (
+        <span className="font-semibold text-white">Mentions légales</span>
       ) : (
         <>
           <span className="text-violet-400/70">&gt;</span>
@@ -612,6 +622,73 @@ return (
         animation: photo-float 4.5s ease-in-out infinite;
       }
     `}</style>
+  </main>
+  ) : showLegalNotices ? (
+  <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
+    <div className="mx-auto max-w-4xl">
+      <h1 className="border-b border-violet-400/20 pb-3 text-xl font-bold text-white sm:text-2xl">Mentions légales</h1>
+      <p className="mt-3 text-sm leading-relaxed text-[#c4b5d9]">
+        Informations relatives à l&apos;édition et à l&apos;utilisation de ce site.
+      </p>
+
+      <div className="mt-6 space-y-5 text-sm leading-relaxed text-[#e2d9f3]">
+        <section>
+          <h2 className="text-base font-bold text-violet-300">Éditeur du site</h2>
+          <p className="mt-2">
+            Benjamin Bigot, personne physique et directeur de la publication
+            <br />
+            41 Chemin de l&apos;Armée d&apos;Afrique, 13005 Marseille, France
+            <br />
+            Téléphone : <a className="text-violet-300 hover:text-white" href="tel:+33635263323">06 35 26 33 23</a>
+            <br />
+            E-mail : <a className="text-violet-300 hover:text-white" href="mailto:ben.bigot@live.fr">ben.bigot@live.fr</a>
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-bold text-violet-300">Hébergement</h2>
+          <p className="mt-2">
+            Vercel Inc.
+            <br />
+            340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis
+            <br />
+            Assistance : <a className="text-violet-300 underline hover:text-white" href="https://vercel.com/help" target="_blank" rel="noopener noreferrer">vercel.com/help</a>
+            {' · '}
+            <a className="text-violet-300 underline hover:text-white" href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a>
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-bold text-violet-300">Propriété intellectuelle</h2>
+          <p className="mt-2">
+            Sauf mention contraire, les textes, photographies et autres contenus originaux de ce site sont la propriété de Benjamin Bigot. Toute reproduction ou réutilisation sans autorisation préalable est interdite, sous réserve des exceptions prévues par la loi.
+          </p>
+          <p className="mt-2 font-semibold text-white">© 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.</p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-bold text-violet-300">Données personnelles et confidentialité</h2>
+          <p className="mt-2">
+            Le responsable du traitement est Benjamin Bigot, joignable à l&apos;adresse <a className="text-violet-300 underline hover:text-white" href="mailto:ben.bigot@live.fr">ben.bigot@live.fr</a>. Ce site ne comporte ni espace membre ni formulaire de collecte. Les données techniques de connexion peuvent être traitées par l&apos;hébergeur pour diffuser et sécuriser le site ; elles ne sont pas conservées directement par l&apos;éditeur. Leur durée de conservation dépend des paramètres et des pratiques de Vercel, décrites dans sa <a className="text-violet-300 underline hover:text-white" href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">notice de confidentialité</a>.
+          </p>
+          <p className="mt-2">
+            Les ressources tierces sont fournies par TikTok (vidéo), OpenStreetMap (tuiles cartographiques) et FlagCDN (drapeaux). Leur chargement peut transmettre des données techniques, notamment l&apos;adresse IP, aux fournisseurs concernés. Vercel Inc. étant établi aux États-Unis, des transferts de données hors de l&apos;Espace économique européen peuvent avoir lieu. Les liens vers les réseaux sociaux ne transmettent des informations à ces services que lorsque vous les ouvrez.
+          </p>
+          <p className="mt-2">
+            Ce site ne met pas en œuvre de mesure d&apos;audience propre. Les lecteurs ou ressources tiers peuvent utiliser des cookies ou autres traceurs selon leurs propres pratiques ; le blocage des cookies tiers dans votre navigateur peut limiter certaines fonctionnalités. Pour exercer vos droits d&apos;accès, de rectification, d&apos;effacement, de limitation ou d&apos;opposition, contactez l&apos;éditeur par e-mail. Vous pouvez également adresser une réclamation à la <a className="text-violet-300 underline hover:text-white" href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener noreferrer">CNIL</a>.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-base font-bold text-violet-300">Services tiers et crédits</h2>
+          <p className="mt-2">
+            Vidéo : <a className="text-violet-300 underline hover:text-white" href="https://www.tiktok.com/legal/page/eea/privacy-policy/fr" target="_blank" rel="noopener noreferrer">politique de confidentialité TikTok</a>.
+            {' '}Cartographie : <a className="text-violet-300 underline hover:text-white" href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">politique de confidentialité OpenStreetMap</a> et <a className="text-violet-300 underline hover:text-white" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">crédits cartographiques</a>.
+            {' '}Drapeaux : <a className="text-violet-300 underline hover:text-white" href="https://flagcdn.com/" target="_blank" rel="noopener noreferrer">FlagCDN</a>.
+          </p>
+        </section>
+      </div>
+    </div>
   </main>
   ) : selectedGallerySlide === null ? (
   <main className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
@@ -937,7 +1014,7 @@ return (
       </article>
     </main>
   )}
-      {selectedGallerySlide === null && !showPhotoGallery && (
+      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && (
         <footer className="mt-4 border-t border-[#261838] py-4 text-center text-xs text-[#8e7dae]">
           © 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.
         </footer>
