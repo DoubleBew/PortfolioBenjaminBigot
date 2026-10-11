@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Phone, Mail, Compass, Instagram, Globe, MessageSquare } from 'lucide-react';
 
 export default function App() {
@@ -79,6 +79,10 @@ export default function App() {
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
   const [isStadiumMapExpanded, setIsStadiumMapExpanded] = useState(false);
+  const [stadiumMapZoom, setStadiumMapZoom] = useState(1);
+  const [stadiumMapOffset, setStadiumMapOffset] = useState({ x: 0, y: 0 });
+  const stadiumMapDrag = useRef<{ pointerId: number; x: number; y: number; offsetX: number; offsetY: number } | null>(null);
+  const stadiumMapViewport = useRef<HTMLDivElement | null>(null);
   const [liveStats, setLiveStats] = useState<any>({
     tiktokFollowers: '432',
     tiktokLikes: '9.0K',
@@ -119,25 +123,117 @@ export default function App() {
   const truncateDescription = (description: string) =>
     description.length > 40 ? `${description.slice(0, 37)}...` : description;
 
+  const zoomStadiumMap = (direction: 1 | -1) => {
+    const nextZoom = Math.min(4, Math.max(1, stadiumMapZoom + direction * 0.5));
+    setStadiumMapZoom(nextZoom);
+    if (nextZoom === 1) {
+      setStadiumMapOffset({ x: 0, y: 0 });
+      return;
+    }
+    const viewport = stadiumMapViewport.current;
+    if (viewport) {
+      setStadiumMapOffset((currentOffset) => {
+        const maxX = viewport.clientWidth * (nextZoom - 1) / 2;
+        const maxY = viewport.clientHeight * (nextZoom - 1) / 2;
+        return {
+          x: Math.max(-maxX, Math.min(maxX, currentOffset.x)),
+          y: Math.max(-maxY, Math.min(maxY, currentOffset.y)),
+        };
+      });
+    }
+  };
+
+  const startStadiumMapDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (stadiumMapZoom <= 1 || event.button !== 0) return;
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    stadiumMapDrag.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      offsetX: stadiumMapOffset.x,
+      offsetY: stadiumMapOffset.y,
+    };
+  };
+
+  const moveStadiumMap = (event: React.PointerEvent<HTMLDivElement>) => {
+    const drag = stadiumMapDrag.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    setStadiumMapOffset({
+      x: Math.max(
+        -event.currentTarget.clientWidth * (stadiumMapZoom - 1) / 2,
+        Math.min(event.currentTarget.clientWidth * (stadiumMapZoom - 1) / 2, drag.offsetX + event.clientX - drag.x),
+      ),
+      y: Math.max(
+        -event.currentTarget.clientHeight * (stadiumMapZoom - 1) / 2,
+        Math.min(event.currentTarget.clientHeight * (stadiumMapZoom - 1) / 2, drag.offsetY + event.clientY - drag.y),
+      ),
+    });
+  };
+
+  const stopStadiumMapDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (stadiumMapDrag.current?.pointerId !== event.pointerId) return;
+    stadiumMapDrag.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
   const renderStadiumMap = (expanded = false) => (
     <div
-      className="relative aspect-[2/1] w-full overflow-hidden rounded-lg border border-violet-400/20 bg-[#0f1021]"
+      ref={expanded ? stadiumMapViewport : undefined}
+      className={`relative aspect-[2/1] w-full overflow-hidden rounded-lg border border-violet-400/20 bg-[#0f1021] ${expanded ? 'touch-none' : ''} ${expanded && stadiumMapZoom > 1 ? 'cursor-grab active:cursor-grabbing' : ''}`}
       role="group"
       aria-label="Carte des stades visités"
+      onPointerDown={expanded ? startStadiumMapDrag : undefined}
+      onPointerMove={expanded ? moveStadiumMap : undefined}
+      onPointerUp={expanded ? stopStadiumMapDrag : undefined}
+      onPointerCancel={expanded ? stopStadiumMapDrag : undefined}
     >
       {expanded ? (
-        <img src="/world-map.svg" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
+        <div
+          className="absolute inset-0"
+          style={{
+            transform: `translate(${stadiumMapOffset.x}px, ${stadiumMapOffset.y}px) scale(${stadiumMapZoom})`,
+            transformOrigin: 'center',
+          }}
+        >
+          <img src="/world-map.svg" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
+          {visitedStadiums.map((stadium, index) => (
+            <button
+              key={stadium.name}
+              type="button"
+              onClick={() => setSelectedStadium(index)}
+              onPointerDown={(event) => event.stopPropagation()}
+              aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
+              aria-pressed={selectedStadium === index}
+              title={`${stadium.name} - ${stadium.city}`}
+              className={`absolute z-10 flex h-7 w-7 items-center justify-center rounded-full text-[15px] leading-none transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-2 ring-white/80' : 'bg-[#150d21]/80'}`}
+              style={{
+                left: `${((stadium.lon + 180) / 360) * 100}%`,
+                top: `${((90 - stadium.lat) / 180) * 100}%`,
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              🏟️
+            </button>
+          ))}
+        </div>
       ) : (
         <button
           type="button"
-          onClick={() => setIsStadiumMapExpanded(true)}
+          onClick={() => {
+            setStadiumMapZoom(1);
+            setStadiumMapOffset({ x: 0, y: 0 });
+            setIsStadiumMapExpanded(true);
+          }}
           aria-label="Agrandir la carte interactive des stades visités"
           className="absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-violet-300"
         >
           <img src="/world-map.svg" alt="" aria-hidden="true" className="h-full w-full" />
         </button>
       )}
-      {visitedStadiums.map((stadium, index) => (
+      {!expanded && visitedStadiums.map((stadium, index) => (
         <button
           key={stadium.name}
           type="button"
@@ -155,6 +251,31 @@ export default function App() {
           🏟️
         </button>
       ))}
+      {expanded && (
+        <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 rounded-lg border border-white/20 bg-[#150d21]/95 p-1 shadow-lg">
+          <button
+            type="button"
+            onClick={() => zoomStadiumMap(-1)}
+            onPointerDown={(event) => event.stopPropagation()}
+            disabled={stadiumMapZoom <= 1}
+            aria-label="Dézoomer la carte"
+            className="flex h-9 w-9 items-center justify-center rounded text-xl font-semibold text-white hover:bg-violet-500/30 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            −
+          </button>
+          <span className="min-w-12 text-center text-xs font-semibold text-white" aria-live="polite">{Math.round(stadiumMapZoom * 100)}%</span>
+          <button
+            type="button"
+            onClick={() => zoomStadiumMap(1)}
+            onPointerDown={(event) => event.stopPropagation()}
+            disabled={stadiumMapZoom >= 4}
+            aria-label="Zoomer la carte"
+            className="flex h-9 w-9 items-center justify-center rounded text-xl font-semibold text-white hover:bg-violet-500/30 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            +
+          </button>
+        </div>
+      )}
     </div>
   );
 
@@ -593,14 +714,14 @@ return (
   )}
     {isStadiumMapExpanded && (
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 backdrop-blur-sm sm:p-6"
+        className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/80 p-3 backdrop-blur-sm sm:items-center sm:p-6"
         onClick={() => setIsStadiumMapExpanded(false)}
       >
         <section
           role="dialog"
           aria-modal="true"
           aria-labelledby="expanded-stadium-map-title"
-          className="w-full max-w-7xl rounded-xl border border-violet-400/40 bg-[#150d21] p-4 shadow-2xl sm:p-6"
+          className="my-auto max-h-[calc(100dvh-1.5rem)] w-full max-w-7xl overflow-y-auto rounded-xl border border-violet-400/40 bg-[#150d21] p-4 shadow-2xl sm:max-h-[calc(100dvh-3rem)] sm:p-6"
           onClick={(event) => event.stopPropagation()}
         >
           <div className="mb-4 flex items-start justify-between gap-4">
@@ -608,7 +729,7 @@ return (
               <h2 id="expanded-stadium-map-title" className="text-sm font-bold uppercase tracking-wider text-[#d8b4fe] sm:text-base">
                 Carte interactive / Stades visités
               </h2>
-              <p className="mt-1 text-xs text-[#8e7dae]">Sélectionnez un marqueur pour afficher le stade et sa ville.</p>
+              <p className="mt-1 text-xs text-[#8e7dae]">Zoomez avec les boutons, puis maintenez et faites glisser la carte. Sélectionnez un marqueur pour afficher le stade.</p>
             </div>
             <button
               type="button"
