@@ -24,6 +24,12 @@ export default function App() {
       metadata: 'Photographie / Estadio Regional Calvo y Bascuñán / Jour de Stade',
     },
     {
+      image: '/photos/IMG_0603.jpg',
+      title: 'Immortaliser l’atmosphère',
+      description: 'Raconter l’ambiance à travers une photo et rêver. La Universidad de Chile, club historique et le deuxième plus titré, est un régal pour les amateurs d’ambiance électrique.',
+      metadata: 'Photographie / Estadio Nacional / Jour de Stade',
+    },
+    {
       image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
       title: 'La beauté du jeu',
       description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
