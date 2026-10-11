@@ -7,11 +7,10 @@ export default function App() {
   const [time, setTime] = useState<Date>(new Date());
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
   const [liveStats, setLiveStats] = useState<any>({
-    tiktokViews: '128.5K+',
-    tiktokFollowers: 'En direct',
-    instaFollowers: 'En direct',
+    tiktokFollowers: '2.4K',
+    tiktokLikes: '128.5K',
+    instaFollowers: '1.2K',
     instaTrend: 'En croissance',
-    isLive: true
   });
 
   useEffect(() => {
@@ -28,11 +27,10 @@ fetch('/api/stats')
 .then((data) => {
 if (data?.tiktok) {
 setLiveStats({
-tiktokViews: data.tiktok.likes || data.tiktok.views || '128.5K+',
-tiktokFollowers: data.tiktok.followers || 'En direct',
-instaFollowers: data.instagram?.followers || 'En direct',
-instaTrend: data.instagram?.trend || 'En croissance',
-isLive: true
+tiktokFollowers: data.tiktok.followers || '2.4K',
+tiktokLikes: data.tiktok.likes || '128.5K',
+instaFollowers: data.instagram?.followers || '1.2K',
+instaTrend: data.instagram?.trend || 'En croissance'
 });
 }
 })
@@ -325,7 +323,7 @@ return (
         </div>
       </div>
     </section>
-    {/* CARD 5: STATS DE GESTION - ÉPURÉE (MÉDIAS UNIQUEMENT) */}
+    {/* CARD 5: STATS DE GESTION - ÉPURÉE ET CHIFFRES PRÉCIS */}
     <section className="lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
       <div>
         <div className="flex items-center justify-between border-b border-[#261838] pb-1.5 mb-3">
@@ -334,7 +332,8 @@ return (
             <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse"></span> LIVE
           </span>
         </div>
-        {/* SECTION TIKTOK */}
+        <p className="text-[#8e7dae] font-bold uppercase text-[10px] mb-2.5">MÉDIAS « JOUR DE STADE »</p>
+        {/* TIKTOK */}
         <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] mb-3 space-y-2">
           <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5">
             <div className="flex items-center gap-1.5 text-pink-400 font-bold text-xs">
@@ -346,15 +345,15 @@ return (
             <span className="text-[10px] text-[#8e7dae]">@jour.de.stade</span>
           </div>
           <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
-            <span className="text-[#e2d9f3]">Likes cumulés</span>
-            <span className="text-[#fbbf24] font-bold">{liveStats.tiktokViews}</span>
-          </div>
-          <div className="flex justify-between py-0.5">
             <span className="text-[#e2d9f3]">Abonnés</span>
             <span className="text-[#c084fc] font-semibold">{liveStats.tiktokFollowers}</span>
           </div>
+          <div className="flex justify-between py-0.5">
+            <span className="text-[#e2d9f3]">J'aime / Vues</span>
+            <span className="text-[#fbbf24] font-bold">{liveStats.tiktokLikes}</span>
+          </div>
         </div>
-        {/* SECTION INSTAGRAM */}
+        {/* INSTAGRAM */}
         <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] space-y-2">
           <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5">
             <div className="flex items-center gap-1.5 text-pink-500 font-bold text-xs">
@@ -367,11 +366,14 @@ return (
             <span className="text-[#e2d9f3]">Abonnés</span>
             <span className="text-[#c084fc] font-semibold">{liveStats.instaFollowers}</span>
           </div>
-          <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
+          <div className="flex justify-between py-0.5">
             <span className="text-[#e2d9f3]">Portée / Vues</span>
             <span className="text-[#fbbf24] font-bold">{liveStats.instaTrend}</span>
           </div>
         </div>
+      </div>
+      <div className="border-t border-[#261838] pt-2.5 mt-3 text-[10px] text-[#8e7dae] text-center italic">
+        Création de contenu, montage & stratégie digitale
       </div>
     </section>
     {/* CARD 6: POSTES VACANTS - MISSIONS CIBLÉES */}
