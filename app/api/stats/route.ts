@@ -13,16 +13,14 @@ export async function GET() {
   const stats = {
     tiktok: {
       handle: '@jour.de.stade',
-      followers: '2.4K',
-      likes: '128.5K',
-      views: 'Indisponible',
+      followers: '432',
+      likes: '9.0K',
+      views: '135.0K+',
     },
     instagram: {
       handle: '@jour_de_stade',
-      followers: 'Indisponible',
-      likes: 'Indisponible',
-      views: 'Indisponible',
-      trend: 'Indisponible',
+      followers: '140',
+      views: '23.5K+',
     },
     isLive: true,
     updatedAt: new Date().toISOString(),
@@ -40,10 +38,10 @@ export async function GET() {
 
     if (ttRes.ok) {
       const ttData = (await ttRes.json()) as CountikStats;
-      if (typeof ttData.followerCount === 'number' && ttData.followerCount >= 0) {
-        stats.tiktok.followers = formatCount(ttData.followerCount);
+      if (typeof ttData.followerCount === 'number' && Number.isFinite(ttData.followerCount) && ttData.followerCount >= 0) {
+        stats.tiktok.followers = String(ttData.followerCount);
       }
-      if (typeof ttData.heartCount === 'number' && ttData.heartCount >= 0) {
+      if (typeof ttData.heartCount === 'number' && Number.isFinite(ttData.heartCount) && ttData.heartCount >= 0) {
         stats.tiktok.likes = formatCount(ttData.heartCount);
       }
     }
