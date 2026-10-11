@@ -624,7 +624,7 @@ return (
       `}</style>
     </section>
     {/* CARD 3: CARTE INTERACTIVE */}
-    <section className="order-5 lg:col-span-6 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
+    <section className="order-5 lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-2">Carte interactive / Stades visités</h2>
       <p className="text-[#8e7dae] text-[10px] mb-2">Cliquez sur la carte pour agrandir · Sélectionnez un stade</p>
       {renderStadiumMap()}
