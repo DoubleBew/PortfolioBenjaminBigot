@@ -78,6 +78,7 @@ export default function App() {
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
+  const [isStadiumMapExpanded, setIsStadiumMapExpanded] = useState(false);
   const [liveStats, setLiveStats] = useState<any>({
     tiktokFollowers: '432',
     tiktokLikes: '9.0K',
@@ -102,12 +103,60 @@ export default function App() {
     return () => clearTimeout(galleryTimer);
   }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide]);
 
+  useEffect(() => {
+    if (!isStadiumMapExpanded) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsStadiumMapExpanded(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isStadiumMapExpanded]);
+
   const showGallerySlide = (index: number) => {
     setActiveGallerySlide((index + gallerySlides.length) % gallerySlides.length);
   };
 
   const truncateDescription = (description: string) =>
     description.length > 40 ? `${description.slice(0, 37)}...` : description;
+
+  const renderStadiumMap = (expanded = false) => (
+    <div
+      className="relative aspect-[2/1] w-full overflow-hidden rounded-lg border border-violet-400/20 bg-[#0f1021]"
+      role="group"
+      aria-label="Carte des stades visités"
+    >
+      {expanded ? (
+        <img src="/world-map.svg" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setIsStadiumMapExpanded(true)}
+          aria-label="Agrandir la carte interactive des stades visités"
+          className="absolute inset-0 z-0 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-violet-300"
+        >
+          <img src="/world-map.svg" alt="" aria-hidden="true" className="h-full w-full" />
+        </button>
+      )}
+      {visitedStadiums.map((stadium, index) => (
+        <button
+          key={stadium.name}
+          type="button"
+          onClick={() => setSelectedStadium(index)}
+          aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
+          aria-pressed={selectedStadium === index}
+          title={`${stadium.name} - ${stadium.city}`}
+          className={`absolute z-10 flex h-7 w-7 items-center justify-center rounded-full text-[15px] leading-none transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-2 ring-white/80' : 'bg-[#150d21]/80'}`}
+          style={{
+            left: `${((stadium.lon + 180) / 360) * 100}%`,
+            top: `${((90 - stadium.lat) / 180) * 100}%`,
+            transform: `translate(calc(-50% + ${(stadium.dx ?? 0) * (expanded ? 2 : 1)}px), calc(-50% + ${(stadium.dy ?? 0) * (expanded ? 2 : 1)}px))`,
+          }}
+        >
+          🏟️
+        </button>
+      ))}
+    </div>
+  );
 
 // Synchro automatique des stats en direct
 useEffect(() => {
@@ -360,28 +409,8 @@ return (
     {/* CARD 3: CARTE INTERACTIVE */}
     <section className="order-5 lg:col-span-6 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-2">Carte interactive / Stades visités</h2>
-      <p className="text-[#8e7dae] text-[10px] mb-2">Stades visités · Sélectionnez un marqueur</p>
-      <div className="relative aspect-[2/1] overflow-hidden rounded-lg border border-violet-400/20 bg-[#0f1021]">
-        <img src="/world-map.svg" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
-        {visitedStadiums.map((stadium, index) => (
-          <button
-            key={stadium.name}
-            type="button"
-            onClick={() => setSelectedStadium(index)}
-            aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
-            aria-pressed={selectedStadium === index}
-            title={`${stadium.name} - ${stadium.city}`}
-            className={`absolute z-10 flex h-7 w-7 items-center justify-center rounded-full text-[15px] leading-none transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-2 ring-white/80' : 'bg-[#150d21]/80'}`}
-            style={{
-              left: `${((stadium.lon + 180) / 360) * 100}%`,
-              top: `${((90 - stadium.lat) / 180) * 100}%`,
-              transform: `translate(calc(-50% + ${stadium.dx ?? 0}px), calc(-50% + ${stadium.dy ?? 0}px))`,
-            }}
-          >
-            🏟️
-          </button>
-        ))}
-      </div>
+      <p className="text-[#8e7dae] text-[10px] mb-2">Cliquez sur la carte pour agrandir · Sélectionnez un stade</p>
+      {renderStadiumMap()}
       <div className="mt-3 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3" aria-live="polite">
         <p className="text-xs font-bold leading-snug text-white">{visitedStadiums[selectedStadium].name}</p>
         <p className="mt-1 text-[11px] text-[#c4b5d9]">{visitedStadiums[selectedStadium].city} · {visitedStadiums[selectedStadium].country}</p>
@@ -391,7 +420,7 @@ return (
       </p>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
-    <section className="order-4 lg:col-span-6 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
+    <section className="order-4 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
       <div>
         <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON HISTORIQUE</h2>
 
@@ -551,6 +580,44 @@ return (
       </article>
     </main>
   )}
+    {isStadiumMapExpanded && (
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-3 backdrop-blur-sm sm:p-6"
+        onClick={() => setIsStadiumMapExpanded(false)}
+      >
+        <section
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="expanded-stadium-map-title"
+          className="w-full max-w-7xl rounded-xl border border-violet-400/40 bg-[#150d21] p-4 shadow-2xl sm:p-6"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="mb-4 flex items-start justify-between gap-4">
+            <div>
+              <h2 id="expanded-stadium-map-title" className="text-sm font-bold uppercase tracking-wider text-[#d8b4fe] sm:text-base">
+                Carte interactive / Stades visités
+              </h2>
+              <p className="mt-1 text-xs text-[#8e7dae]">Sélectionnez un marqueur pour afficher le stade et sa ville.</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsStadiumMapExpanded(false)}
+              className="shrink-0 rounded border border-violet-400/30 px-3 py-1.5 text-xs font-semibold text-white hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+            >
+              Fermer
+            </button>
+          </div>
+          {renderStadiumMap(true)}
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3" aria-live="polite">
+            <div>
+              <p className="text-sm font-bold leading-snug text-white">{visitedStadiums[selectedStadium].name}</p>
+              <p className="mt-1 text-xs text-[#c4b5d9]">{visitedStadiums[selectedStadium].city} · {visitedStadiums[selectedStadium].country}</p>
+            </div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#8e7dae]">🏟️ {visitedStadiums.length} stades visités</p>
+          </div>
+        </section>
+      </div>
+    )}
 </div>
 );
 }
