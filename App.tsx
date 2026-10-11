@@ -73,11 +73,29 @@ export default function App() {
     { name: 'Stadion Bâlgarska Armija', city: 'Sofia', country: 'Bulgarie', lat: 42.6842389, lon: 23.339692 },
     { name: 'Stadio Giuseppe Meazza', city: 'Milan', country: 'Italie', lat: 45.4782003, lon: 9.123964 },
   ];
+  const photoGalleryImages = [
+    { src: '/photos/visiter-01.jpg', alt: 'Coucher de soleil sur Santiago' },
+    { src: '/photos/visiter-02.jpg', alt: 'Rue de Santiago photographiée de nuit en noir et blanc' },
+    { src: '/photos/visiter-03.jpg', alt: 'Bâtiment illuminé au bord de l’eau, la nuit' },
+    { src: '/photos/visiter-04.jpg', alt: 'Rue d’Antofagasta avec les montagnes en arrière-plan' },
+    { src: '/photos/visiter-05.jpg', alt: 'Promenade sur le front de mer à Antofagasta' },
+    { src: '/photos/visiter-06.jpg', alt: 'Coucher de soleil sur la mer' },
+  ];
+  const photoGalleryRotations = ['-3deg', '2.5deg', '-2deg', '3deg', '-2.5deg', '2deg'];
+  const photoGalleryLayouts = [
+    'col-span-1 lg:col-span-4 aspect-[4/3]',
+    'col-span-1 lg:col-span-3 aspect-[3/4]',
+    'col-span-2 lg:col-span-5 aspect-[4/3]',
+    'col-span-1 lg:col-span-4 aspect-[3/4]',
+    'col-span-1 lg:col-span-5 aspect-[4/3]',
+    'col-span-2 lg:col-span-3 aspect-[3/2]',
+  ];
   const [time, setTime] = useState<Date>(new Date());
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
+  const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
   const [isStadiumMapExpanded, setIsStadiumMapExpanded] = useState(false);
   const [stadiumMapView, setStadiumMapView] = useState<'world' | 'santiago'>('world');
@@ -108,6 +126,15 @@ export default function App() {
     }, 5000);
     return () => clearTimeout(galleryTimer);
   }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showPhotoGallery]);
+
+  useEffect(() => {
+    if (selectedPhotoGalleryImage === null) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedPhotoGalleryImage(null);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [selectedPhotoGalleryImage]);
 
   useEffect(() => {
     if (!isStadiumMapExpanded) return;
@@ -523,8 +550,8 @@ return (
   <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
     <div className="mb-5 flex items-center justify-between gap-3 border-b border-violet-400/20 pb-3">
       <div>
-        <h1 className="text-lg font-bold text-white sm:text-xl">Galerie photo</h1>
-        <p className="mt-1 text-xs text-[#8e7dae]">{gallerySlides.length} reportages photo</p>
+        <h1 className="text-lg font-bold text-white sm:text-xl">Mes photos</h1>
+        <p className="mt-1 text-xs text-[#8e7dae]">Cliquez sur une photo pour l&apos;afficher en grand.</p>
       </div>
       <button
         type="button"
@@ -534,33 +561,29 @@ return (
         Retour à l&apos;accueil
       </button>
     </div>
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {gallerySlides.map((slide, index) => (
+    <div className="photo-scatter grid grid-cols-2 items-center gap-4 px-1 pb-5 sm:gap-7 sm:px-4 lg:grid-cols-12 lg:gap-10">
+      {photoGalleryImages.map((photo, index) => (
         <button
-          key={slide.title}
+          key={photo.src}
           type="button"
-          onClick={() => {
-            setShowPhotoGallery(false);
-            setSelectedGallerySlide(index);
-          }}
-          className="group overflow-hidden rounded-lg border border-[#261838] bg-[#150d21] text-left transition-colors hover:border-violet-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
-          aria-label={`Ouvrir la photo ${slide.title}`}
+          onClick={() => setSelectedPhotoGalleryImage(index)}
+          style={{ transform: `rotate(${photoGalleryRotations[index]})`, animationDelay: `${index * -0.8}s` }}
+          className={`photo-scatter-item group relative overflow-hidden rounded-md border-[6px] border-white bg-white p-1 shadow-xl transition-transform duration-300 hover:z-10 hover:scale-105 hover:!rotate-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300 sm:border-[10px] ${photoGalleryLayouts[index]}`}
+          aria-label={`Afficher en grand : ${photo.alt}`}
         >
-          <div className="relative aspect-[4/3] overflow-hidden bg-[#0b0713]">
-            <img
-              src={slide.image}
-              alt={slide.title}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pt-8 text-sm font-bold text-white">
-              {slide.title}
-            </span>
-          </div>
-          <p className="p-3 text-xs leading-relaxed text-[#c4b5d9]">{truncateDescription(slide.description)}</p>
+          <img src={photo.src} alt={photo.alt} loading="lazy" className="h-full w-full object-cover" />
         </button>
       ))}
     </div>
+    <style jsx>{`
+      @keyframes photo-float {
+        0%, 100% { translate: 0 0; }
+        50% { translate: 0 -10px; }
+      }
+      .photo-scatter-item {
+        animation: photo-float 4.5s ease-in-out infinite;
+      }
+    `}</style>
   </main>
   ) : selectedGallerySlide === null ? (
   <main className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
@@ -933,6 +956,30 @@ return (
             <p className="text-xs font-semibold uppercase tracking-wider text-[#8e7dae]">🏟️ {visitedStadiums.length} stades visités</p>
           </div>
         </section>
+      </div>
+    )}
+    {selectedPhotoGalleryImage !== null && (
+      <div
+        className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-3 backdrop-blur-sm sm:p-6"
+        role="dialog"
+        aria-modal="true"
+        aria-label={photoGalleryImages[selectedPhotoGalleryImage].alt}
+        onClick={() => setSelectedPhotoGalleryImage(null)}
+      >
+        <button
+          type="button"
+          onClick={() => setSelectedPhotoGalleryImage(null)}
+          aria-label="Fermer la photo"
+          className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-black/60 text-2xl text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+        >
+          ×
+        </button>
+        <img
+          src={photoGalleryImages[selectedPhotoGalleryImage].src}
+          alt={photoGalleryImages[selectedPhotoGalleryImage].alt}
+          onClick={(event) => event.stopPropagation()}
+          className="max-h-[92vh] max-w-[96vw] object-contain shadow-2xl"
+        />
       </div>
     )}
 </div>
