@@ -9,8 +9,10 @@ export default function App() {
   const [liveStats, setLiveStats] = useState<any>({
     tiktokFollowers: '2.4K',
     tiktokLikes: '128.5K',
-    instaFollowers: '1.2K',
-    instaTrend: 'En croissance',
+    tiktokViews: 'Indisponible',
+    instaFollowers: 'Indisponible',
+    instaLikes: 'Indisponible',
+    instaViews: 'Indisponible',
   });
 
   useEffect(() => {
@@ -29,8 +31,10 @@ if (data?.tiktok) {
 setLiveStats({
 tiktokFollowers: data.tiktok.followers || '2.4K',
 tiktokLikes: data.tiktok.likes || '128.5K',
-instaFollowers: data.instagram?.followers || '1.2K',
-instaTrend: data.instagram?.trend || 'En croissance'
+tiktokViews: data.tiktok.views || 'Indisponible',
+instaFollowers: data.instagram?.followers || 'Indisponible',
+instaLikes: data.instagram?.likes || 'Indisponible',
+instaViews: data.instagram?.views || 'Indisponible'
 });
 }
 })
@@ -323,7 +327,7 @@ return (
         </div>
       </div>
     </section>
-    {/* CARD 5: STATS DE GESTION - ÉPURÉE ET CHIFFRES PRÉCIS */}
+    {/* CARD 5: STATS DE GESTION - SECTIONS DISTINCTES */}
     <section className="lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
       <div>
         <div className="flex items-center justify-between border-b border-[#261838] pb-1.5 mb-3">
@@ -333,9 +337,9 @@ return (
           </span>
         </div>
         <p className="text-[#8e7dae] font-bold uppercase text-[10px] mb-2.5">MÉDIAS « JOUR DE STADE »</p>
-        {/* TIKTOK */}
-        <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] mb-3 space-y-2">
-          <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5">
+        {/* SECTION TIKTOK */}
+        <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] mb-3 space-y-1.5">
+          <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5 mb-1">
             <div className="flex items-center gap-1.5 text-pink-400 font-bold text-xs">
               <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                 <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.115 6.34 6.34 0 0 0 1.05 8.92 6.326 6.326 0 0 0 8.807-1.743c.094-.148.18-.3.258-.456V9.13a8.216 8.216 0 0 0 4.512 1.348V7.032a4.79 4.79 0 0 1-1.003-.346z"/>
@@ -348,14 +352,18 @@ return (
             <span className="text-[#e2d9f3]">Abonnés</span>
             <span className="text-[#c084fc] font-semibold">{liveStats.tiktokFollowers}</span>
           </div>
-          <div className="flex justify-between py-0.5">
-            <span className="text-[#e2d9f3]">J'aime / Vues</span>
+          <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
+            <span className="text-[#e2d9f3]">J'aime</span>
             <span className="text-[#fbbf24] font-bold">{liveStats.tiktokLikes}</span>
           </div>
+          <div className="flex justify-between py-0.5">
+            <span className="text-[#e2d9f3]">Vues</span>
+            <span className="text-[#38bdf8] font-bold">{liveStats.tiktokViews}</span>
+          </div>
         </div>
-        {/* INSTAGRAM */}
-        <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] space-y-2">
-          <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5">
+        {/* SECTION INSTAGRAM */}
+        <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] space-y-1.5">
+          <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5 mb-1">
             <div className="flex items-center gap-1.5 text-pink-500 font-bold text-xs">
               <Instagram className="w-3.5 h-3.5" />
               <span>Instagram</span>
@@ -366,9 +374,13 @@ return (
             <span className="text-[#e2d9f3]">Abonnés</span>
             <span className="text-[#c084fc] font-semibold">{liveStats.instaFollowers}</span>
           </div>
+          <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
+            <span className="text-[#e2d9f3]">J'aime</span>
+            <span className="text-[#fbbf24] font-bold">{liveStats.instaLikes}</span>
+          </div>
           <div className="flex justify-between py-0.5">
-            <span className="text-[#e2d9f3]">Portée / Vues</span>
-            <span className="text-[#fbbf24] font-bold">{liveStats.instaTrend}</span>
+            <span className="text-[#e2d9f3]">Vues</span>
+            <span className="text-[#38bdf8] font-bold">{liveStats.instaViews}</span>
           </div>
         </div>
       </div>
