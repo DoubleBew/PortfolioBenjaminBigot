@@ -77,6 +77,7 @@ export default function App() {
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
+  const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [selectedStadium, setSelectedStadium] = useState(0);
   const [isStadiumMapExpanded, setIsStadiumMapExpanded] = useState(false);
   const [stadiumMapView, setStadiumMapView] = useState<'world' | 'santiago'>('world');
@@ -100,13 +101,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (selectedGallerySlide !== null) return;
+    if (selectedGallerySlide !== null || showPhotoGallery) return;
 
     const galleryTimer = setTimeout(() => {
       setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
     }, 5000);
     return () => clearTimeout(galleryTimer);
-  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide]);
+  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showPhotoGallery]);
 
   useEffect(() => {
     if (!isStadiumMapExpanded) return;
@@ -484,7 +485,7 @@ return (
     </div>
   </header>
   {/* Secondary Navigation Bar */}
-  {selectedGallerySlide === null ? (
+  {selectedGallerySlide === null && !showPhotoGallery ? (
     <div className="bg-[#150d21] border-b border-[#261838] px-5 py-1.5 flex items-center gap-5 text-[#8e7dae] text-xs mb-3 rounded-b-lg">
       <span className="text-[#fbbf24] font-bold border-b-2 border-[#fbbf24] pb-0.5">Vue d'ensemble</span>
       <span className="hover:text-white cursor-pointer">Mon profil</span>
@@ -498,17 +499,70 @@ return (
     <div className="bg-[#0f1021] border-b border-violet-500/30 px-5 py-2 flex items-center gap-2 text-xs mb-3 rounded-b-lg">
       <button
         type="button"
-        onClick={() => setSelectedGallerySlide(null)}
+        onClick={() => {
+          setSelectedGallerySlide(null);
+          setShowPhotoGallery(false);
+        }}
         className="font-semibold text-violet-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
       >
         Vue d&apos;ensemble
       </button>
       <span className="text-violet-400/70">&gt;</span>
-      <span className="font-semibold text-white">Infos</span>
+      {showPhotoGallery ? (
+        <span className="font-semibold text-white">Galerie</span>
+      ) : (
+        <>
+          <span className="text-violet-400/70">&gt;</span>
+          <span className="font-semibold text-white">Infos</span>
+        </>
+      )}
     </div>
   )}
   {/* Main Dashboard Layout */}
-  {selectedGallerySlide === null ? (
+  {showPhotoGallery ? (
+  <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
+    <div className="mb-5 flex items-center justify-between gap-3 border-b border-violet-400/20 pb-3">
+      <div>
+        <h1 className="text-lg font-bold text-white sm:text-xl">Galerie photo</h1>
+        <p className="mt-1 text-xs text-[#8e7dae]">{gallerySlides.length} reportages photo</p>
+      </div>
+      <button
+        type="button"
+        onClick={() => setShowPhotoGallery(false)}
+        className="rounded-lg border border-violet-400/30 px-3 py-2 text-xs font-semibold text-[#e9d5ff] transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+      >
+        Retour à l&apos;accueil
+      </button>
+    </div>
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {gallerySlides.map((slide, index) => (
+        <button
+          key={slide.title}
+          type="button"
+          onClick={() => {
+            setShowPhotoGallery(false);
+            setSelectedGallerySlide(index);
+          }}
+          className="group overflow-hidden rounded-lg border border-[#261838] bg-[#150d21] text-left transition-colors hover:border-violet-400/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+          aria-label={`Ouvrir la photo ${slide.title}`}
+        >
+          <div className="relative aspect-[4/3] overflow-hidden bg-[#0b0713]">
+            <img
+              src={slide.image}
+              alt={slide.title}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pt-8 text-sm font-bold text-white">
+              {slide.title}
+            </span>
+          </div>
+          <p className="p-3 text-xs leading-relaxed text-[#c4b5d9]">{truncateDescription(slide.description)}</p>
+        </button>
+      ))}
+    </div>
+  </main>
+  ) : selectedGallerySlide === null ? (
   <main className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
 
     {/* CARD 1: MON PROFIL */}
@@ -790,14 +844,13 @@ return (
         <p className="mt-3 text-center text-xs font-semibold leading-relaxed text-[#e2d9f3]">
           POV : donner vie aux maillots chiliens
         </p>
-        <a
-          href="https://www.tiktok.com/@jour.de.stade/video/7515221320624393477?is_from_webapp=1&sender_device=pc&web_id=7693998944007161346"
-          target="_blank"
-          rel="noreferrer"
+        <button
+          type="button"
+          onClick={() => setShowPhotoGallery(true)}
           className="mt-3 inline-flex w-full items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/15 px-4 py-2.5 text-sm font-bold text-[#e9d5ff] transition-colors hover:bg-violet-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
         >
-          Visiter sur TikTok
-        </a>
+          Visiter
+        </button>
       </div>
     </section>
   </main>
