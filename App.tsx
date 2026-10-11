@@ -348,7 +348,7 @@ return (
       </div>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
-    <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
+    <section className="lg:col-span-6 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
       <div>
         <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON HISTORIQUE</h2>
 
@@ -473,49 +473,6 @@ return (
       </div>
       <div className="border-t border-[#261838] pt-2.5 mt-3 text-[10px] text-[#8e7dae] text-center italic">
         Création de contenu, montage & écriture
-      </div>
-    </section>
-    {/* CARD 6: POSTES VACANTS - MISSIONS CIBLÉES */}
-    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
-      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">POSTES VACANTS — MISSIONS CIBLÉES</h2>
-
-      <div className="flex items-center gap-2.5 mb-3">
-        <div className="w-8 h-8 bg-[#8b5cf6] rounded-lg flex items-center justify-center font-bold text-white text-sm">
-          🎯
-        </div>
-        <div>
-          <p className="font-bold text-white text-sm">3 missions ciblées</p>
-          <p className="text-[#8e7dae] text-xs">Disponible immédiatement • Marseille & France entière</p>
-        </div>
-      </div>
-      <div className="space-y-2.5 text-xs">
-        <div className="bg-[#0b0713] p-2.5 rounded-lg border border-[#261838]">
-          <p className="font-bold text-white text-xs">Chargé de communication Sport</p>
-          <div className="flex gap-1.5 my-1.5">
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Comm. digitale</span>
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Réseaux sociaux</span>
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Création contenu</span>
-          </div>
-          <p className="text-[#fbbf24] text-xs text-right font-semibold">Priorité 1</p>
-        </div>
-        <div className="bg-[#0b0713] p-2.5 rounded-lg border border-[#261838]">
-          <p className="font-bold text-white text-xs">Responsable d'équipe</p>
-          <div className="flex gap-1.5 my-1.5">
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Management</span>
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Animation</span>
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Formation</span>
-          </div>
-          <p className="text-[#fbbf24] text-xs text-right font-semibold">Priorité 2</p>
-        </div>
-        <div className="bg-[#0b0713] p-2.5 rounded-lg border border-[#261838]">
-          <p className="font-bold text-white text-xs">Gestion de projet Sportif</p>
-          <div className="flex gap-1.5 my-1.5">
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Coordination</span>
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Événementiel</span>
-            <span className="bg-[#221435] text-[#d8b4fe] px-2 py-0.5 rounded text-[10px]">Partenariats</span>
-          </div>
-          <p className="text-[#fbbf24] text-xs text-right font-semibold">Priorité 3</p>
-        </div>
       </div>
     </section>
   </main>
