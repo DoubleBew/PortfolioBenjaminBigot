@@ -4,8 +4,29 @@ import React, { useState, useEffect } from 'react';
 import { Phone, Mail, Compass, Instagram, Globe, MessageSquare } from 'lucide-react';
 
 export default function App() {
+  const gallerySlides = [
+    {
+      image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=85',
+      title: 'Au cœur du Vélodrome',
+      description: 'L’intensité des tribunes et la passion marseillaise, au plus près du terrain.',
+      metadata: 'Photographie | Stade Vélodrome | Jour de Stade',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=85',
+      title: 'La beauté du jeu',
+      description: 'Raconter le football à travers ses ambiances, ses couleurs et ses émotions.',
+      metadata: 'Reportage | Football | Jour de Stade',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=85',
+      title: 'Sous les projecteurs',
+      description: 'Les instants qui précèdent le coup d’envoi et font vibrer tout un stade.',
+      metadata: 'Photographie | Jour de match | Jour de Stade',
+    },
+  ];
   const [time, setTime] = useState<Date>(new Date());
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
+  const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [liveStats, setLiveStats] = useState<any>({
     tiktokFollowers: '432',
     tiktokLikes: '9.0K',
@@ -20,6 +41,18 @@ export default function App() {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const galleryTimer = setInterval(() => {
+      setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
+    }, 5000);
+    return () => clearInterval(galleryTimer);
+  }, [gallerySlides.length]);
+
+  const showGallerySlide = (index: number) => {
+    setActiveGallerySlide((index + gallerySlides.length) % gallerySlides.length);
+  };
+
 // Synchro automatique des stats en direct
 useEffect(() => {
 const fetchStats = () => {
@@ -190,43 +223,61 @@ return (
         </div>
       </div>
     </section>
-    {/* CARD 2: MON CONTRAT */}
-    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
-      <div>
-        <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON CONTRAT</h2>
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 bg-[#fbbf24]/10 border border-[#fbbf24] text-[#fbbf24] rounded-lg flex items-center justify-center font-bold text-sm">
-            🛡️
-          </div>
-          <div>
-            <p className="font-bold text-white text-sm">CDI - Disponible</p>
-            <p className="text-[#8e7dae] text-xs">Recherche active depuis 2025</p>
-          </div>
+    {/* CARD 2: GALERIE & REPORTAGES */}
+    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
+      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">GALERIE &amp; REPORTAGES</h2>
+      <div
+        className="relative flex min-h-[320px] flex-1 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] bg-cover bg-center"
+        style={{ backgroundImage: `url("${gallerySlides[activeGallerySlide].image}")` }}
+        role="group"
+        aria-label={`Galerie photo: ${gallerySlides[activeGallerySlide].title}`}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0713] via-[#0b0713]/45 to-black/10" />
+        <button
+          type="button"
+          onClick={() => showGallerySlide(activeGallerySlide - 1)}
+          aria-label="Photo précédente"
+          className="absolute inset-y-0 left-0 z-10 w-1/3 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
+        />
+        <button
+          type="button"
+          onClick={() => showGallerySlide(activeGallerySlide + 1)}
+          aria-label="Photo suivante"
+          className="absolute inset-y-0 right-0 z-10 w-1/3 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#c084fc]"
+        />
+        <div className="pointer-events-none relative z-10 p-4 pt-16">
+          <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#d8b4fe]">
+            Reportage {String(activeGallerySlide + 1).padStart(2, '0')} / {String(gallerySlides.length).padStart(2, '0')}
+          </p>
+          <h3 className="mb-2 text-2xl font-bold leading-tight text-white">{gallerySlides[activeGallerySlide].title}</h3>
+          <p className="mb-4 text-xs leading-relaxed text-[#e2d9f3]">{gallerySlides[activeGallerySlide].description}</p>
+          <p className="text-[10px] font-medium text-[#c4b5d9]">{gallerySlides[activeGallerySlide].metadata}</p>
         </div>
-        <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] space-y-2 my-3">
-          <div className="flex justify-between text-[#8e7dae] text-xs">
-            <span>2025</span>
-            <span>2026</span>
-          </div>
-          <div className="w-full bg-[#1c112e] h-2 rounded-full overflow-hidden border border-[#261838]">
-            <div className="bg-[#a855f7] h-full w-1/4"></div>
-          </div>
-          <div className="flex justify-between text-xs pt-1">
-            <span className="text-[#8e7dae]">Prend fin dans :</span>
-            <span className="text-[#fbbf24] font-bold">∞ jours</span>
-          </div>
-          <div className="flex justify-between text-xs">
-            <span className="text-[#8e7dae]">Type</span>
-            <span className="text-[#e2d9f3]">Plein temps</span>
-          </div>
+        <div className="relative z-20 flex gap-1.5 px-4 pb-3 pt-2" aria-label="Sélectionner une photo">
+          {gallerySlides.map((slide, index) => (
+            <button
+              key={slide.title}
+              type="button"
+              onClick={() => showGallerySlide(index)}
+              aria-label={`Afficher la photo ${index + 1}: ${slide.title}`}
+              aria-current={index === activeGallerySlide ? 'true' : undefined}
+              className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/30"
+            >
+              {index === activeGallerySlide && <span key={activeGallerySlide} className="gallery-progress block h-full rounded-full bg-[#c084fc]" />}
+              {index < activeGallerySlide && <span className="block h-full rounded-full bg-[#c084fc]" />}
+            </button>
+          ))}
         </div>
       </div>
-      <div className="space-y-2 border-t border-[#261838] pt-3">
-        <p className="text-[#8e7dae] font-bold text-xs uppercase">CLAUSE(S)</p>
-        <p className="text-[#e2d9f3] text-xs">Mobilité Marseille / France • Télétravail partiel</p>
-        <p className="text-[#8e7dae] font-bold text-xs uppercase pt-1">PRIMES</p>
-        <p className="text-[#e2d9f3] text-xs">Performance • Engagement long terme</p>
-      </div>
+      <style jsx>{`
+        @keyframes gallery-progress {
+          from { width: 0; }
+          to { width: 100%; }
+        }
+        .gallery-progress {
+          animation: gallery-progress 5s linear forwards;
+        }
+      `}</style>
     </section>
     {/* CARD 3: MES QUALIFICATIONS */}
     <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
