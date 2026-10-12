@@ -470,7 +470,7 @@ return `${dayName} ${hours}:${minutes}:${seconds}`;
 return (
 <div className="min-h-screen bg-[#0b0713] text-[#e2d9f3] font-sans text-xs p-3 leading-normal flex flex-col justify-between" onClick={() => showFollowMenu && setShowFollowMenu(false)}>
 {/* Top Navigation Bar */}
-<header className="bg-[#150d21] border-b border-[#261838] px-4 py-2 flex items-center justify-between gap-2 rounded-t-lg shadow-inner relative">
+<header className="bg-[#150d21] border-b border-[#261838] px-4 py-2 flex flex-wrap items-center justify-between gap-2 rounded-t-lg shadow-inner relative">
   <div className="flex items-center gap-4">
     <div className="w-9 h-9 bg-[#f59e0b] rounded flex items-center justify-center font-bold text-[#0b0713] text-base border border-[#fef08a] shadow-md">
       BB
@@ -478,6 +478,18 @@ return (
     <nav className="flex items-center gap-5 font-semibold text-[#a799c4] text-sm">
       <span className="text-[#fbbf24] border-b-2 border-[#fbbf24] pb-0.5 font-bold cursor-pointer">Carrière</span>
     </nav>
+  </div>
+
+  <div className="order-3 flex w-full items-center justify-center gap-2 text-[10px] font-semibold text-[#a799c4] md:order-none md:absolute md:left-1/2 md:w-auto md:-translate-x-1/2">
+    <span>langue</span>
+    <button type="button" aria-label="Français" className="rounded px-1.5 py-1 leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300">
+      🇫🇷
+    </button>
+    <span aria-hidden="true" className="text-[#5b4a72]">|</span>
+    <button type="button" aria-label="Español" className="rounded px-1.5 py-1 leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300">
+      🇪🇸
+    </button>
+    <span>idioma</span>
   </div>
 
     <div className="flex items-center gap-4 relative">
@@ -851,7 +863,7 @@ return (
       </p>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
-    <section className="order-4 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
+    <section className="order-4 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 pb-2 shadow-xl flex flex-col">
       <div>
         <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON HISTORIQUE</h2>
 
@@ -866,55 +878,55 @@ return (
                 <th className="pb-2">Pays</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1c112e]">
+            <tbody className="divide-y divide-purple-900/30">
               <tr>
-                <td className="py-2.5 text-[#8e7dae]">2025 -</td>
-                <td className="py-2.5 font-bold text-white">Jour de Stade</td>
-                <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Réseaux sociaux</span></td>
-                <td className="py-2.5 text-[#e2d9f3]">Le monde</td>
-                <td className="py-2.5"><Globe className="w-4 h-4 text-purple-400" /></td>
+                <td className="py-4 text-[#8e7dae]">2025 -</td>
+                <td className="py-4 font-bold text-white">Jour de Stade</td>
+                <td className="py-4"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Réseaux sociaux</span></td>
+                <td className="py-4 text-[#e2d9f3]">Le monde</td>
+                <td className="py-4"><Globe className="w-4 h-4 text-purple-400" /></td>
               </tr>
               <tr>
-                <td className="py-2.5 text-[#8e7dae]">2025 -</td>
-                <td className="py-2.5 font-bold text-white">Sport 2000</td>
-                <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-                <td className="py-2.5 text-[#e2d9f3]">Marseille</td>
-                <td className="py-2.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
+                <td className="py-4 text-[#8e7dae]">2025 -</td>
+                <td className="py-4 font-bold text-white">Sport 2000</td>
+                <td className="py-4"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                <td className="py-4 text-[#e2d9f3]">Marseille</td>
+                <td className="py-4"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
               </tr>
               <tr>
-                <td className="py-2.5 text-[#8e7dae]">2025</td>
-                <td className="py-2.5 font-bold text-white">Realsport</td>
-                <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-                <td className="py-2.5 text-[#e2d9f3]">Antofagasta</td>
-                <td className="py-2.5"><img src="https://flagcdn.com/w20/cl.png" alt="Chili" className="w-4 h-auto rounded-sm" /></td>
+                <td className="py-4 text-[#8e7dae]">2025</td>
+                <td className="py-4 font-bold text-white">Realsport</td>
+                <td className="py-4"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                <td className="py-4 text-[#e2d9f3]">Antofagasta</td>
+                <td className="py-4"><img src="https://flagcdn.com/w20/cl.png" alt="Chili" className="w-4 h-auto rounded-sm" /></td>
               </tr>
               <tr>
-                <td className="py-2.5 text-[#8e7dae]">2024-25</td>
-                <td className="py-2.5 font-bold text-white">Pariwana Hostel</td>
-                <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Hôtellerie</span></td>
-                <td className="py-2.5 text-[#e2d9f3]">Santiago</td>
-                <td className="py-2.5"><img src="https://flagcdn.com/w20/cl.png" alt="Chili" className="w-4 h-auto rounded-sm" /></td>
+                <td className="py-4 text-[#8e7dae]">2024-25</td>
+                <td className="py-4 font-bold text-white">Pariwana Hostel</td>
+                <td className="py-4"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Hôtellerie</span></td>
+                <td className="py-4 text-[#e2d9f3]">Santiago</td>
+                <td className="py-4"><img src="https://flagcdn.com/w20/cl.png" alt="Chili" className="w-4 h-auto rounded-sm" /></td>
               </tr>
               <tr>
-                <td className="py-2.5 text-[#8e7dae]">2019-24</td>
-                <td className="py-2.5 font-bold text-white">Decathlon</td>
-                <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
-                <td className="py-2.5 text-[#e2d9f3]">Marseille</td>
-                <td className="py-2.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
+                <td className="py-4 text-[#8e7dae]">2019-24</td>
+                <td className="py-4 font-bold text-white">Decathlon</td>
+                <td className="py-4"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Retail Sport</span></td>
+                <td className="py-4 text-[#e2d9f3]">Marseille</td>
+                <td className="py-4"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
               </tr>
               <tr>
-                <td className="py-2.5 text-[#8e7dae]">2018</td>
-                <td className="py-2.5 font-bold text-white">Rugby Club Flers P.B.</td>
-                <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Stage</span></td>
-                <td className="py-2.5 text-[#e2d9f3]">Flers</td>
-                <td className="py-2.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
+                <td className="py-4 text-[#8e7dae]">2018</td>
+                <td className="py-4 font-bold text-white">Rugby Club Flers P.B.</td>
+                <td className="py-4"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Stage</span></td>
+                <td className="py-4 text-[#e2d9f3]">Flers</td>
+                <td className="py-4"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
               </tr>
               <tr>
-                <td className="py-2.5 text-[#8e7dae]">2013-15</td>
-                <td className="py-2.5 font-bold text-white">Crédit Agricole</td>
-                <td className="py-2.5"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Alternance</span></td>
-                <td className="py-2.5 text-[#e2d9f3]">La Ferté Macé</td>
-                <td className="py-2.5"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
+                <td className="py-4 text-[#8e7dae]">2013-15</td>
+                <td className="py-4 font-bold text-white">Crédit Agricole</td>
+                <td className="py-4"><span className="bg-[#221435] px-2 py-0.5 rounded text-[#d8b4fe]">Alternance</span></td>
+                <td className="py-4 text-[#e2d9f3]">La Ferté Macé</td>
+                <td className="py-4"><img src="https://flagcdn.com/w20/fr.png" alt="France" className="w-4 h-auto rounded-sm" /></td>
               </tr>
             </tbody>
           </table>
