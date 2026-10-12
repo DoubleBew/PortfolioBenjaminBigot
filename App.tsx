@@ -315,14 +315,14 @@ export default function App() {
                       aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
                       aria-pressed={selectedStadium === stadiumIndex}
                       title={`${stadium.name} - ${stadium.city}`}
-                      className={`absolute z-10 flex h-4 w-4 items-center justify-center rounded-full text-[9px] leading-none transition-transform hover:scale-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === stadiumIndex ? 'bg-violet-500 ring-1 ring-white/80' : 'bg-[#150d21]/80'}`}
+                      className="group absolute z-10 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-black/30 transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                       style={{
                         left: width / 2 + stadiumX - centerX,
                         top: height / 2 + stadiumY - centerY,
                         transform: 'translate(-50%, -50%)',
                       }}
                     >
-                      🏟️
+                      <span className={`block rounded-full border border-white shadow-[0_0_4px_rgba(0,0,0,0.9)] ${selectedStadium === stadiumIndex ? 'h-2 w-2 bg-red-500 ring-1 ring-red-300/70' : 'h-1.5 w-1.5 bg-red-500'}`} />
                     </button>
                   );
                 })}
@@ -347,14 +347,14 @@ export default function App() {
               aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
               aria-pressed={selectedStadium === index}
               title={`${stadium.name} - ${stadium.city}`}
-              className={`absolute z-10 flex h-4 w-4 items-center justify-center rounded-full text-[9px] leading-none transition-transform hover:scale-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-1 ring-white/80' : 'bg-[#150d21]/80'}`}
+              className="absolute z-10 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-black/30 transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
               style={{
                 left: `${((stadium.lon + 180) / 360) * 100}%`,
                 top: `${((90 - stadium.lat) / 180) * 100}%`,
                 transform: 'translate(-50%, -50%)',
               }}
             >
-              🏟️
+              <span className={`block rounded-full border border-white shadow-[0_0_4px_rgba(0,0,0,0.9)] ${selectedStadium === index ? 'h-2 w-2 bg-red-500 ring-1 ring-red-300/70' : 'h-1.5 w-1.5 bg-red-500'}`} />
             </button>
           ))}
         </div>
@@ -380,14 +380,14 @@ export default function App() {
           aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
           aria-pressed={selectedStadium === index}
           title={`${stadium.name} - ${stadium.city}`}
-          className={`absolute z-10 flex h-4 w-4 items-center justify-center rounded-full text-[9px] leading-none transition-transform hover:scale-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white ${selectedStadium === index ? 'bg-violet-500 ring-1 ring-white/80' : 'bg-[#150d21]/80'}`}
+          className="absolute z-10 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-black/30 transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
           style={{
             left: `${((stadium.lon + 180) / 360) * 100}%`,
             top: `${((90 - stadium.lat) / 180) * 100}%`,
             transform: 'translate(-50%, -50%)',
           }}
         >
-          🏟️
+          <span className={`block rounded-full border border-white shadow-[0_0_4px_rgba(0,0,0,0.9)] ${selectedStadium === index ? 'h-2 w-2 bg-red-500 ring-1 ring-red-300/70' : 'h-1.5 w-1.5 bg-red-500'}`} />
         </button>
       ))}
       {expanded && (
@@ -822,7 +822,13 @@ return (
     {/* CARD 3: CARTE INTERACTIVE */}
     <section className="order-5 lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-2">Carte interactive / Stades visités</h2>
-      <p className="text-[#8e7dae] text-[10px] mb-2">Cliquez sur la carte pour agrandir · Sélectionnez un stade</p>
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        <p className="text-[#8e7dae] text-[10px]">Cliquez sur la carte pour agrandir · Sélectionnez un stade</p>
+        <div className="flex items-center gap-3 text-[10px] font-semibold text-[#c4b5d9]">
+          <span><strong className="text-white">{visitedStadiums.length}</strong> stades</span>
+          <span><strong className="text-white">{new Set(visitedStadiums.map((stadium) => stadium.country)).size}</strong> pays</span>
+        </div>
+      </div>
       {renderStadiumMap()}
       <label htmlFor="stadium-selector" className="mt-3 block text-[10px] font-semibold uppercase tracking-wider text-[#8e7dae]">Choisir un stade</label>
       <select
@@ -840,7 +846,8 @@ return (
         <p className="mt-1 text-[11px] text-[#c4b5d9]">{visitedStadiums[selectedStadium].city} · {visitedStadiums[selectedStadium].country}</p>
       </div>
       <p className="mt-2 text-center text-[10px] font-semibold uppercase tracking-wider text-[#8e7dae]">
-        🏟️ {visitedStadiums.length} stades visités
+        <span className="inline-block h-2 w-2 rounded-full border border-white bg-red-500 align-middle shadow-[0_0_5px_rgba(239,68,68,0.8)]" />{' '}
+        Point rouge : stade visité · {visitedStadiums.length} au total
       </p>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
@@ -911,6 +918,30 @@ return (
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div className="mt-4 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3">
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <h3 className="text-[10px] font-bold uppercase tracking-wider text-violet-300">Les grandes étapes</h3>
+          <span className="rounded-full border border-violet-400/20 bg-[#221435] px-2 py-0.5 text-[9px] font-semibold text-[#d8b4fe]">7 expériences</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="border-l-2 border-violet-400/60 pl-2">
+            <p className="text-[10px] font-bold text-white">2013–2015</p>
+            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Crédit Agricole · Alternance</p>
+          </div>
+          <div className="border-l-2 border-pink-400/60 pl-2">
+            <p className="text-[10px] font-bold text-white">2018</p>
+            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Rugby Club Flers P.B. · Stage</p>
+          </div>
+          <div className="border-l-2 border-sky-400/60 pl-2">
+            <p className="text-[10px] font-bold text-white">2019–2025</p>
+            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Sport, retail &amp; hôtellerie</p>
+          </div>
+          <div className="border-l-2 border-amber-400/60 pl-2">
+            <p className="text-[10px] font-bold text-white">Depuis 2025</p>
+            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Jour de Stade · Réseaux sociaux</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1077,7 +1108,10 @@ return (
               <p className="text-sm font-bold leading-snug text-white">{visitedStadiums[selectedStadium].name}</p>
               <p className="mt-1 text-xs text-[#c4b5d9]">{visitedStadiums[selectedStadium].city} · {visitedStadiums[selectedStadium].country}</p>
             </div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#8e7dae]">🏟️ {visitedStadiums.length} stades visités</p>
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#8e7dae]">
+              <span className="inline-block h-2 w-2 rounded-full border border-white bg-red-500" />
+              {visitedStadiums.length} stades visités
+            </p>
           </div>
         </section>
       </div>
