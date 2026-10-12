@@ -116,6 +116,7 @@ export default function App() {
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
+  const [showDiplomas, setShowDiplomas] = useState(false);
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [showLegalNotices, setShowLegalNotices] = useState(false);
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
@@ -475,11 +476,6 @@ return (
       BB
     </div>
     <nav className="flex items-center gap-5 font-semibold text-[#a799c4] text-sm">
-      <span className="hover:text-white cursor-pointer">Portail</span>
-      <span className="hover:text-white cursor-pointer">Effectif</span>
-      <span className="hover:text-white cursor-pointer">Recrutement</span>
-      <span className="hover:text-white cursor-pointer">Jour de match</span>
-      <span className="hover:text-white cursor-pointer">Club</span>
       <span className="text-[#fbbf24] border-b-2 border-[#fbbf24] pb-0.5 font-bold cursor-pointer">Carrière</span>
     </nav>
   </div>
@@ -545,11 +541,6 @@ return (
       >
         Mentions légales
       </button>
-      <span className="hover:text-white cursor-pointer">Mon contrat</span>
-      <span className="hover:text-white cursor-pointer">Mes badges</span>
-      <span className="hover:text-white cursor-pointer">Mes rapports</span>
-      <span className="hover:text-white cursor-pointer">Mon historique</span>
-      <span className="hover:text-white cursor-pointer">Stats de gestion</span>
     </div>
   ) : (
     <div className="bg-[#0f1021] border-b border-violet-500/30 px-5 py-2 flex items-center gap-2 text-xs mb-3 rounded-b-lg">
@@ -710,7 +701,26 @@ return (
               <span className="text-[#c084fc] font-semibold text-xs">● Créatif</span>
             </div>
             <p className="text-[#c084fc] font-semibold text-xs mt-1">Licence STAPS / Management du sport</p>
-            <p className="text-[#8e7dae] text-[11px]">+ 2 autres diplômes</p>
+            <div className="relative mt-1">
+              <button
+                type="button"
+                onClick={() => setShowDiplomas((current) => !current)}
+                aria-expanded={showDiplomas}
+                className="text-left text-[11px] text-[#8e7dae] underline decoration-dotted underline-offset-2 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+              >
+                + 2 autres diplômes
+              </button>
+              {showDiplomas && (
+                <div className="absolute left-0 top-full z-20 mt-2 w-52 rounded-lg border border-violet-400/30 bg-[#0f1021] p-2.5 shadow-xl">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-violet-300">Mes diplômes</p>
+                  <ul className="mt-1.5 space-y-1 text-[11px] text-[#e2d9f3]">
+                    <li>Baccalauréat ES</li>
+                    <li>BTS Banque</li>
+                    <li>Licence STAPS / Management du sport</li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className="border-t border-[#261838] pt-3 space-y-2">
@@ -730,6 +740,10 @@ return (
           <div className="flex justify-between items-center py-1">
             <span className="text-[#e2d9f3] flex items-center gap-2"><Compass className="w-3.5 h-3.5 text-[#a855f7]"/> Recherche poste de Chargé de communication / Chargé de projet</span>
             <span className="text-[#fbbf24] font-semibold">Ouvert</span>
+          </div>
+          <div className="flex items-center gap-2 py-1 text-[#e2d9f3]">
+            <Compass className="w-3.5 h-3.5 shrink-0 text-[#a855f7]" />
+            <span>Mobilité : Partout dans le monde</span>
           </div>
         </div>
       </div>
