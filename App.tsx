@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Phone, Mail, Compass, Instagram, Globe, MessageSquare } from 'lucide-react';
+import { translate, type Language } from './translations';
 
 export default function App() {
   const gallerySlides = [
@@ -113,6 +114,7 @@ export default function App() {
     'col-span-2 lg:col-span-3 aspect-[3/2]',
   ];
   const [time, setTime] = useState<Date>(new Date());
+  const [language, setLanguage] = useState<Language>('FR');
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
@@ -134,6 +136,20 @@ export default function App() {
     instaFollowers: '140',
     instaViews: '23.5K+',
   });
+  const localizeNode = (node: React.ReactNode): React.ReactNode => {
+    if (typeof node === 'string') return translate(node, language);
+    if (Array.isArray(node)) return node.map(localizeNode);
+    if (!React.isValidElement<{ [key: string]: unknown; children?: React.ReactNode }>(node)) return node;
+
+    const props = { ...node.props };
+    if (props.children !== undefined) props.children = localizeNode(props.children);
+    ['alt', 'aria-label', 'placeholder', 'title'].forEach((attribute) => {
+      if (typeof props[attribute] === 'string') {
+        props[attribute] = translate(props[attribute], language);
+      }
+    });
+    return React.cloneElement(node, props);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -459,7 +475,9 @@ return `${day}/${month}/${year}`;
 };
 
 const formatTime = (date: Date) => {
-const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+const days = language === 'FR'
+  ? ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
+  : ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 const dayName = days[date.getDay()];
 const hours = String(date.getHours()).padStart(2, '0');
 const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -467,8 +485,8 @@ const seconds = String(date.getSeconds()).padStart(2, '0');
 return `${dayName} ${hours}:${minutes}:${seconds}`;
 };
 
-return (
-<div className="min-h-screen bg-[#0b0713] text-[#e2d9f3] font-sans text-xs p-3 leading-normal flex flex-col justify-between" onClick={() => showFollowMenu && setShowFollowMenu(false)}>
+const appContent = (
+<div lang={language === 'FR' ? 'fr' : 'es'} className="min-h-screen bg-[#0b0713] text-[#e2d9f3] font-sans text-xs p-3 leading-normal flex flex-col justify-between" onClick={() => showFollowMenu && setShowFollowMenu(false)}>
 {/* Top Navigation Bar */}
 <header className="bg-[#150d21] border-b border-[#261838] px-4 py-2 flex flex-wrap items-center justify-between gap-2 rounded-t-lg shadow-inner relative">
   <div className="flex items-center gap-4">
@@ -482,11 +500,11 @@ return (
 
   <div className="order-3 flex w-full items-center justify-center gap-2 text-[10px] font-semibold text-[#a799c4] md:order-none md:absolute md:left-1/2 md:w-auto md:-translate-x-1/2">
     <span>langue</span>
-    <button type="button" aria-label="Français" className="rounded px-1.5 py-1 leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300">
+    <button type="button" onClick={() => setLanguage('FR')} aria-label="Français" aria-pressed={language === 'FR'} className={`rounded px-1.5 py-1 leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300 ${language === 'FR' ? 'bg-violet-500/20 ring-1 ring-violet-300/50' : ''}`}>
       🇫🇷
     </button>
     <span aria-hidden="true" className="text-[#5b4a72]">|</span>
-    <button type="button" aria-label="Español" className="rounded px-1.5 py-1 leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300">
+    <button type="button" onClick={() => setLanguage('ES')} aria-label="Español" aria-pressed={language === 'ES'} className={`rounded px-1.5 py-1 leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300 ${language === 'ES' ? 'bg-violet-500/20 ring-1 ring-violet-300/50' : ''}`}>
       🇪🇸
     </button>
     <span>idioma</span>
@@ -802,7 +820,7 @@ return (
             Reportage {String(activeGallerySlide + 1).padStart(2, '0')} / {String(gallerySlides.length).padStart(2, '0')}
           </p>
           <h3 className="mb-2 text-2xl font-bold leading-tight text-white">{gallerySlides[activeGallerySlide].title}</h3>
-          <p className="mb-4 text-xs leading-relaxed text-[#e2d9f3]">{truncateDescription(gallerySlides[activeGallerySlide].description)}</p>
+          <p className="mb-4 text-xs leading-relaxed text-[#e2d9f3]">{truncateDescription(translate(gallerySlides[activeGallerySlide].description, language))}</p>
           <p className="text-[10px] font-medium text-[#c4b5d9]">{gallerySlides[activeGallerySlide].metadata}</p>
         </div>
         <div className="relative z-20 flex gap-1.5 px-4 pb-3 pt-2" aria-label="Sélectionner une photo">
@@ -1159,4 +1177,5 @@ return (
     )}
 </div>
 );
+return language === 'ES' ? localizeNode(appContent) : appContent;
 }
