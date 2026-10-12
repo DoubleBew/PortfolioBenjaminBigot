@@ -768,7 +768,11 @@ const appContent = (
             <span className="text-[#34d399] font-semibold">Actif</span>
           </div>
           <div className="flex justify-between items-center py-1">
-            <span className="text-[#e2d9f3] flex items-center gap-2"><Compass className="w-3.5 h-3.5 text-[#a855f7]"/> Recherche poste de Chargé de communication / Chargé de projet</span>
+            <span className="text-[#e2d9f3] flex items-center gap-2">
+              <Compass className="w-3.5 h-3.5 text-[#a855f7]"/>
+              {translate('Recherche poste de ', language)}
+              {translate('Chargé de communication', language)} / {translate('Chargé de projet', language)}
+            </span>
             <span className="text-[#fbbf24] font-semibold">Ouvert</span>
           </div>
           <div className="flex items-center gap-2 py-1 text-[#e2d9f3]">
@@ -950,30 +954,6 @@ const appContent = (
           </table>
         </div>
       </div>
-      <div className="mt-4 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3">
-        <div className="mb-3 flex items-center justify-between gap-2">
-          <h3 className="text-[10px] font-bold uppercase tracking-wider text-violet-300">Les grandes étapes</h3>
-          <span className="rounded-full border border-violet-400/20 bg-[#221435] px-2 py-0.5 text-[9px] font-semibold text-[#d8b4fe]">7 expériences</span>
-        </div>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="border-l-2 border-violet-400/60 pl-2">
-            <p className="text-[10px] font-bold text-white">2013–2015</p>
-            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Crédit Agricole · Alternance</p>
-          </div>
-          <div className="border-l-2 border-pink-400/60 pl-2">
-            <p className="text-[10px] font-bold text-white">2018</p>
-            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Rugby Club Flers P.B. · Stage</p>
-          </div>
-          <div className="border-l-2 border-sky-400/60 pl-2">
-            <p className="text-[10px] font-bold text-white">2019–2025</p>
-            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Sport, retail &amp; hôtellerie</p>
-          </div>
-          <div className="border-l-2 border-amber-400/60 pl-2">
-            <p className="text-[10px] font-bold text-white">Depuis 2025</p>
-            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Jour de Stade · Réseaux sociaux</p>
-          </div>
-        </div>
-      </div>
     </section>
     {/* CARD 5: STATS DE GESTION - DONNÉES RÉELLES VÉRIFIÉES */}
     <section className="order-3 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
@@ -1140,7 +1120,7 @@ const appContent = (
             </div>
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#8e7dae]">
               <span className="inline-block h-2 w-2 rounded-full border border-white bg-red-500" />
-              {visitedStadiums.length} stades visités
+              {visitedStadiums.length} {translate('stades visités', language)}
             </p>
           </div>
         </section>
