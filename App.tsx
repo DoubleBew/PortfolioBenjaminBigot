@@ -113,7 +113,6 @@ export default function App() {
     'col-span-2 lg:col-span-3 aspect-[3/2]',
   ];
   const [time, setTime] = useState<Date>(new Date());
-  const [language, setLanguage] = useState<'fr' | 'es'>('fr');
   const [showFollowMenu, setShowFollowMenu] = useState<boolean>(false);
   const [activeGallerySlide, setActiveGallerySlide] = useState(0);
   const [selectedGallerySlide, setSelectedGallerySlide] = useState<number | null>(null);
@@ -135,192 +134,6 @@ export default function App() {
     instaFollowers: '140',
     instaViews: '23.5K+',
   });
-  const spanishTranslations: Record<string, string> = {
-    'Idioma': 'Idioma',
-    'Français': 'Francés',
-    'Español': 'Español',
-    '🇫🇷': '🇫🇷',
-    '🇪🇸': '🇪🇸',
-    'Me suivre »': 'Sígueme »',
-    'Réseaux Jour de Stade': 'Redes de Jour de Stade',
-    'Vue d’ensemble': 'Inicio',
-    "Vue d'ensemble": 'Inicio',
-    'Mentions légales': 'Aviso legal',
-    'Galerie': 'Galería',
-    'Infos': 'Información',
-    'Mes photos': 'Mis fotos',
-    "Cliquez sur une photo pour l'afficher en grand.": 'Haz clic en una foto para verla en grande.',
-    "Retour à l'accueil": 'Volver al inicio',
-    'Pourquoi Jour de Stade ?': '¿Por qué Jour de Stade?',
-    "Jour de Stade est né lors de mon voyage au Chili, où j'ai vécu un an. Ma passion pour le football m'a poussé à découvrir le plus de stades possible. Le but était alors de capturer les plus belles images possible avec mon appareil photo, et de faire des vidéos en format court sur TikTok et Instagram. Raconter le football chilien sous différentes formes : vidéos explicatives, trends, interactions. Les retours que j'ai reçus m'ont poussé à continuer. Ainsi, je peux partager ma passion initiale pour le football et faire découvrir ce championnat méconnu en Europe.": "Jour de Stade nació durante mi viaje a Chile, donde viví un año. Mi pasión por el fútbol me llevó a descubrir tantos estadios como fuera posible. Quería capturar las mejores imágenes con mi cámara y crear vídeos cortos para TikTok e Instagram. Contar el fútbol chileno de distintas formas: vídeos explicativos, tendencias e interacciones. La respuesta que recibí me animó a continuar. Así puedo compartir mi pasión por el fútbol y dar a conocer en Europa este campeonato poco conocido.",
-    'Réseaux sociaux / Monde / Jour de Stade': 'Redes sociales / Mundo / Jour de Stade',
-    'Raconter le football chilien': 'Contar el fútbol chileno',
-    "Regarder le football d'une autre manière. À travers la photographie, je souhaite faire connaître ce championnat encore méconnu en Europe. Au-delà de l'aspect du jeu, le but est de faire connaître le côté culturel du pays via le football. Rendre beau le football chilien.": 'Mirar el fútbol de otra manera. A través de la fotografía, quiero dar a conocer este campeonato todavía poco conocido en Europa. Más allá del juego, quiero mostrar la cultura del país a través del fútbol y revelar la belleza del fútbol chileno.',
-    'Photographie / Chili / Jour de Stade': 'Fotografía / Chile / Jour de Stade',
-    'Trouver le cliché parfait.': 'Encontrar la foto perfecta.',
-    'Le football chilien manque de moyen, la vétusté des stades en est la preuve. Cependant, ils ne manquent pas de charme de par leur architecture et leur emplacement. À Antofagasta, il est impossible de passer à côté de l’Estadio Regional Calvo y Bascuñán, aux couleurs du club.': 'Al fútbol chileno le faltan recursos, como demuestra el estado de sus estadios. Sin embargo, su arquitectura y ubicación les dan mucho encanto. En Antofagasta, es imposible pasar por alto el Estadio Regional Calvo y Bascuñán, con los colores del club.',
-    'Photographie / Estadio Regional Calvo y Bascuñán / Jour de Stade': 'Fotografía / Estadio Regional Calvo y Bascuñán / Jour de Stade',
-    'Immortaliser l’atmosphère': 'Inmortalizar el ambiente',
-    'Raconter l’ambiance à travers une photo et rêver. La Universidad de Chile, club historique et le deuxième plus titré, est un régal pour les amateurs d’ambiance électrique.': 'Contar el ambiente con una foto y soñar. Universidad de Chile, club histórico y segundo más laureado, es un espectáculo para quienes disfrutan de un ambiente electrizante.',
-    'Photographie / Estadio Nacional / Jour de Stade': 'Fotografía / Estadio Nacional / Jour de Stade',
-    'Histoire et football': 'Historia y fútbol',
-    'Le football est un formidable moyen de connaître l’histoire du pays. À l’image de Palestino, le club raconte une partie de l’immigration chilienne et aide à comprendre sa démographie actuelle.': 'El fútbol es una forma extraordinaria de conocer la historia de un país. Palestino, por ejemplo, cuenta una parte de la historia de la inmigración chilena y ayuda a comprender su demografía actual.',
-    'Photographie / Estadio municipal de la Cisterna / Jour de Stade': 'Fotografía / Estadio municipal de la Cisterna / Jour de Stade',
-    'Football et culture générale': 'Fútbol y cultura general',
-    'Pourquoi el "Estadio Zorros del desierto" s’appelle ainsi ? Pourquoi Cobreloa s’appelle ainsi ? Tant de choses à connaître via le football. Il s’agit ici du club professionnel de la ville de Calama.': '¿Por qué se llama así el Estadio Zorros del Desierto? ¿Y por qué Cobreloa tiene ese nombre? El fútbol permite descubrir muchas cosas. Aquí vemos al club profesional de la ciudad de Calama.',
-    'Photographie / Estadio Zorros del desierto / Jour de Stade': 'Fotografía / Estadio Zorros del Desierto / Jour de Stade',
-    "L'OM et le Chili": 'El OM y Chile',
-    "Faire connaître l'Olympique de Marseille aux Chiliens me tient à cœur. Ayant connu le Chili un an, je trouve beaucoup de similitudes entre les clubs chiliens et l'OM, deux clubs à très forte identité.": 'Me importa dar a conocer el Olympique de Marseille a los chilenos. Tras vivir un año en Chile, encuentro muchas similitudes entre sus clubes y el OM: ambos tienen una identidad muy marcada.',
-    'Photographie / Stade Vélodrome / Jour de Stade': 'Fotografía / Stade Vélodrome / Jour de Stade',
-    'Football et culture': 'Fútbol y cultura',
-    'À l'image de Colo-Colo, chaque club raconte, à sa façon, l'histoire du pays. La culture Mapuche est très présente et revendiquée chez "l'éterno campéon".': 'Como Colo-Colo, cada club cuenta a su manera la historia del país. La cultura mapuche está muy presente y es reivindicada por el «eterno campeón».',
-    'Photographie / Estadio Monumental / Jour De Stade': 'Fotografía / Estadio Monumental / Jour de Stade',
-    'Agrandir la carte interactive des stades visités': 'Ampliar el mapa interactivo de estadios visitados',
-    'Afficher la carte des stades de Santiago': 'Mostrar el mapa de los estadios de Santiago',
-    'Revenir à la carte du monde': 'Volver al mapa del mundo',
-    'Dézoomer la carte': 'Alejar el mapa',
-    'Zoomer la carte': 'Acercar el mapa',
-    'Monde': 'Mundo',
-    'Visiteurs': 'Visitantes',
-    'Carrière': 'Carrera',
-    'Jour de Stade est né': 'Jour de Stade nació',
-    'Reportage ': 'Reportaje ',
-    'Sélectionner une photo': 'Seleccionar una foto',
-    'Afficher la photo ': 'Mostrar la foto ',
-    'Afficher les informations de ': 'Mostrar información sobre ',
-    'Carte interactive / Stades visités': 'Mapa interactivo / Estadios visitados',
-    'Choisir un stade': 'Elegir un estadio',
-    'stades': 'estadios',
-    'Point rouge : stade visité · ': 'Punto rojo: estadio visitado · ',
-    ' au total': ' en total',
-    'MON HISTORIQUE': 'MI HISTORIAL',
-    'Année': 'Año',
-    'Équipe': 'Equipo',
-    'Championnat': 'Sector',
-    'Position': 'Ubicación',
-    'Pays': 'País',
-    'Réseaux sociaux': 'Redes sociales',
-    'Le monde': 'El mundo',
-    'Retail Sport': 'Comercio deportivo',
-    'Hôtellerie': 'Hostelería',
-    'Stage': 'Prácticas',
-    'Alternance': 'Formación dual',
-    'Les grandes étapes': 'Etapas principales',
-    '7 expériences': '7 experiencias',
-    'Depuis 2025': 'Desde 2025',
-    'Crédit Agricole · Alternance': 'Crédit Agricole · Formación dual',
-    'Rugby Club Flers P.B. · Stage': 'Rugby Club Flers P.B. · Prácticas',
-    'Sport, retail & hôtellerie': 'Deporte, comercio y hostelería',
-    'Jour de Stade · Réseaux sociaux': 'Jour de Stade · Redes sociales',
-    'STATS DE GESTION': 'ESTADÍSTICAS',
-    'LIVE': 'EN VIVO',
-    'MÉDIAS « JOUR DE STADE »': 'REDES DE « JOUR DE STADE »',
-    'Abonnés': 'Seguidores',
-    "J'aime": 'Me gusta',
-    'Vues': 'Visualizaciones',
-    'Création de contenu, montage & écriture': 'Creación de contenido, edición y redacción',
-    'POV : donner vie aux maillots chiliens': 'POV: dar vida a las camisetas chilenas',
-    'Visiter': 'Visitar',
-    'Éditeur du site': 'Titular del sitio',
-    'Hébergement': 'Alojamiento',
-    'Propriété intellectuelle': 'Propiedad intelectual',
-    'Données personnelles et confidentialité': 'Datos personales y privacidad',
-    'Services tiers et crédits': 'Servicios de terceros y créditos',
-    'Disponible': 'Disponible',
-    'Actif': 'Activo',
-    'Ouvert': 'Disponible',
-    'CONTACTS': 'CONTACTO',
-    'Tendances': 'Aptitudes',
-    'Adaptabilité': 'Adaptabilidad',
-    'Force de proposition': 'Iniciativa',
-    'Autodidacte': 'Autodidacta',
-    'MON PROFIL': 'MI PERFIL',
-    '31 ans (27/03/1995)': '31 años (27/03/1995)',
-    'Réputation :': 'Reputación:',
-    'Créatif': 'Creativo',
-    'Mes diplômes': 'Mis títulos',
-    '+ 2 autres diplômes': '+ 2 títulos más',
-    'Baccalauréat ES': 'Bachillerato ES',
-    'BTS Banque': 'Técnico superior en Banca',
-    'Licence STAPS / Management du sport': 'Grado STAPS / Gestión deportiva',
-    'Partout dans le monde': 'En todo el mundo',
-    'Ce qu’il faut savoir': 'Lo que hay que saber',
-    'Cliquez sur la carte pour agrandir · Sélectionnez un stade': 'Haz clic en el mapa para ampliarlo · Selecciona un estadio',
-    'Informations relatives à l’édition et à l’utilisation de ce site.': 'Información sobre la edición y el uso de este sitio.',
-    'Benjamin Bigot, personne physique et directeur de la publication': 'Benjamin Bigot, persona física y director de la publicación',
-    '41 Chemin de l’Armée d’Afrique, 13005 Marseille, France': '41 Chemin de l’Armée d’Afrique, 13005 Marsella, Francia',
-    'Vercel Inc.': 'Vercel Inc.',
-    '340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis': '340 S Lemon Ave #4133, Walnut, CA 91789, Estados Unidos',
-    'Sauf mention contraire, les textes, photographies et autres contenus originaux de ce site sont la propriété de Benjamin Bigot. Toute reproduction ou réutilisation sans autorisation préalable est interdite, sous réserve des exceptions prévues par la loi.': 'Salvo que se indique lo contrario, los textos, fotografías y demás contenidos originales de este sitio son propiedad de Benjamin Bigot. Queda prohibida su reproducción o reutilización sin autorización previa, sin perjuicio de las excepciones previstas por la ley.',
-    '© 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.': '© 2026 Benjamin Bigot — Todos los derechos reservados. Fotografías y contenidos originales.',
-    'Le responsable du traitement est Benjamin Bigot, joignable à l’adresse ': 'El responsable del tratamiento es Benjamin Bigot, a quien puede contactar en ',
-    '. Ce site ne comporte ni espace membre ni formulaire de collecte. Les données techniques de connexion peuvent être traitées par l’hébergeur pour diffuser et sécuriser le site ; elles ne sont pas conservées directement par l’éditeur. Leur durée de conservation dépend des paramètres et des pratiques de Vercel, décrites dans sa ': '. Este sitio no tiene área de usuario ni formulario de recogida de datos. El proveedor de alojamiento puede tratar datos técnicos de conexión para publicar y proteger el sitio; el editor no los conserva directamente. Su periodo de conservación depende de la configuración y las prácticas de Vercel, descritas en su ',
-    'notice de confidentialité': 'aviso de privacidad',
-    'Les ressources tierces sont fournies par TikTok (vidéo), OpenStreetMap (tuiles cartographiques) et FlagCDN (drapeaux). Leur chargement peut transmettre des données techniques, notamment l’adresse IP, aux fournisseurs concernés. Vercel Inc. étant établi aux États-Unis, des transferts de données hors de l’Espace économique européen peuvent avoir lieu. Les liens vers les réseaux sociaux ne transmettent des informations à ces services que lorsque vous les ouvrez.': 'Los recursos de terceros los proporcionan TikTok (vídeo), OpenStreetMap (mapas) y FlagCDN (banderas). Al cargarlos, pueden transmitirse datos técnicos, incluida la dirección IP, a los proveedores correspondientes. Como Vercel Inc. está establecida en Estados Unidos, pueden producirse transferencias de datos fuera del Espacio Económico Europeo. Los enlaces a redes sociales solo transmiten información a esos servicios cuando usted los abre.',
-    'Ce site ne met pas en œuvre de mesure d’audience propre. Les lecteurs ou ressources tiers peuvent utiliser des cookies ou autres traceurs selon leurs propres pratiques ; le blocage des cookies tiers dans votre navigateur peut limiter certaines fonctionnalités. Pour exercer vos droits d’accès, de rectification, d’effacement, de limitation ou d’opposition, contactez l’éditeur par e-mail. Vous pouvez également adresser une réclamation à la ': 'Este sitio no realiza mediciones de audiencia propias. Los reproductores y recursos de terceros pueden utilizar cookies u otros rastreadores según sus propias prácticas; bloquear las cookies de terceros en el navegador puede limitar algunas funciones. Para ejercer sus derechos de acceso, rectificación, supresión, limitación u oposición, contacte con el editor por correo electrónico. También puede presentar una reclamación ante la ',
-    'politique de confidentialité TikTok': 'política de privacidad de TikTok',
-    'politique de confidentialité OpenStreetMap': 'política de privacidad de OpenStreetMap',
-    'crédits cartographiques': 'créditos cartográficos',
-    'Drapeaux : ': 'Banderas: ',
-    'Vidéo : ': 'Vídeo: ',
-    'Cartographie : ': 'Cartografía: ',
-    'La photo ': 'La foto ',
-    'Stade visité': 'Estadio visitado',
-    'stades visités': 'estadios visitados',
-    'France': 'Francia',
-    'Chili': 'Chile',
-    'Bulgarie': 'Bulgaria',
-    'Italie': 'Italia',
-    'Dim': 'Dom',
-    'Mar': 'Mar',
-    'Mer': 'Mié',
-    'Jeu': 'Jue',
-    'Ven': 'Vie',
-    'Sam': 'Sáb',
-    'Cette page présente le parcours, les expériences et les contenus de Benjamin Bigot.': 'Esta página presenta la trayectoria, las experiencias y los contenidos de Benjamin Bigot.',
-    'Galerie photo: ': 'Galería de fotos: ',
-    'Ajouter': 'Añadir',
-    'diplômes': 'títulos',
-    'Recherche poste de Chargé de communication / Chargé de projet': 'Busco un puesto en comunicación o gestión de proyectos',
-    'Mobilité : Partout dans le monde': 'Disponibilidad geográfica: en todo el mundo',
-    'Reputation': 'Reputación',
-    'Carte des stades visités': 'Mapa de estadios visitados',
-    'Afficher la carte détaillée de Santiago, puis zoomez ou déplacez-la. Sélectionnez un marqueur pour afficher le stade.': 'Muestre el mapa detallado de Santiago y luego acérquelo o desplácelo. Seleccione un marcador para ver el estadio.',
-    'Vidéos de Jour de Stade sur les maillots chiliens': 'Vídeos de Jour de Stade sobre las camisetas chilenas',
-    "Ce qu'il faut savoir": 'Lo que hay que saber',
-    'Téléphone : ': 'Teléfono: ',
-    'E-mail : ': 'Correo electrónico: ',
-    'Assistance : ': 'Ayuda: ',
-    'Aviso legal': 'Aviso legal',
-    'Afficher en grand : ': 'Ver en grande: ',
-    'Fermer la photo': 'Cerrar foto',
-  };
-  const translateText = (text: string) => {
-    if (language === 'fr') return text;
-    const exactTranslation = spanishTranslations[text];
-    if (exactTranslation) return exactTranslation;
-    const translatedPrefix = Object.entries(spanishTranslations).find(([source]) => source.endsWith(' ') && text.startsWith(source));
-    if (translatedPrefix) {
-      const suffix = text.slice(translatedPrefix[0].length);
-      return translatedPrefix[1] + (spanishTranslations[suffix] ?? suffix);
-    }
-    return text
-      .replace(/, France(?=[,])/g, ', Francia')
-      .replace(/, Chili(?=[,])/g, ', Chile')
-      .replace(/, Bulgarie(?=[,])/g, ', Bulgaria')
-      .replace(/, Italie(?=[,])/g, ', Italia');
-  };
-  const localizeNode = (node: React.ReactNode): React.ReactNode => {
-    if (typeof node === 'string') return translateText(node);
-    if (Array.isArray(node)) return node.map(localizeNode);
-    if (!React.isValidElement(node)) return node;
-    const props = { ...node.props };
-    if (props.children !== undefined) props.children = localizeNode(props.children);
-    ['alt', 'aria-label', 'placeholder', 'title'].forEach((attribute) => {
-      if (typeof props[attribute] === 'string') props[attribute] = translateText(props[attribute]);
-    });
-    return React.cloneElement(node, props);
-  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -646,9 +459,7 @@ return `${day}/${month}/${year}`;
 };
 
 const formatTime = (date: Date) => {
-const days = language === 'fr'
-  ? ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
-  : ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
 const dayName = days[date.getDay()];
 const hours = String(date.getHours()).padStart(2, '0');
 const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -656,10 +467,10 @@ const seconds = String(date.getSeconds()).padStart(2, '0');
 return `${dayName} ${hours}:${minutes}:${seconds}`;
 };
 
-const appContent = (
-<div lang={language} className="min-h-screen bg-[#0b0713] text-[#e2d9f3] font-sans text-xs p-3 leading-normal flex flex-col justify-between" onClick={() => showFollowMenu && setShowFollowMenu(false)}>
+return (
+<div className="min-h-screen bg-[#0b0713] text-[#e2d9f3] font-sans text-xs p-3 leading-normal flex flex-col justify-between" onClick={() => showFollowMenu && setShowFollowMenu(false)}>
 {/* Top Navigation Bar */}
-<header className="bg-[#150d21] border-b border-[#261838] px-4 py-2 flex flex-wrap items-center justify-between gap-2 rounded-t-lg shadow-inner relative">
+<header className="bg-[#150d21] border-b border-[#261838] px-4 py-2 flex items-center justify-between gap-2 rounded-t-lg shadow-inner relative">
   <div className="flex items-center gap-4">
     <div className="w-9 h-9 bg-[#f59e0b] rounded flex items-center justify-center font-bold text-[#0b0713] text-base border border-[#fef08a] shadow-md">
       BB
@@ -669,30 +480,7 @@ const appContent = (
     </nav>
   </div>
 
-    <div className="order-3 flex w-full items-center justify-center gap-2 text-[10px] font-semibold text-[#a799c4] md:order-none md:mx-auto md:w-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2">
-      <span>Langue</span>
-      <button
-        type="button"
-        onClick={() => setLanguage('fr')}
-        aria-label="Français"
-        aria-pressed={language === 'fr'}
-        className={`rounded px-1.5 py-1 text-base leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300 ${language === 'fr' ? 'bg-violet-500/20 ring-1 ring-violet-300/50' : ''}`}
-      >
-        🇫🇷
-      </button>
-      <button
-        type="button"
-        onClick={() => setLanguage('es')}
-        aria-label="Español"
-        aria-pressed={language === 'es'}
-        className={`rounded px-1.5 py-1 text-base leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300 ${language === 'es' ? 'bg-violet-500/20 ring-1 ring-violet-300/50' : ''}`}
-      >
-        🇪🇸
-      </button>
-      <span>Idioma</span>
-    </div>
-
-    <div className="relative ml-auto flex items-center gap-4">
+    <div className="flex items-center gap-4 relative">
       <div className="bg-[#0b0713] border border-[#261838] px-3 py-1 rounded text-center min-w-[100px]">
         <div className="text-[10px] text-[#8e7dae]">{formatDate(time)}</div>
         <div className="font-bold text-[#fbbf24] text-xs">{formatTime(time)}</div>
@@ -1002,7 +790,7 @@ const appContent = (
             Reportage {String(activeGallerySlide + 1).padStart(2, '0')} / {String(gallerySlides.length).padStart(2, '0')}
           </p>
           <h3 className="mb-2 text-2xl font-bold leading-tight text-white">{gallerySlides[activeGallerySlide].title}</h3>
-          <p className="mb-4 text-xs leading-relaxed text-[#e2d9f3]">{truncateDescription(translateText(gallerySlides[activeGallerySlide].description))}</p>
+          <p className="mb-4 text-xs leading-relaxed text-[#e2d9f3]">{truncateDescription(gallerySlides[activeGallerySlide].description)}</p>
           <p className="text-[10px] font-medium text-[#c4b5d9]">{gallerySlides[activeGallerySlide].metadata}</p>
         </div>
         <div className="relative z-20 flex gap-1.5 px-4 pb-3 pt-2" aria-label="Sélectionner une photo">
@@ -1063,12 +851,12 @@ const appContent = (
       </p>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
-    <section className="order-4 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
+    <section className="order-4 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
       <div>
         <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON HISTORIQUE</h2>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs [&_tbody_td]:py-4">
+          <table className="w-full text-left text-xs">
             <thead>
               <tr className="text-[#8e7dae] border-b border-[#261838]">
                 <th className="pb-2">Année</th>
@@ -1078,7 +866,7 @@ const appContent = (
                 <th className="pb-2">Pays</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/10">
+            <tbody className="divide-y divide-[#1c112e]">
               <tr>
                 <td className="py-2.5 text-[#8e7dae]">2025 -</td>
                 <td className="py-2.5 font-bold text-white">Jour de Stade</td>
@@ -1130,6 +918,30 @@ const appContent = (
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div className="mt-4 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3">
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <h3 className="text-[10px] font-bold uppercase tracking-wider text-violet-300">Les grandes étapes</h3>
+          <span className="rounded-full border border-violet-400/20 bg-[#221435] px-2 py-0.5 text-[9px] font-semibold text-[#d8b4fe]">7 expériences</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="border-l-2 border-violet-400/60 pl-2">
+            <p className="text-[10px] font-bold text-white">2013–2015</p>
+            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Crédit Agricole · Alternance</p>
+          </div>
+          <div className="border-l-2 border-pink-400/60 pl-2">
+            <p className="text-[10px] font-bold text-white">2018</p>
+            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Rugby Club Flers P.B. · Stage</p>
+          </div>
+          <div className="border-l-2 border-sky-400/60 pl-2">
+            <p className="text-[10px] font-bold text-white">2019–2025</p>
+            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Sport, retail &amp; hôtellerie</p>
+          </div>
+          <div className="border-l-2 border-amber-400/60 pl-2">
+            <p className="text-[10px] font-bold text-white">Depuis 2025</p>
+            <p className="mt-0.5 text-[9px] leading-relaxed text-[#8e7dae]">Jour de Stade · Réseaux sociaux</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1335,5 +1147,4 @@ const appContent = (
     )}
 </div>
 );
-return language === 'es' ? localizeNode(appContent) : appContent;
 }
