@@ -838,7 +838,7 @@ const appContent = (
       <SocialStatsPanel stats={liveStats} language={language} className="flex flex-col justify-between" />
     </div>
   </main>
-  ) : selectedGallerySlide === null ? (
+  ) : (
   <main className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
 
     {/* CARD 1: MON PROFIL */}
