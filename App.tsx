@@ -4,6 +4,71 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Phone, Mail, Compass, Instagram, Globe, MessageSquare } from 'lucide-react';
 import { translate, type Language } from './translations';
 
+type SocialStats = {
+  tiktokFollowers: string;
+  tiktokLikes: string;
+  tiktokViews: string;
+  instaFollowers: string;
+  instaViews: string;
+};
+
+function SocialStatsPanel({ stats, language, className }: { stats: SocialStats; language: Language; className: string }) {
+  return (
+    <section className={`${className} rounded-lg border border-[#261838] bg-[#150d21] p-4 shadow-xl`}>
+      <div className="flex items-center justify-between border-b border-[#261838] pb-1.5 mb-3">
+        <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase">{translate('STATS RÉSEAUX SOCIAUX', language)}</h2>
+        <span className="flex items-center gap-1 text-[9px] text-[#34d399] font-bold bg-[#0b0713] px-1.5 py-0.5 rounded border border-[#261838]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse"></span> {translate('LIVE', language)}
+        </span>
+      </div>
+      <p className="text-[#8e7dae] font-bold uppercase text-[10px] mb-2.5">{translate('MÉDIAS « JOUR DE STADE »', language)}</p>
+      <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] mb-3 space-y-1.5">
+        <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5 mb-1">
+          <div className="flex items-center gap-1.5 text-pink-400 font-bold text-xs">
+            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.115 6.34 6.34 0 0 0 1.05 8.92 6.326 6.326 0 0 0 8.807-1.743c.094-.148.18-.3.258-.456V9.13a8.216 8.216 0 0 0 4.512 1.348V7.032a4.79 4.79 0 0 1-1.003-.346z"/>
+            </svg>
+            <span>TikTok</span>
+          </div>
+          <span className="text-[10px] text-[#8e7dae]">@jour.de.stade</span>
+        </div>
+        <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
+          <span className="text-[#e2d9f3]">{translate('Abonnés', language)}</span>
+          <span className="text-[#c084fc] font-semibold">{stats.tiktokFollowers || '432'}</span>
+        </div>
+        <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
+          <span className="text-[#e2d9f3]">{translate("J'aime", language)}</span>
+          <span className="text-[#fbbf24] font-bold">{stats.tiktokLikes || '9.0K'}</span>
+        </div>
+        <div className="flex justify-between py-0.5">
+          <span className="text-[#e2d9f3]">{translate('Vues', language)}</span>
+          <span className="text-[#38bdf8] font-bold">{stats.tiktokViews || '135.0K+'}</span>
+        </div>
+      </div>
+      <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] space-y-1.5">
+        <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5 mb-1">
+          <div className="flex items-center gap-1.5 text-pink-500 font-bold text-xs">
+            <Instagram className="w-3.5 h-3.5" />
+            <span>Instagram</span>
+          </div>
+          <span className="text-[10px] text-[#8e7dae]">@jour_de_stade</span>
+        </div>
+        <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
+          <span className="text-[#e2d9f3]">{translate('Abonnés', language)}</span>
+          <span className="text-[#c084fc] font-semibold">{stats.instaFollowers || '140'}</span>
+        </div>
+        <div className="flex justify-between py-0.5">
+          <span className="text-[#e2d9f3]">{translate('Vues', language)}</span>
+          <span className="text-[#38bdf8] font-bold">{stats.instaViews || '23.5K+'}</span>
+        </div>
+      </div>
+      <div className="border-t border-[#261838] pt-2.5 mt-3 text-[10px] text-[#8e7dae] text-center italic">
+        {translate('Création de contenu, montage & écriture', language)}
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const gallerySlides = [
     {
@@ -103,6 +168,17 @@ export default function App() {
     { src: '/photos/visiter-26.jpg', alt: 'Photo de stade et de football' },
     { src: '/photos/visiter-27.jpg', alt: 'Photo de stade et de football' },
     { src: '/photos/visiter-28.jpg', alt: 'Photo de stade et de football' },
+    { src: '/photos/visiter-29.jpg', alt: 'Maillot blanc et bleu de Cobreloa' },
+    { src: '/photos/visiter-30.jpg', alt: 'Détail d’un maillot bleu de la sélection chilienne' },
+    { src: '/photos/visiter-31.jpg', alt: 'Écusson de Deportes Antofagasta sur un maillot' },
+    { src: '/photos/visiter-32.jpg', alt: 'Maillots de football noir et blanc de Colo-Colo' },
+    { src: '/photos/visiter-33.jpg', alt: 'Panneaux indicateurs au coucher du soleil dans le désert' },
+    { src: '/photos/visiter-34.jpg', alt: 'Cactus dans le désert au coucher du soleil' },
+    { src: '/photos/visiter-35.jpg', alt: 'Rue d’Antofagasta avec les montagnes en arrière-plan' },
+    { src: '/photos/visiter-36.jpg', alt: 'Écusson brodé de Universidad de Chile' },
+    { src: '/photos/visiter-37.jpg', alt: 'Vue des tribunes de l’Estadio Nacional de Chile' },
+    { src: '/photos/visiter-38.jpg', alt: 'Écharpe bleue des Pumas d’Antofagasta devant un stade' },
+    { src: '/photos/visiter-39.jpg', alt: 'Tribunes colorées d’un stade avec une banderole de supporters' },
   ];
   const photoGalleryRotations = ['-3deg', '2.5deg', '-2deg', '3deg', '-2.5deg', '2deg'];
   const photoGalleryLayouts = [
@@ -121,7 +197,9 @@ export default function App() {
   const [showDiplomas, setShowDiplomas] = useState(false);
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [showLegalNotices, setShowLegalNotices] = useState(false);
+  const [showSocialStats, setShowSocialStats] = useState(false);
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
+  const diplomaPopoverRef = useRef<HTMLDivElement | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
   const [isStadiumMapExpanded, setIsStadiumMapExpanded] = useState(false);
   const [stadiumMapView, setStadiumMapView] = useState<'world' | 'santiago'>('world');
@@ -129,7 +207,7 @@ export default function App() {
   const [stadiumMapOffset, setStadiumMapOffset] = useState({ x: 0, y: 0 });
   const stadiumMapDrag = useRef<{ pointerId: number; x: number; y: number; offsetX: number; offsetY: number } | null>(null);
   const stadiumMapViewport = useRef<HTMLDivElement | null>(null);
-  const [liveStats, setLiveStats] = useState<any>({
+  const [liveStats, setLiveStats] = useState<SocialStats>({
     tiktokFollowers: '432',
     tiktokLikes: '9.0K',
     tiktokViews: '135.0K+',
@@ -159,13 +237,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices) return;
+    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices || showSocialStats) return;
 
     const galleryTimer = setTimeout(() => {
       setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
     }, 5000);
     return () => clearTimeout(galleryTimer);
-  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery]);
+  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery, showSocialStats]);
 
   useEffect(() => {
     if (selectedPhotoGalleryImage === null) return;
@@ -175,6 +253,17 @@ export default function App() {
     window.addEventListener('keydown', closeOnEscape);
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, [selectedPhotoGalleryImage]);
+
+  useEffect(() => {
+    if (!showDiplomas) return;
+    const closeOnOutsidePointerDown = (event: PointerEvent) => {
+      if (!diplomaPopoverRef.current?.contains(event.target as Node)) {
+        setShowDiplomas(false);
+      }
+    };
+    document.addEventListener('pointerdown', closeOnOutsidePointerDown);
+    return () => document.removeEventListener('pointerdown', closeOnOutsidePointerDown);
+  }, [showDiplomas]);
 
   useEffect(() => {
     if (!isStadiumMapExpanded) return;
@@ -561,43 +650,44 @@ const appContent = (
     </div>
   </header>
   {/* Secondary Navigation Bar */}
-  {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices ? (
-    <div className="bg-[#150d21] border-b border-[#261838] px-5 py-1.5 flex items-center gap-5 text-[#8e7dae] text-xs mb-3 rounded-b-lg">
-      <span className="text-[#fbbf24] font-bold border-b-2 border-[#fbbf24] pb-0.5">Vue d'ensemble</span>
-      <button
-        type="button"
-        onClick={() => setShowLegalNotices(true)}
-        className="hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
-      >
-        Mentions légales
-      </button>
-    </div>
-  ) : (
-    <div className="bg-[#0f1021] border-b border-violet-500/30 px-5 py-2 flex items-center gap-2 text-xs mb-3 rounded-b-lg">
+  <div className="bg-[#150d21] border-b border-[#261838] px-5 py-1.5 flex items-center gap-5 text-[#8e7dae] text-xs mb-3 rounded-b-lg">
       <button
         type="button"
         onClick={() => {
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
+          setShowSocialStats(false);
         }}
-        className="font-semibold text-violet-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
         Vue d&apos;ensemble
       </button>
-      <span className="text-violet-400/70">&gt;</span>
-      {showPhotoGallery ? (
-        <span className="font-semibold text-white">Galerie</span>
-      ) : showLegalNotices ? (
-        <span className="font-semibold text-white">Mentions légales</span>
-      ) : (
-        <>
-          <span className="text-violet-400/70">&gt;</span>
-          <span className="font-semibold text-white">Infos</span>
-        </>
-      )}
-    </div>
-  )}
+      <button
+        type="button"
+        onClick={() => {
+          setSelectedGallerySlide(null);
+          setShowPhotoGallery(false);
+          setShowLegalNotices(false);
+          setShowSocialStats(true);
+        }}
+        className={`${showSocialStats ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+      >
+        Stats réseaux sociaux
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          setSelectedGallerySlide(null);
+          setShowPhotoGallery(false);
+          setShowSocialStats(false);
+          setShowLegalNotices(true);
+        }}
+        className={`${showLegalNotices ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+      >
+        Mentions légales
+      </button>
+  </div>
   {/* Main Dashboard Layout */}
   {showPhotoGallery ? (
   <main
@@ -644,6 +734,37 @@ const appContent = (
       }
     `}</style>
   </main>
+  ) : selectedGallerySlide !== null ? (
+    <main
+      className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-2 shadow-xl sm:p-4"
+      onClick={() => setSelectedGallerySlide(null)}
+    >
+      <article
+        className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className={`relative mx-auto overflow-hidden ${![0, 1, 5].includes(selectedGallerySlide) ? 'h-[min(55vh,440px)] w-full' : 'w-fit max-w-full'}`}>
+          <img
+            src={gallerySlides[selectedGallerySlide].image}
+            alt=""
+            className={`block ${![0, 1, 5].includes(selectedGallerySlide) ? 'h-full w-full object-cover object-center' : 'max-h-[min(55vh,440px)] max-w-full'}`}
+          />
+          <div className="absolute inset-0 bg-[#0f1021]/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/40 to-[#0f1021]/10" />
+          <h1 className="absolute inset-x-0 bottom-0 p-5 text-2xl font-bold text-white drop-shadow-lg sm:p-8 sm:text-4xl">
+            {gallerySlides[selectedGallerySlide].title}
+          </h1>
+        </div>
+        <div className="border-t border-violet-400/20 bg-[#0f1021] p-5 sm:p-8">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-violet-300">
+            {gallerySlides[selectedGallerySlide].metadata}
+          </p>
+          <p className="whitespace-pre-line text-sm leading-relaxed text-gray-200 sm:text-base">
+            {gallerySlides[selectedGallerySlide].description}
+          </p>
+        </div>
+      </article>
+    </main>
   ) : showLegalNotices ? (
   <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
     <div className="mx-auto max-w-4xl">
@@ -711,6 +832,12 @@ const appContent = (
       </div>
     </div>
   </main>
+  ) : showSocialStats ? (
+  <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
+    <div className="mx-auto max-w-xl">
+      <SocialStatsPanel stats={liveStats} language={language} className="flex flex-col justify-between" />
+    </div>
+  </main>
   ) : selectedGallerySlide === null ? (
   <main className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
 
@@ -725,13 +852,13 @@ const appContent = (
           </div>
           <div>
             <h3 className="font-bold text-white text-base">Benjamin Bigot</h3>
-            <p className="text-[#8e7dae] text-xs">31 ans (27/03/1995)</p>
+            <p className="text-[#8e7dae] text-xs">27/03/1995</p>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-[#8e7dae] text-xs">Réputation :</span>
-              <span className="text-[#c084fc] font-semibold text-xs">● Créatif</span>
+              <span className="text-[#c084fc] font-semibold text-xs">● {translate('Créatif', language)}</span>
             </div>
             <p className="text-[#c084fc] font-semibold text-xs mt-1">Licence STAPS / Management du sport</p>
-            <div className="relative mt-1">
+            <div ref={diplomaPopoverRef} className="relative mt-1">
               <button
                 type="button"
                 onClick={() => setShowDiplomas((current) => !current)}
@@ -955,63 +1082,8 @@ const appContent = (
         </div>
       </div>
     </section>
-    {/* CARD 5: STATS DE GESTION - DONNÉES RÉELLES VÉRIFIÉES */}
-    <section className="order-3 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col justify-between">
-      <div>
-        <div className="flex items-center justify-between border-b border-[#261838] pb-1.5 mb-3">
-          <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase">STATS DE GESTION</h2>
-          <span className="flex items-center gap-1 text-[9px] text-[#34d399] font-bold bg-[#0b0713] px-1.5 py-0.5 rounded border border-[#261838]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse"></span> LIVE
-          </span>
-        </div>
-        <p className="text-[#8e7dae] font-bold uppercase text-[10px] mb-2.5">MÉDIAS « JOUR DE STADE »</p>
-        {/* BLOC TIKTOK */}
-        <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] mb-3 space-y-1.5">
-          <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5 mb-1">
-            <div className="flex items-center gap-1.5 text-pink-400 font-bold text-xs">
-              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.115 6.34 6.34 0 0 0 1.05 8.92 6.326 6.326 0 0 0 8.807-1.743c.094-.148.18-.3.258-.456V9.13a8.216 8.216 0 0 0 4.512 1.348V7.032a4.79 4.79 0 0 1-1.003-.346z"/>
-              </svg>
-              <span>TikTok</span>
-            </div>
-            <span className="text-[10px] text-[#8e7dae]">@jour.de.stade</span>
-          </div>
-          <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
-            <span className="text-[#e2d9f3]">Abonnés</span>
-            <span className="text-[#c084fc] font-semibold">{liveStats.tiktokFollowers || '432'}</span>
-          </div>
-          <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
-            <span className="text-[#e2d9f3]">J'aime</span>
-            <span className="text-[#fbbf24] font-bold">{liveStats.tiktokLikes || '9.0K'}</span>
-          </div>
-          <div className="flex justify-between py-0.5">
-            <span className="text-[#e2d9f3]">Vues</span>
-            <span className="text-[#38bdf8] font-bold">{liveStats.tiktokViews || '135.0K+'}</span>
-          </div>
-        </div>
-        {/* BLOC INSTAGRAM */}
-        <div className="bg-[#0b0713] p-3 rounded-lg border border-[#261838] space-y-1.5">
-          <div className="flex items-center justify-between border-b border-[#1c112e] pb-1.5 mb-1">
-            <div className="flex items-center gap-1.5 text-pink-500 font-bold text-xs">
-              <Instagram className="w-3.5 h-3.5" />
-              <span>Instagram</span>
-            </div>
-            <span className="text-[10px] text-[#8e7dae]">@jour_de_stade</span>
-          </div>
-          <div className="flex justify-between py-0.5 border-b border-[#1c112e]">
-            <span className="text-[#e2d9f3]">Abonnés</span>
-            <span className="text-[#c084fc] font-semibold">{liveStats.instaFollowers || '140'}</span>
-          </div>
-          <div className="flex justify-between py-0.5">
-            <span className="text-[#e2d9f3]">Vues</span>
-            <span className="text-[#38bdf8] font-bold">{liveStats.instaViews || '23.5K+'}</span>
-          </div>
-        </div>
-      </div>
-      <div className="border-t border-[#261838] pt-2.5 mt-3 text-[10px] text-[#8e7dae] text-center italic">
-        Création de contenu, montage & écriture
-      </div>
-    </section>
+    {/* CARD 5: STATS RÉSEAUX SOCIAUX */}
+    <SocialStatsPanel stats={liveStats} language={language} className="order-3 lg:col-span-3 flex flex-col justify-between" />
     {/* CARD 6: GALERIE TIKTOK */}
     <section className="order-6 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Galerie</h2>
@@ -1037,39 +1109,8 @@ const appContent = (
       </div>
     </section>
   </main>
-  ) : (
-    <main
-      className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-2 shadow-xl sm:p-4"
-      onClick={() => setSelectedGallerySlide(null)}
-    >
-      <article
-        className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-violet-400/30 bg-[#2d1f47] shadow-2xl"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className={`relative mx-auto overflow-hidden ${![0, 1, 5].includes(selectedGallerySlide) ? 'h-[min(55vh,440px)] w-full' : 'w-fit max-w-full'}`}>
-          <img
-            src={gallerySlides[selectedGallerySlide].image}
-            alt=""
-            className={`block ${![0, 1, 5].includes(selectedGallerySlide) ? 'h-full w-full object-cover object-center' : 'max-h-[min(55vh,440px)] max-w-full'}`}
-          />
-          <div className="absolute inset-0 bg-[#0f1021]/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#2d1f47] via-[#2d1f47]/40 to-[#0f1021]/10" />
-          <h1 className="absolute inset-x-0 bottom-0 p-5 text-2xl font-bold text-white drop-shadow-lg sm:p-8 sm:text-4xl">
-            {gallerySlides[selectedGallerySlide].title}
-          </h1>
-        </div>
-        <div className="border-t border-violet-400/20 bg-[#0f1021] p-5 sm:p-8">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-violet-300">
-            {gallerySlides[selectedGallerySlide].metadata}
-          </p>
-          <p className="whitespace-pre-line text-sm leading-relaxed text-gray-200 sm:text-base">
-            {gallerySlides[selectedGallerySlide].description}
-          </p>
-        </div>
-      </article>
-    </main>
   )}
-      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && (
+      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showSocialStats && (
         <footer className="mt-4 border-t border-[#261838] py-4 text-center text-xs text-[#8e7dae]">
           © 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.
         </footer>
