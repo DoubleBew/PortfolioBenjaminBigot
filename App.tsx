@@ -97,80 +97,100 @@ function ConceptPanel({ language, className, onDiscoverMethod }: { language: Lan
   );
 }
 
-function MethodDetailsPanel({ language, onClose }: { language: Language; onClose: () => void }) {
+interface MethodSection {
+  id: string;
+  emoji: string;
+  title: string;
+  description: string;
+}
+
+function MethodDetailsPanel({ language, className }: { language: Language; className: string }) {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 
-  const sections = [
-    { id: 'idea', icon: '💡', title: 'L\'idée', titleES: 'La idea' },
-    { id: 'writing', icon: '✏️', title: 'L\'écriture', titleES: 'La escritura' },
-    { id: 'filming', icon: '📹', title: 'Tournage / Montage', titleES: 'Rodaje / Edición' },
-    { id: 'publishing', icon: '📤', title: 'Publication', titleES: 'Publicación' },
-    { id: 'tools', icon: '🛠️', title: 'Outils utilisés', titleES: 'Herramientas utilizadas' },
+  const sections: MethodSection[] = [
+    {
+      id: 'idea',
+      emoji: '💡',
+      title: "L'Idée",
+      description: "Passionné de football et d'histoire, j'ai créé Jour de Stade afin de faire connaître le football chilien au public français, et par la même occasion, sa culture et son histoire. O'Higgins, Palestino, Colo-Colo, l'Audax Italiano, la Universidad de Chile... Chaque club raconte une partie de la riche histoire du Chili. Par la même occasion, j'ai souhaité faire connaître Marseille via l'OM, aux chiliens, de la même manière. Afin de créé du contenu régulièrement, des trends et vidéo récréatives viennent compléter le compte.",
+    },
+    {
+      id: 'writing',
+      emoji: '✏️',
+      title: "L'Écriture",
+      description: "Pour chaque vidéo explicative est écrit au préalable un script avec deux ou trois parties maximum. Pour les clubs chiliens, la langue parlée est le français, pour la vidéo explicative sur l'OM, elle est écrite en espagnole. Chaque vidéo contient des sous-titre français et espagnol.",
+    },
+    {
+      id: 'filming',
+      emoji: '📹',
+      title: 'Tournage / Montage',
+      description: "Le tournage est réalisé en fonction du script et du type de vidéo finale souhaitée. Facecam, prompteur, extrait, photographie. L'idée est de retranscrire l'émotion de la vidéo, qu'elle soit humoristique, immersive ou explicative. Le montage est fait dans les codes des réseaux sociaux : dynamique. (cut, habillage, sound design).",
+    },
+    {
+      id: 'publishing',
+      emoji: '📤',
+      title: 'Publication',
+      description: "La vidéo est postée avec une description faite pour inciter le plus possible à l'interaction. L'alliance d'un hook percutant, d'une vignette captivante et d'un référencement ciblé par hashtags pour maximiser la portée.",
+    },
+    {
+      id: 'tools',
+      emoji: '🛠️',
+      title: 'Outils utilisés',
+      description: 'Smartphone / Micro-Cravate / CapCut / Canva / Veed.io / Appareil photo / TikTok',
+    },
   ];
 
   const toggleSection = (id: string) => {
-    setExpandedSections((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
+    const newSet = new Set(expandedSections);
+    if (newSet.has(id)) {
+      newSet.delete(id);
+    } else {
+      newSet.add(id);
+    }
+    setExpandedSections(newSet);
   };
 
   return (
-    <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
-      <div className="mx-auto max-w-4xl">
-        <div className="mb-5 flex items-center justify-between gap-3 border-b border-violet-400/20 pb-3">
-          <h1 className="text-lg font-bold text-white sm:text-xl">{translate('Le Concept', language)}</h1>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg border border-violet-400/30 px-3 py-2 text-xs font-semibold text-[#e9d5ff] transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+    <section className={`${className} rounded-lg border border-[#261838] bg-[#150d21] p-4 shadow-xl`}>
+      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-4">
+        {translate('Le Concept', language)}
+      </h2>
+      <div className="space-y-2">
+        {sections.map((section) => (
+          <div
+            key={section.id}
+            className="border border-[#261838] rounded-lg overflow-hidden transition-all duration-200"
           >
-            {translate('Retour à l\'accueil', language)}
-          </button>
-        </div>
-
-        <div className="space-y-3">
-          {sections.map((section) => {
-            const isExpanded = expandedSections.has(section.id);
-            const title = language === 'FR' ? section.title : section.titleES;
-            const description = translate(section.title, language);
-
-            return (
-              <div
-                key={section.id}
-                className="rounded-lg border border-violet-400/20 bg-[#150d21] overflow-hidden shadow-md transition-all duration-300"
-              >
-                <button
-                  type="button"
-                  onClick={() => toggleSection(section.id)}
-                  className="w-full flex items-center justify-between px-4 py-3 hover:bg-violet-500/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
-                >
-                  <div className="flex items-center gap-3 text-left flex-1">
-                    <span className="text-xl">{section.icon}</span>
-                    <h2 className="font-bold text-white text-sm uppercase tracking-wide">{title}</h2>
-                  </div>
-                  <span
-                    className={`text-violet-400 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
-                  >
-                    ▼
-                  </span>
-                </button>
-                {isExpanded && (
-                  <div className="px-4 py-3 bg-[#0f1021] border-t border-violet-400/20 text-sm leading-relaxed text-[#c4b5d9]">
-                    {description}
-                  </div>
-                )}
+            <button
+              onClick={() => toggleSection(section.id)}
+              className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[#0b0713] hover:bg-[#1c112e] transition-colors text-left"
+            >
+              <div className="flex items-center gap-3 flex-1">
+                <span className="text-xl">{section.emoji}</span>
+                <span className="font-bold text-sm text-[#e2d9f3]">
+                  {translate(section.title, language)}
+                </span>
               </div>
-            );
-          })}
-        </div>
+              <svg
+                className={`w-5 h-5 text-[#c084fc] transition-transform duration-300 flex-shrink-0 ${
+                  expandedSections.has(section.id) ? 'rotate-180' : ''
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+            {expandedSections.has(section.id) && (
+              <div className="px-4 py-3 bg-[#150d21] border-t border-[#261838] text-sm text-[#8e7dae] leading-relaxed">
+                {translate(section.description, language)}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-    </main>
+    </section>
   );
 }
 
@@ -303,8 +323,7 @@ export default function App() {
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [showLegalNotices, setShowLegalNotices] = useState(false);
   const [showSocialStats, setShowSocialStats] = useState(false);
-  const [showConcept, setShowConcept] = useState(false);
-  const [showConceptMethod, setShowConceptMethod] = useState(false);
+  const [showMethodDetails, setShowMethodDetails] = useState(false);
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
   const diplomaPopoverRef = useRef<HTMLDivElement | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
@@ -344,13 +363,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices || showSocialStats || showConcept) return;
+    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices || showSocialStats || showMethodDetails) return;
 
     const galleryTimer = setTimeout(() => {
       setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
     }, 5000);
     return () => clearTimeout(galleryTimer);
-  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery, showSocialStats, showConcept]);
+  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery, showSocialStats, showMethodDetails]);
 
   useEffect(() => {
     if (selectedPhotoGalleryImage === null) return;
@@ -764,11 +783,10 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
+          setShowMethodDetails(false);
           setShowSocialStats(false);
-          setShowConcept(false);
-          setShowConceptMethod(false);
         }}
-        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && !showConcept && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && !showMethodDetails && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
         Vue d&apos;ensemble
       </button>
@@ -778,27 +796,12 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
-          setShowSocialStats(false);
-          setShowConcept(true);
-          setShowConceptMethod(false);
-        }}
-        className={`${showConcept ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
-      >
-        Le Concept
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setSelectedGallerySlide(null);
-          setShowPhotoGallery(false);
-          setShowLegalNotices(false);
-          setShowConcept(false);
-          setShowConceptMethod(false);
+          setShowMethodDetails(false);
           setShowSocialStats(true);
         }}
         className={`${showSocialStats ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
-        Stats réseaux sociaux
+        {translate('Le Concept', language)}
       </button>
       <button
         type="button"
@@ -806,8 +809,6 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowSocialStats(false);
-          setShowConcept(false);
-          setShowConceptMethod(false);
           setShowLegalNotices(true);
         }}
         className={`${showLegalNotices ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
@@ -816,22 +817,7 @@ const appContent = (
       </button>
   </div>
   {/* Main Dashboard Layout */}
-  {showConcept && showConceptMethod ? (
-  <MethodDetailsPanel 
-    language={language} 
-    onClose={() => setShowConceptMethod(false)}
-  />
-  ) : showConcept ? (
-  <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
-    <div className="mx-auto max-w-2xl">
-      <ConceptPanel 
-        language={language}
-        className="flex flex-col justify-between"
-        onDiscoverMethod={() => setShowConceptMethod(true)}
-      />
-    </div>
-  </main>
-  ) : showPhotoGallery ? (
+  {showPhotoGallery ? (
   <main
     className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6"
     onContextMenu={(event) => event.preventDefault()}
@@ -976,8 +962,25 @@ const appContent = (
   </main>
   ) : showSocialStats ? (
   <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
-    <div className="mx-auto max-w-xl">
-      <SocialStatsPanel stats={liveStats} language={language} className="flex flex-col justify-between" />
+    <div className="mx-auto max-w-2xl">
+      {!showMethodDetails ? (
+        <ConceptPanel
+          language={language}
+          className="flex flex-col justify-between"
+          onDiscoverMethod={() => setShowMethodDetails(true)}
+        />
+      ) : (
+        <div>
+          <button
+            type="button"
+            onClick={() => setShowMethodDetails(false)}
+            className="mb-4 text-sm text-[#c084fc] hover:text-[#e9d5ff] font-semibold underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+          >
+            ← {translate('Retour à l\'accueil', language)}
+          </button>
+          <MethodDetailsPanel language={language} className="flex flex-col justify-between" />
+        </div>
+      )}
     </div>
   </main>
   ) : (
@@ -1224,8 +1227,8 @@ const appContent = (
         </div>
       </div>
     </section>
-    {/* CARD 5: LE CONCEPT - Placeholder vide dans le dashboard vue d'ensemble */}
-    {/* Le Concept est maintenant dans son propre onglet, donc on ne l'affiche pas ici */}
+    {/* CARD 5: LE CONCEPT */}
+    <ConceptPanel language={language} className="order-3 lg:col-span-3 flex flex-col justify-between" />
     {/* CARD 6: GALERIE TIKTOK */}
     <section className="order-6 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Galerie</h2>
@@ -1252,7 +1255,7 @@ const appContent = (
     </section>
   </main>
   )}
-      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showSocialStats && !showConcept && (
+      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showSocialStats && !showMethodDetails && (
         <footer className="mt-4 border-t border-[#261838] py-4 text-center text-xs text-[#8e7dae]">
           © 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.
         </footer>
