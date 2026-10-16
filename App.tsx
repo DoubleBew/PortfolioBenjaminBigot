@@ -198,6 +198,7 @@ export default function App() {
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [showLegalNotices, setShowLegalNotices] = useState(false);
   const [showSocialStats, setShowSocialStats] = useState(false);
+  const [showLeConcept, setShowLeConcept] = useState(false);
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
   const diplomaPopoverRef = useRef<HTMLDivElement | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
@@ -658,8 +659,9 @@ const appContent = (
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
           setShowSocialStats(false);
+          setShowLeConcept(false);
         }}
-        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && !showLeConcept && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
         Vue d&apos;ensemble
       </button>
@@ -686,6 +688,19 @@ const appContent = (
         className={`${showLegalNotices ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
         Mentions légales
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          setSelectedGallerySlide(null);
+          setShowPhotoGallery(false);
+          setShowSocialStats(false);
+          setShowLegalNotices(false);
+          setShowLeConcept(true);
+        }}
+        className={`${showLeConcept ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+      >
+        {translate('Le Concept', language)}
       </button>
   </div>
   {/* Main Dashboard Layout */}
@@ -846,6 +861,36 @@ const appContent = (
         language={language}
         className="flex flex-col justify-between"
       />
+    </div>
+  </main>
+  ) : showLeConcept ? (
+  <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
+    <div className="mx-auto max-w-2xl">
+      <h1 className="text-xl font-bold text-white sm:text-2xl mb-4">{translate('Le Concept', language)}</h1>
+      
+      {/* TikTok Video */}
+      <div className="mb-6 flex justify-center">
+        <iframe
+          src="https://www.tiktok.com/embed/7516662567851412741"
+          width="340"
+          height="600"
+          className="rounded-lg border border-violet-400/20"
+          allow="encrypted-media"
+        />
+      </div>
+
+      {/* Discover Method Button */}
+      <div className="flex justify-center">
+        <button
+          type="button"
+          onClick={() => {
+            // TODO: Add method details panel or expand
+          }}
+          className="px-6 py-3 bg-[#fbbf24] text-black font-bold rounded-lg hover:bg-[#fcd34d] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+        >
+          {translate('Découvrir la méthode', language)}
+        </button>
+      </div>
     </div>
   </main>
   ) : (
@@ -1118,7 +1163,7 @@ const appContent = (
     </section>
   </main>
   )}
-      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showSocialStats && (
+      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showSocialStats && !showLeConcept && (
         <footer className="mt-4 border-t border-[#261838] py-4 text-center text-xs text-[#8e7dae]">
           © 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.
         </footer>
