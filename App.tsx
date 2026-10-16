@@ -74,11 +74,46 @@ function ConceptCard({ language }: { language: Language }) {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 
   const sections = [
-    { id: 'idea', icon: '💡', title: 'L\'idée', titleES: 'La idea' },
-    { id: 'writing', icon: '✏️', title: 'L\'écriture', titleES: 'La escritura' },
-    { id: 'filming', icon: '📹', title: 'Tournage / Montage', titleES: 'Rodaje / Edición' },
-    { id: 'publishing', icon: '📤', title: 'Publication', titleES: 'Publicación' },
-    { id: 'tools', icon: '🛠️', title: 'Outils utilisés', titleES: 'Herramientas utilizadas' },
+    { 
+      id: 'idea', 
+      icon: '💡', 
+      title: "L'Idée", 
+      titleES: 'La idea',
+      description: "Passionné de football et d'histoire, j'ai créé Jour de Stade afin de faire connaître le football chilien au public français, et par la même occasion, sa culture et son histoire. O'Higgins, Palestino, Colo-Colo, l'Audax Italiano, la Universidad de Chile... Chaque club raconte une partie de la riche histoire du Chili. Par la même occasion, j'ai souhaité faire connaître Marseille via l'OM, aux chiliens, de la même manière. Afin de créé du contenu régulièrement, des trends et vidéo récréatives viennent compléter le compte.",
+      descriptionES: 'Apasionado de fútbol e historia, creé Jour de Stade para dar a conocer el fútbol chileno al público francés, así como su cultura e historia. O\'Higgins, Palestino, Colo-Colo, Audax Italiano, Universidad de Chile... Cada club cuenta una parte de la rica historia de Chile. Al mismo tiempo, quería dar a conocer Marsella a través del OM a los chilenos de la misma manera. Para crear contenido regularmente, tendencias y vídeos recreativos complementan la cuenta.'
+    },
+    { 
+      id: 'writing', 
+      icon: '✏️', 
+      title: "L'Écriture", 
+      titleES: 'La escritura',
+      description: "Pour chaque vidéo explicative est écrit au préalable un script avec deux ou trois parties maximum. Pour les clubs chiliens, la langue parlée est le français, pour la vidéo explicative sur l'OM, elle est écrite en espagnole. Chaque vidéo contient des sous-titre français et espagnol.",
+      descriptionES: 'Para cada vídeo explicativo se redacta previamente un guión con un máximo de dos o tres partes. Para los clubes chilenos, el idioma hablado es francés; para el vídeo explicativo sobre el OM, está en español. Cada vídeo contiene subtítulos en francés y español.'
+    },
+    { 
+      id: 'filming', 
+      icon: '📹', 
+      title: 'Tournage / Montage', 
+      titleES: 'Rodaje / Edición',
+      description: "Le tournage est réalisé en fonction du script et du type de vidéo finale souhaitée. Facecam, prompteur, extrait, photographie. L'idée est de retranscrire l'émotion de la vidéo, qu'elle soit humoristique, immersive ou explicative. Le montage est fait dans les codes des réseaux sociaux : dynamique. (cut, habillage, sound design).",
+      descriptionES: 'La grabación se realiza según el guión y el tipo de vídeo final deseado. Facecam, teleprompter, extracto, fotografía. La idea es retransmitir la emoción del vídeo, ya sea humorístico, inmersivo o explicativo. La edición se realiza siguiendo los códigos de las redes sociales: dinámico. (cortes, diseño gráfico, diseño de sonido).'
+    },
+    { 
+      id: 'publishing', 
+      icon: '📤', 
+      title: 'Publication', 
+      titleES: 'Publicación',
+      description: "La vidéo est postée avec une description faite pour inciter le plus possible à l'interaction. L'alliance d'un hook percutant, d'une vignette captivante et d'un référencement ciblé par hashtags pour maximiser la portée.",
+      descriptionES: 'El vídeo se publica con una descripción diseñada para fomentar la interacción. La combinación de un gancho impactante, una miniatura cautivadora y etiquetas orientadas para maximizar el alcance.'
+    },
+    { 
+      id: 'tools', 
+      icon: '🛠️', 
+      title: 'Outils utilisés', 
+      titleES: 'Herramientas utilizadas',
+      description: 'Smartphone / Micro-Cravate / CapCut / Canva / Veed.io / Appareil photo / TikTok',
+      descriptionES: 'Smartphone / Micrófono de solapa / CapCut / Canva / Veed.io / Cámara fotográfica / TikTok'
+    },
   ];
 
   const toggleSection = (id: string) => {
@@ -125,7 +160,7 @@ function ConceptCard({ language }: { language: Language }) {
             {sections.map((section) => {
               const isExpanded = expandedSections.has(section.id);
               const title = language === 'FR' ? section.title : section.titleES;
-              const description = translate(section.title, language);
+              const description = language === 'FR' ? section.description : section.descriptionES;
 
               return (
                 <div
