@@ -430,14 +430,14 @@ export default function App() {
                       aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
                       aria-pressed={selectedStadium === stadiumIndex}
                       title={`${stadium.name} - ${stadium.city}`}
-                      className="group absolute z-10 flex h-5 w-5 items-center justify-center rounded-full transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                      className="group absolute z-10 flex h-4 w-4 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                       style={{
                         left: width / 2 + stadiumX - centerX,
                         top: height / 2 + stadiumY - centerY,
-                        transform: 'translate(-50%, -50%)',
+                        transform: `translate(-50%, -50%) scale(${2 ** Math.floor(Math.log2(stadiumMapZoom))})`,
                       }}
                     >
-                      <span className={`block rounded-full border-white shadow-[0_0_5px_rgba(0,0,0,0.9)] transition-all duration-200 ${selectedStadium === stadiumIndex ? 'h-4 w-4 border-2 bg-red-500 ring-2 ring-red-300/70' : 'h-2.5 w-2.5 border-[1.5px] bg-red-500'}`} />
+                      <span className={`block rounded-full border-white shadow-[0_0_4px_rgba(0,0,0,0.8)] transition-all duration-200 ${selectedStadium === stadiumIndex ? 'h-3.5 w-3.5 border-2 bg-red-500 ring-2 ring-yellow-300' : 'h-2 w-2 border bg-red-500 ring-1 ring-black/60'}`} />
                     </button>
                   );
                 })}
