@@ -928,7 +928,7 @@ const appContent = (
       </div>
     </section>
     {/* CARD 2: CE QU'IL FAUT SAVOIR */}
-    <section className="lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
+    <section className="lg:col-span-5 order-2 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Ce qu&apos;il faut savoir</h2>
       <div
         className="relative flex h-[420px] shrink-0 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] sm:h-[380px] lg:h-[360px]"
@@ -991,7 +991,7 @@ const appContent = (
       `}</style>
     </section>
     {/* CARD 3: CARTE INTERACTIVE */}
-    <section className="order-5 lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
+    <section className="order-4 lg:col-span-5 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-2">Carte interactive / Stades visités</h2>
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <p className="text-[#8e7dae] text-[10px]">Cliquez sur la carte pour agrandir · Sélectionnez un stade</p>
@@ -1022,7 +1022,7 @@ const appContent = (
       </p>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
-    <section className="order-4 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 pb-2 shadow-xl flex flex-col">
+    <section className="order-5 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 pb-2 shadow-xl flex flex-col">
       <div>
         <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON HISTORIQUE</h2>
 
@@ -1093,7 +1093,7 @@ const appContent = (
       </div>
     </section>
     {/* CARD 5: GALERIE TIKTOK */}
-    <section className="order-6 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
+    <section className="order-7 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Galerie</h2>
       <div className="flex flex-1 flex-col items-center">
         <iframe
@@ -1118,7 +1118,7 @@ const appContent = (
     </section>
 
     {/* CARD 6: LE CONCEPT */}
-    <section className="order-7 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
+    <section className="order-3 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">{translate('Le Concept', language)}</h2>
       <div className="flex flex-1 flex-col items-center">
         <iframe
