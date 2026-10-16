@@ -899,11 +899,9 @@ const appContent = (
               <MessageSquare className="w-3.5 h-3.5 text-[#25D366]"/>
               06 35 26 33 23
             </span>
-            <span className="text-[#c084fc] font-semibold">Disponible</span>
           </div>
           <div className="flex justify-between items-center py-1 border-b border-[#1c112e]">
             <span className="text-[#e2d9f3] flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-[#a855f7]"/> ben.bigot@live.fr</span>
-            <span className="text-[#34d399] font-semibold">Actif</span>
           </div>
           <div className="flex justify-between items-center py-1">
             <span className="text-[#e2d9f3] flex items-center gap-2">
@@ -911,11 +909,14 @@ const appContent = (
               {translate('Recherche poste de ', language)}
               {translate('Chargé de communication', language)} / {translate('Chargé de projet', language)}
             </span>
-            <span className="text-[#fbbf24] font-semibold">Ouvert</span>
           </div>
           <div className="flex items-center gap-2 py-1 text-[#e2d9f3]">
             <Compass className="w-3.5 h-3.5 shrink-0 text-[#a855f7]" />
-            <span>Mobilité : Partout dans le monde</span>
+            <span>{translate('Mobilité : France / Chili', language)}</span>
+          </div>
+          <div className="flex items-start gap-2 py-1 text-[#e2d9f3]">
+            <Globe className="mt-0.5 w-3.5 h-3.5 shrink-0 text-[#a855f7]" />
+            <span>{translate('Langues parlées : Français (natif) / Espagnol (courant) / Anglais (intermédiaire/professionnel)', language)}</span>
           </div>
         </div>
       </div>
