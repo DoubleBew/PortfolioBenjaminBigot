@@ -198,6 +198,8 @@ export default function App() {
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [showLegalNotices, setShowLegalNotices] = useState(false);
   const [showSocialStats, setShowSocialStats] = useState(false);
+  const [showJourDeStadeConcept, setShowJourDeStadeConcept] = useState(false);
+  const [expandedConceptSections, setExpandedConceptSections] = useState<Set<number>>(new Set());
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
   const diplomaPopoverRef = useRef<HTMLDivElement | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
