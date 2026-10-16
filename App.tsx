@@ -1126,7 +1126,7 @@ const appContent = (
             src="https://www.tiktok.com/embed/7516662567851412741"
             width="100%"
             height="auto"
-            className="rounded-lg border border-[#261838] bg-[#0b0713] max-h-[340px] w-full"
+            className="rounded-lg border border-[#261838] bg-[#0b0713] max-h-[450px] w-full"
             allow="encrypted-media"
           />
         </div>
@@ -1135,7 +1135,7 @@ const appContent = (
           onClick={() => {
             // TODO: Add method details expansion
           }}
-          className="mt-3 inline-flex w-full items-center justify-center rounded-lg border border-violet-400/30 bg-[#fbbf24]/20 px-4 py-2.5 text-sm font-bold text-[#fbbf24] transition-colors hover:bg-[#fbbf24]/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+          className="mt-3 inline-flex w-full items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/15 px-4 py-2.5 text-sm font-bold text-[#e9d5ff] transition-colors hover:bg-violet-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
         >
           {translate('Découvrir la méthode', language)}
         </button>
