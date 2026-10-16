@@ -1120,11 +1120,11 @@ const appContent = (
     {/* CARD 6: LE CONCEPT */}
     <section className="order-3 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">{translate('Le Concept', language)}</h2>
-      <div className="flex flex-1 flex-col items-center justify-between gap-3">
+      <div className="flex flex-1 flex-col items-center">
         <iframe
           src="https://www.tiktok.com/embed/7516662567851412741"
           width="100%"
-          className="rounded-lg border border-[#261838] bg-[#0b0713] w-full aspect-[9/16] max-h-[min(65vh,620px)] overflow-hidden"
+          className="w-full max-h-[min(65vh,620px)] aspect-[9/16] overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713]"
           allow="encrypted-media"
         />
         <button
@@ -1132,7 +1132,7 @@ const appContent = (
           onClick={() => {
             // TODO: Add method details expansion
           }}
-          className="inline-flex w-full items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/15 px-4 py-2.5 text-sm font-bold text-[#e9d5ff] transition-colors hover:bg-violet-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+          className="mt-3 inline-flex w-full items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/15 px-4 py-2.5 text-sm font-bold text-[#e9d5ff] transition-colors hover:bg-violet-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
         >
           {translate('Découvrir la méthode', language)}
         </button>
