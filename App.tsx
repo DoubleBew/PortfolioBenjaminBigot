@@ -69,6 +69,36 @@ function SocialStatsPanel({ stats, language, className }: { stats: SocialStats; 
   );
 }
 
+function ConceptPanel({ language, className }: { language: Language; className: string }) {
+  const handleDiscoverMethod = () => {
+    window.open('https://www.tiktok.com/@jour.de.stade/video/7516662567851412741', '_blank');
+  };
+
+  return (
+    <section className={`${className} rounded-lg border border-[#261838] bg-[#150d21] p-4 shadow-xl flex flex-col`}>
+      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">
+        {translate('Le Concept', language)}
+      </h2>
+      <div className="flex-1 flex flex-col items-center justify-center mb-4">
+        <iframe
+          src="https://www.tiktok.com/player/v1/7516662567851412741?autoplay=0&muted=0&controls=1&volume_control=1&description=0&music_info=0&rel=0"
+          title="TikTok - Jour de Stade Concept"
+          className="w-full max-h-[400px] aspect-[9/16] overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713]"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      </div>
+      <button
+        onClick={handleDiscoverMethod}
+        className="w-full bg-gradient-to-r from-[#c084fc] to-[#d8b4fe] hover:from-[#d8b4fe] hover:to-[#e9d5ff] text-black font-bold py-2.5 px-4 rounded-lg text-sm uppercase tracking-wide transition-all duration-200 shadow-lg"
+      >
+        {translate('Découvrir la méthode', language)}
+      </button>
+    </section>
+  );
+}
+
 export default function App() {
   const gallerySlides = [
     {
@@ -1082,8 +1112,8 @@ const appContent = (
         </div>
       </div>
     </section>
-    {/* CARD 5: STATS RÉSEAUX SOCIAUX */}
-    <SocialStatsPanel stats={liveStats} language={language} className="order-3 lg:col-span-3 flex flex-col justify-between" />
+    {/* CARD 5: LE CONCEPT */}
+    <ConceptPanel language={language} className="order-3 lg:col-span-3 flex flex-col justify-between" />
     {/* CARD 6: GALERIE TIKTOK */}
     <section className="order-6 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Galerie</h2>
