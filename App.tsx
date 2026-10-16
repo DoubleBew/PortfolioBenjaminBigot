@@ -1170,6 +1170,11 @@ const appContent = (
               {translate('Fermer', language)}
             </button>
           </div>
+          <img
+            src="/photos/methode-tournage.jpg"
+            alt={translate('Benjamin Bigot en plein tournage avec un prompteur devant les écharpes de clubs chiliens', language)}
+            className="mb-5 aspect-[4/3] w-full rounded-2xl border border-violet-400/30 object-cover object-[50%_30%] shadow-lg"
+          />
           <div className="space-y-4">
             {[
               ["L'idée 💡", "Passionné de football et d'histoire, j'ai créé Jour de Stade afin de faire connaître le football chilien au public français, et par la même occasion, sa culture et son histoire. O'Higgins, Palestino, Colo-Colo, l'Audax Italiano, la Universidad de Chile... Chaque club raconte une partie de la riche histoire du Chili. Par la même occasion, j'ai souhaité faire connaître Marseille via l'OM, aux chiliens, de la même manière. Afin de créer du contenu régulièrement, des trends et vidéos récréatives viennent compléter le compte."],
