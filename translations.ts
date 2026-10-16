@@ -3,6 +3,8 @@ export type Language = 'FR' | 'ES';
 export const spanishTranslations: Record<string, string> = {
   'Carrière': 'Trayectoria',
   "Vue d'ensemble": 'Inicio',
+  'Le Concept': 'El Concepto',
+  'Découvrir la méthode': 'Descubrir el método',
   'Stats réseaux sociaux': 'Estadísticas de redes sociales',
   'STATS RÉSEAUX SOCIAUX': 'ESTADÍSTICAS DE REDES SOCIALES',
   'Galerie': 'Galería',
