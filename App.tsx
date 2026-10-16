@@ -928,7 +928,7 @@ const appContent = (
       </div>
     </section>
     {/* CARD 2: CE QU'IL FAUT SAVOIR */}
-    <section className="lg:col-span-5 order-2 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
+    <section className="lg:col-span-6 order-2 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col shadow-xl">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Ce qu&apos;il faut savoir</h2>
       <div
         className="relative flex h-[420px] shrink-0 flex-col justify-end overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713] sm:h-[380px] lg:h-[360px]"
@@ -1118,16 +1118,18 @@ const appContent = (
     </section>
 
     {/* CARD 6: LE CONCEPT */}
-    <section className="order-3 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
+    <section className="order-3 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col h-full">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">{translate('Le Concept', language)}</h2>
-      <div className="flex flex-1 flex-col items-center">
-        <iframe
-          src="https://www.tiktok.com/embed/7516662567851412741"
-          width="100%"
-          height="600"
-          className="rounded-lg border border-[#261838] bg-[#0b0713]"
-          allow="encrypted-media"
-        />
+      <div className="flex flex-1 flex-col items-center justify-between">
+        <div className="w-full flex-1 flex items-center justify-center">
+          <iframe
+            src="https://www.tiktok.com/embed/7516662567851412741"
+            width="100%"
+            height="auto"
+            className="rounded-lg border border-[#261838] bg-[#0b0713] max-h-[340px] w-full"
+            allow="encrypted-media"
+          />
+        </div>
         <button
           type="button"
           onClick={() => {
