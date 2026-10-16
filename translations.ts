@@ -174,10 +174,11 @@ export const spanishTranslations: Record<string, string> = {
   'Pour chaque vidéo explicative est écrit au préalable un script avec deux ou trois parties maximum. Pour les clubs chiliens, la langue parlée est le français, pour la vidéo explicative sur l\'OM, elle est écrite en espagnol. Chaque vidéo contient des sous-titres français et espagnols.': 'Para cada vídeo explicativo se redacta previamente un guión con un máximo de dos o tres partes. Para los clubes chilenos, el idioma hablado es francés; para el vídeo explicativo sobre el OM, está en español. Cada vídeo contiene subtítulos en francés y español.',
   'Le tournage est réalisé en fonction du script et du type de vidéo finale souhaitée. Facecam, prompteur, extrait, photographie. L\'idée est de retranscrire l\'émotion de la vidéo, qu\'elle soit humoristique, immersive ou explicative. Le montage est fait dans les codes des réseaux sociaux : dynamique (cut, habillage, sound design).': 'La grabación se realiza según el guión y el tipo de vídeo final deseado. Facecam, teleprompter, extracto, fotografía. La idea es transmitir la emoción del vídeo, ya sea humorístico, inmersivo o explicativo. La edición se realiza siguiendo los códigos de las redes sociales: dinámico. (cortes, diseño gráfico, diseño de sonido).',
   'La vidéo est postée avec une description faite pour inciter le plus possible à l\'interaction. L\'alliance d\'un hook percutant, d\'une vignette captivante et d\'un référencement ciblé par hashtags pour maximiser la portée.': 'El vídeo se publica con una descripción diseñada para fomentar la interacción. La combinación de un gancho impactante, una miniatura cautivadora y un posicionamiento dirigido mediante hashtags para maximizar el alcance.',
-  'Smartphone / Micro-cravate / CapCut / Canva / Veed.io / Appareil photo / TikTok': 'Smartphone / Micrófono de solapa / CapCut / Canva / Veed.io / Cámara fotográfica / TikTok',
+  'Smartphone / Micro-cravate / CapCut / Canva / Veed.io / Appareil photo / TikTok': 'Smartphone / Micrófono DJI / CapCut / Canva / Veed.io / Cámara fotográfica / TikTok',
   "L'idée 💡": 'La idea 💡',
   "L'écriture ✍️": 'La escritura ✍️',
   'Tournage / Montage 🎥': 'Rodaje / Edición 🎥',
+  'Benjamin Bigot en plein tournage avec un prompteur devant les écharpes de clubs chiliens': 'Benjamin Bigot grabando con un teleprompter frente a las bufandas de clubes chilenos',
   'Publication 📣': 'Publicación 📣',
   'Outils utilisés 🛠️': 'Herramientas utilizadas 🛠️',
 };
