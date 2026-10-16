@@ -179,6 +179,13 @@ export const spanishTranslations: Record<string, string> = {
   "L'écriture ✍️": 'La escritura ✍️',
   'Tournage / Montage 🎥': 'Rodaje / Edición 🎥',
   'Benjamin Bigot en plein tournage avec un prompteur devant les écharpes de clubs chiliens': 'Benjamin Bigot grabando con un teleprompter frente a las bufandas de clubes chilenos',
+  'Ce que ce parcours m’apporte': 'Lo que me aporta este recorrido',
+  'Com’ & Content': 'Comunicación y contenido',
+  'Création de logo avec le RC Flers en tant que chargé de communication (charte graphique, dossier stratégique) et pilotage de contenu multi-plateformes avec Jour de Stade (script, tournage, montage, modération).': 'Creación de logotipo con el RC Flers como responsable de comunicación (identidad gráfica, dossier estratégico) y gestión de contenido multiplataforma con Jour de Stade (guión, rodaje, edición, moderación).',
+  'Gestion de Projet': 'Gestión de proyectos',
+  'Rigueur, organisation et culture du résultat issues du secteur bancaire et du retail.': 'Rigor, organización y cultura de resultados procedentes del sector bancario y del retail.',
+  'Adaptabilité & International': 'Adaptabilidad e internacional',
+  'Expériences terrain et bilingues au Chili (Santiago, Antofagasta) et en retail (Decathlon, Sport 2000).': 'Experiencias sobre el terreno y bilingües en Chile (Santiago, Antofagasta) y en retail (Decathlon, Sport 2000).',
   'Publication 📣': 'Publicación 📣',
   'Outils utilisés 🛠️': 'Herramientas utilizadas 🛠️',
 };

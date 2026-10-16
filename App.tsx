@@ -1091,6 +1091,21 @@ const appContent = (
             </tbody>
           </table>
         </div>
+        <div className="mt-4 rounded-lg border border-violet-400/20 bg-[#0f1021] p-3">
+          <h3 className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#fbbf24]">{translate('Ce que ce parcours m’apporte', language)}</h3>
+          <ul className="space-y-2">
+            {[
+              ['Com’ & Content', 'Création de logo avec le RC Flers en tant que chargé de communication (charte graphique, dossier stratégique) et pilotage de contenu multi-plateformes avec Jour de Stade (script, tournage, montage, modération).'],
+              ['Gestion de Projet', 'Rigueur, organisation et culture du résultat issues du secteur bancaire et du retail.'],
+              ['Adaptabilité & International', 'Expériences terrain et bilingues au Chili (Santiago, Antofagasta) et en retail (Decathlon, Sport 2000).'],
+            ].map(([title, text]) => (
+              <li key={title} className="rounded-md border-l-2 border-[#c084fc] bg-[#150d21] px-3 py-2">
+                <p className="text-xs font-bold text-[#d8b4fe]">{translate(title, language)}</p>
+                <p className="mt-0.5 text-[11px] leading-relaxed text-[#e2d9f3]">{translate(text, language)}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
     {/* CARD 5: GALERIE TIKTOK */}
