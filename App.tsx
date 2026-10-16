@@ -1122,10 +1122,12 @@ const appContent = (
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">{translate('Le Concept', language)}</h2>
       <div className="flex flex-1 flex-col items-center">
         <iframe
-          src="https://www.tiktok.com/embed/7516662567851412741"
-          width="100%"
+          src="https://www.tiktok.com/player/v1/7516662567851412741?autoplay=1&muted=1&controls=1&volume_control=0&description=0&music_info=0&rel=0"
+          title="Le Concept - Jour de Stade"
           className="w-full max-h-[min(65vh,620px)] aspect-[9/16] overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713]"
-          allow="encrypted-media"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
         />
         <button
           type="button"
