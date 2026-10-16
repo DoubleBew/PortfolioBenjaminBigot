@@ -852,7 +852,7 @@ const appContent = (
   <main className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-grow">
 
     {/* CARD 1: MON PROFIL */}
-    <section className="lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
+    <section className="lg:col-span-3 order-1 bg-[#150d21] border border-[#261838] rounded-lg p-4 flex flex-col justify-between shadow-xl">
       <div>
         <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">MON PROFIL</h2>
 
@@ -1093,7 +1093,7 @@ const appContent = (
       </div>
     </section>
     {/* CARD 5: GALERIE TIKTOK */}
-    <section className="order-7 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
+    <section className="order-6 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Galerie</h2>
       <div className="flex flex-1 flex-col items-center">
         <iframe
