@@ -198,6 +198,7 @@ export default function App() {
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [showLegalNotices, setShowLegalNotices] = useState(false);
   const [showSocialStats, setShowSocialStats] = useState(false);
+  const [showMethod, setShowMethod] = useState(false);
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
   const diplomaPopoverRef = useRef<HTMLDivElement | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
@@ -1131,9 +1132,7 @@ const appContent = (
         />
         <button
           type="button"
-          onClick={() => {
-            // TODO: Add method details expansion
-          }}
+          onClick={() => setShowMethod(true)}
           className="mt-3 inline-flex w-full items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/15 px-4 py-2.5 text-sm font-bold text-[#e9d5ff] transition-colors hover:bg-violet-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
         >
           {translate('Découvrir la méthode', language)}
@@ -1146,6 +1145,47 @@ const appContent = (
         <footer className="mt-4 border-t border-[#261838] py-4 text-center text-xs text-[#8e7dae]">
           © 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.
         </footer>
+      )}
+      {showMethod && (
+      <div
+        className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/80 p-3 backdrop-blur-sm sm:items-center sm:p-6"
+        onClick={() => setShowMethod(false)}
+        onKeyDown={(event) => { if (event.key === 'Escape') setShowMethod(false); }}
+      >
+        <section
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="method-title"
+          className="my-auto max-h-[calc(100dvh-1.5rem)] w-full max-w-2xl overflow-y-auto rounded-xl border border-violet-400/40 bg-[#150d21] p-4 shadow-2xl sm:max-h-[calc(100dvh-3rem)] sm:p-6"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="mb-4 flex items-center justify-between gap-3 border-b border-[#261838] pb-2">
+            <h2 id="method-title" className="text-[#c084fc] font-bold text-sm tracking-wider uppercase">{translate('Découvrir la méthode', language)}</h2>
+            <button
+              type="button"
+              autoFocus
+              onClick={() => setShowMethod(false)}
+              className="rounded-lg border border-violet-400/30 bg-violet-500/15 px-3 py-1 text-xs font-bold text-[#e9d5ff] transition-colors hover:bg-violet-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+            >
+              {translate('Fermer', language)}
+            </button>
+          </div>
+          <div className="space-y-4">
+            {[
+              ["L'idée 💡", "Passionné de football et d'histoire, j'ai créé Jour de Stade afin de faire connaître le football chilien au public français, et par la même occasion, sa culture et son histoire. O'Higgins, Palestino, Colo-Colo, l'Audax Italiano, la Universidad de Chile... Chaque club raconte une partie de la riche histoire du Chili. Par la même occasion, j'ai souhaité faire connaître Marseille via l'OM, aux chiliens, de la même manière. Afin de créer du contenu régulièrement, des trends et vidéos récréatives viennent compléter le compte."],
+              ["L'écriture ✍️", "Pour chaque vidéo explicative est écrit au préalable un script avec deux ou trois parties maximum. Pour les clubs chiliens, la langue parlée est le français, pour la vidéo explicative sur l'OM, elle est écrite en espagnol. Chaque vidéo contient des sous-titres français et espagnols."],
+              ['Tournage / Montage 🎥', "Le tournage est réalisé en fonction du script et du type de vidéo finale souhaitée. Facecam, prompteur, extrait, photographie. L'idée est de retranscrire l'émotion de la vidéo, qu'elle soit humoristique, immersive ou explicative. Le montage est fait dans les codes des réseaux sociaux : dynamique (cut, habillage, sound design)."],
+              ['Publication 📣', "La vidéo est postée avec une description faite pour inciter le plus possible à l'interaction. L'alliance d'un hook percutant, d'une vignette captivante et d'un référencement ciblé par hashtags pour maximiser la portée."],
+              ['Outils utilisés 🛠️', 'Smartphone / Micro-cravate / CapCut / Canva / Veed.io / Appareil photo / TikTok'],
+            ].map(([title, text]) => (
+              <article key={title}>
+                <h3 className="mb-1 text-sm font-bold text-[#fbbf24]">{translate(title, language)}</h3>
+                <p className="text-xs leading-relaxed text-[#e2d9f3]">{translate(text, language)}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
       )}
       {isStadiumMapExpanded && (
       <div
