@@ -127,6 +127,8 @@ export const spanishTranslations: Record<string, string> = {
   'Recherche poste de ': 'Busco un puesto como ',
   'Chargé de communication': 'responsable de comunicación',
   'Chargé de projet': 'responsable de proyectos',
+  'Mobilité : France / Chili': 'Disponibilidad: Francia / Chile',
+  'Langues parlées : Français (natif) / Espagnol (courant) / Anglais (intermédiaire/professionnel)': 'Idiomas hablados: francés (nativo) / español (fluido) / inglés (intermedio/profesional)',
   'Mobilité : Partout dans le monde': 'Disponibilidad: en todo el mundo',
   'Tendances': 'Aptitudes',
   'Adaptabilité': 'Adaptabilidad',
