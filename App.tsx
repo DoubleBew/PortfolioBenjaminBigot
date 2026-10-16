@@ -69,131 +69,6 @@ function SocialStatsPanel({ stats, language, className }: { stats: SocialStats; 
   );
 }
 
-function ConceptPanel({ language, className, onDiscoverMethod }: { language: Language; className: string; onDiscoverMethod?: () => void }) {
-  return (
-    <section className={`${className} rounded-lg border border-[#261838] bg-[#150d21] p-4 shadow-xl flex flex-col`}>
-      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">
-        {translate('Le Concept', language)}
-      </h2>
-      <div className="flex-1 flex flex-col items-center justify-center mb-4">
-        <iframe
-          src="https://www.tiktok.com/player/v1/7516662567851412741?autoplay=0&muted=0&controls=1&volume_control=1&description=0&music_info=0&rel=0"
-          title="TikTok - Jour de Stade Concept"
-          className="w-full max-h-[400px] aspect-[9/16] overflow-hidden rounded-lg border border-[#261838] bg-[#0b0713]"
-          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-          allowFullScreen
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
-      </div>
-      {onDiscoverMethod && (
-        <button
-          onClick={onDiscoverMethod}
-          className="w-full bg-gradient-to-r from-[#c084fc] to-[#d8b4fe] hover:from-[#d8b4fe] hover:to-[#e9d5ff] text-black font-bold py-2.5 px-4 rounded-lg text-sm uppercase tracking-wide transition-all duration-200 shadow-lg"
-        >
-          {translate('Découvrir la méthode', language)}
-        </button>
-      )}
-    </section>
-  );
-}
-
-interface MethodSection {
-  id: string;
-  emoji: string;
-  title: string;
-  description: string;
-}
-
-function MethodDetailsPanel({ language, className }: { language: Language; className: string }) {
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
-
-  const sections: MethodSection[] = [
-    {
-      id: 'idea',
-      emoji: '💡',
-      title: "L'Idée",
-      description: "Passionné de football et d'histoire, j'ai créé Jour de Stade afin de faire connaître le football chilien au public français, et par la même occasion, sa culture et son histoire. O'Higgins, Palestino, Colo-Colo, l'Audax Italiano, la Universidad de Chile... Chaque club raconte une partie de la riche histoire du Chili. Par la même occasion, j'ai souhaité faire connaître Marseille via l'OM, aux chiliens, de la même manière. Afin de créé du contenu régulièrement, des trends et vidéo récréatives viennent compléter le compte.",
-    },
-    {
-      id: 'writing',
-      emoji: '✏️',
-      title: "L'Écriture",
-      description: "Pour chaque vidéo explicative est écrit au préalable un script avec deux ou trois parties maximum. Pour les clubs chiliens, la langue parlée est le français, pour la vidéo explicative sur l'OM, elle est écrite en espagnole. Chaque vidéo contient des sous-titre français et espagnol.",
-    },
-    {
-      id: 'filming',
-      emoji: '📹',
-      title: 'Tournage / Montage',
-      description: "Le tournage est réalisé en fonction du script et du type de vidéo finale souhaitée. Facecam, prompteur, extrait, photographie. L'idée est de retranscrire l'émotion de la vidéo, qu'elle soit humoristique, immersive ou explicative. Le montage est fait dans les codes des réseaux sociaux : dynamique. (cut, habillage, sound design).",
-    },
-    {
-      id: 'publishing',
-      emoji: '📤',
-      title: 'Publication',
-      description: "La vidéo est postée avec une description faite pour inciter le plus possible à l'interaction. L'alliance d'un hook percutant, d'une vignette captivante et d'un référencement ciblé par hashtags pour maximiser la portée.",
-    },
-    {
-      id: 'tools',
-      emoji: '🛠️',
-      title: 'Outils utilisés',
-      description: 'Smartphone / Micro-Cravate / CapCut / Canva / Veed.io / Appareil photo / TikTok',
-    },
-  ];
-
-  const toggleSection = (id: string) => {
-    const newSet = new Set(expandedSections);
-    if (newSet.has(id)) {
-      newSet.delete(id);
-    } else {
-      newSet.add(id);
-    }
-    setExpandedSections(newSet);
-  };
-
-  return (
-    <section className={`${className} rounded-lg border border-[#261838] bg-[#150d21] p-4 shadow-xl`}>
-      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-4">
-        {translate('Le Concept', language)}
-      </h2>
-      <div className="space-y-2">
-        {sections.map((section) => (
-          <div
-            key={section.id}
-            className="border border-[#261838] rounded-lg overflow-hidden transition-all duration-200"
-          >
-            <button
-              onClick={() => toggleSection(section.id)}
-              className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[#0b0713] hover:bg-[#1c112e] transition-colors text-left"
-            >
-              <div className="flex items-center gap-3 flex-1">
-                <span className="text-xl">{section.emoji}</span>
-                <span className="font-bold text-sm text-[#e2d9f3]">
-                  {translate(section.title, language)}
-                </span>
-              </div>
-              <svg
-                className={`w-5 h-5 text-[#c084fc] transition-transform duration-300 flex-shrink-0 ${
-                  expandedSections.has(section.id) ? 'rotate-180' : ''
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </button>
-            {expandedSections.has(section.id) && (
-              <div className="px-4 py-3 bg-[#150d21] border-t border-[#261838] text-sm text-[#8e7dae] leading-relaxed">
-                {translate(section.description, language)}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 export default function App() {
   const gallerySlides = [
     {
@@ -323,7 +198,6 @@ export default function App() {
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [showLegalNotices, setShowLegalNotices] = useState(false);
   const [showSocialStats, setShowSocialStats] = useState(false);
-  const [showMethodDetails, setShowMethodDetails] = useState(false);
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
   const diplomaPopoverRef = useRef<HTMLDivElement | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
@@ -363,13 +237,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices || showSocialStats || showMethodDetails) return;
+    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices || showSocialStats) return;
 
     const galleryTimer = setTimeout(() => {
       setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
     }, 5000);
     return () => clearTimeout(galleryTimer);
-  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery, showSocialStats, showMethodDetails]);
+  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery, showSocialStats]);
 
   useEffect(() => {
     if (selectedPhotoGalleryImage === null) return;
@@ -783,10 +657,9 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
-          setShowMethodDetails(false);
           setShowSocialStats(false);
         }}
-        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && !showMethodDetails && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
         Vue d&apos;ensemble
       </button>
@@ -796,12 +669,11 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
-          setShowMethodDetails(false);
           setShowSocialStats(true);
         }}
         className={`${showSocialStats ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
-        {translate('Le Concept', language)}
+        {translate('Stats réseaux sociaux', language)}
       </button>
       <button
         type="button"
@@ -963,24 +835,17 @@ const appContent = (
   ) : showSocialStats ? (
   <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
     <div className="mx-auto max-w-2xl">
-      {!showMethodDetails ? (
-        <ConceptPanel
-          language={language}
-          className="flex flex-col justify-between"
-          onDiscoverMethod={() => setShowMethodDetails(true)}
-        />
-      ) : (
-        <div>
-          <button
-            type="button"
-            onClick={() => setShowMethodDetails(false)}
-            className="mb-4 text-sm text-[#c084fc] hover:text-[#e9d5ff] font-semibold underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
-          >
-            ← {translate('Retour à l\'accueil', language)}
-          </button>
-          <MethodDetailsPanel language={language} className="flex flex-col justify-between" />
-        </div>
-      )}
+      <SocialStatsPanel 
+        stats={{
+          tiktokFollowers: '432',
+          tiktokLikes: '9.0K',
+          tiktokViews: '135.0K+',
+          instaFollowers: '140',
+          instaViews: '23.5K+'
+        }}
+        language={language}
+        className="flex flex-col justify-between"
+      />
     </div>
   </main>
   ) : (
@@ -1227,9 +1092,7 @@ const appContent = (
         </div>
       </div>
     </section>
-    {/* CARD 5: LE CONCEPT */}
-    <ConceptPanel language={language} className="order-3 lg:col-span-3 flex flex-col justify-between" />
-    {/* CARD 6: GALERIE TIKTOK */}
+    {/* CARD 5: GALERIE TIKTOK */}
     <section className="order-6 lg:col-span-3 bg-[#150d21] border border-[#261838] rounded-lg p-4 shadow-xl flex flex-col">
       <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">Galerie</h2>
       <div className="flex flex-1 flex-col items-center">
@@ -1255,7 +1118,7 @@ const appContent = (
     </section>
   </main>
   )}
-      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showSocialStats && !showMethodDetails && (
+      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showSocialStats && (
         <footer className="mt-4 border-t border-[#261838] py-4 text-center text-xs text-[#8e7dae]">
           © 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.
         </footer>
