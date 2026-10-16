@@ -69,6 +69,38 @@ function SocialStatsPanel({ stats, language, className }: { stats: SocialStats; 
   );
 }
 
+function ConceptPanel({ language, className }: { language: Language; className: string }) {
+  return (
+    <section className={`${className} rounded-lg border border-[#261838] bg-[#150d21] p-4 shadow-xl flex flex-col`}>
+      <h2 className="text-[#c084fc] font-bold text-xs tracking-wider uppercase border-b border-[#261838] pb-1.5 mb-3">
+        {translate('Le Concept', language)}
+      </h2>
+      <div className="flex flex-1 flex-col items-center justify-center gap-4">
+        <blockquote
+          className="twitter-tweet"
+          data-theme="dark"
+        >
+          <a href="https://twitter.com/jour_de_stade/status/1656789012345678901?ref_src=twsrc%5Etfw"></a>
+        </blockquote>
+        <iframe
+          src="https://www.tiktok.com/embed/v2/7516662567851412741"
+          title="TikTok embed"
+          className="w-full max-w-xs rounded-lg border border-[#261838]"
+          allow="encrypted-media; picture-in-picture; web-share"
+          allowFullScreen
+        />
+        <button
+          type="button"
+          onClick={() => window.open('https://www.tiktok.com/@jour.de.stade/video/7516662567851412741', '_blank')}
+          className="mt-2 inline-flex w-full items-center justify-center rounded-lg border border-violet-400/30 bg-violet-500/15 px-4 py-2.5 text-sm font-bold text-[#e9d5ff] transition-colors hover:bg-violet-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+        >
+          {translate('Découvrir la méthode', language)}
+        </button>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const gallerySlides = [
     {
@@ -197,7 +229,7 @@ export default function App() {
   const [showDiplomas, setShowDiplomas] = useState(false);
   const [showPhotoGallery, setShowPhotoGallery] = useState(false);
   const [showLegalNotices, setShowLegalNotices] = useState(false);
-  const [showSocialStats, setShowSocialStats] = useState(false);
+  const [showConceptTab, setShowConceptTab] = useState(false);
   const [selectedPhotoGalleryImage, setSelectedPhotoGalleryImage] = useState<number | null>(null);
   const diplomaPopoverRef = useRef<HTMLDivElement | null>(null);
   const [selectedStadium, setSelectedStadium] = useState(0);
@@ -237,13 +269,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices || showSocialStats) return;
+    if (selectedGallerySlide !== null || showPhotoGallery || showLegalNotices || showConceptTab) return;
 
     const galleryTimer = setTimeout(() => {
       setActiveGallerySlide((current) => (current + 1) % gallerySlides.length);
     }, 5000);
     return () => clearTimeout(galleryTimer);
-  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery, showSocialStats]);
+  }, [activeGallerySlide, gallerySlides.length, selectedGallerySlide, showLegalNotices, showPhotoGallery, showConceptTab]);
 
   useEffect(() => {
     if (selectedPhotoGalleryImage === null) return;
@@ -657,9 +689,9 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
-          setShowSocialStats(false);
+          setShowConceptTab(false);
         }}
-        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+        className={`${!showPhotoGallery && !showLegalNotices && !showConceptTab && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
         Vue d&apos;ensemble
       </button>
@@ -669,18 +701,18 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
-          setShowSocialStats(true);
+          setShowConceptTab(true);
         }}
-        className={`${showSocialStats ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+        className={`${showConceptTab ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
-        Stats réseaux sociaux
+        {translate('Le Concept', language)}
       </button>
       <button
         type="button"
         onClick={() => {
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
-          setShowSocialStats(false);
+          setShowConceptTab(false);
           setShowLegalNotices(true);
         }}
         className={`${showLegalNotices ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
@@ -832,10 +864,10 @@ const appContent = (
       </div>
     </div>
   </main>
-  ) : showSocialStats ? (
+  ) : showConceptTab ? (
   <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
     <div className="mx-auto max-w-xl">
-      <SocialStatsPanel stats={liveStats} language={language} className="flex flex-col justify-between" />
+      <ConceptPanel language={language} className="flex flex-col justify-between" />
     </div>
   </main>
   ) : (
@@ -1110,7 +1142,7 @@ const appContent = (
     </section>
   </main>
   )}
-      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showSocialStats && (
+      {selectedGallerySlide === null && !showPhotoGallery && !showLegalNotices && !showConceptTab && (
         <footer className="mt-4 border-t border-[#261838] py-4 text-center text-xs text-[#8e7dae]">
           © 2026 Benjamin Bigot — Tous droits réservés. Photos et contenus originaux.
         </footer>
