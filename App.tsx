@@ -1031,14 +1031,14 @@ const appContent = (
         <span className="inline-block h-2 w-2 rounded-full border border-white bg-red-500 align-middle shadow-[0_0_5px_rgba(239,68,68,0.8)]" />{' '}
         Point rouge : stade visité · {visitedStadiums.length} au total
       </p>
-      <div className="mt-3 max-h-80 overflow-y-auto rounded-lg border border-violet-400/20 bg-[#0f1021]">
+      <div className="mt-3 max-h-44 overflow-y-auto overscroll-contain rounded-lg border border-violet-400/20 bg-[#0f1021]">
         <table className="w-full text-left text-[11px]">
           <caption className="sr-only">{translate('Tableau des stades visités', language)}</caption>
           <thead className="sticky top-0 bg-[#1a1030] text-[#8e7dae]">
             <tr>
-              <th scope="col" className="px-2 py-1.5 font-bold">{translate('Stade', language)}</th>
-              <th scope="col" className="px-2 py-1.5 font-bold">{translate('Ville / Pays', language)}</th>
-              <th scope="col" className="px-2 py-1.5 text-right font-bold">{translate('Capacité', language)}</th>
+              <th scope="col" className="px-2 py-1 font-bold">{translate('Stade', language)}</th>
+              <th scope="col" className="px-2 py-1 font-bold">{translate('Ville / Pays', language)}</th>
+              <th scope="col" className="px-2 py-1 text-right font-bold">{translate('Capacité', language)}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-purple-900/30">
@@ -1051,7 +1051,7 @@ const appContent = (
                   onClick={() => setSelectedStadium(index)}
                   className={`cursor-pointer transition-colors hover:bg-violet-500/15 ${isSelected ? 'bg-violet-500/25' : ''}`}
                 >
-                  <td className="px-2 py-1.5 font-bold text-white">
+                  <td className="px-2 py-1 font-bold text-white">
                     <button
                       type="button"
                       onClick={() => setSelectedStadium(index)}
@@ -1061,8 +1061,8 @@ const appContent = (
                       {stadium.name}
                     </button>
                   </td>
-                  <td className="px-2 py-1.5 text-[#e2d9f3]">{stadium.city.split(', ').pop()}, {stadium.country.replace(' ', '\u00a0')} {countryFlags[stadium.country]}</td>
-                  <td className="px-2 py-1.5">
+                  <td className="px-2 py-1 text-[#e2d9f3]">{stadium.city.split(', ').pop()}, {stadium.country.replace(' ', '\u00a0')} {countryFlags[stadium.country]}</td>
+                  <td className="px-2 py-1">
                     <div className="flex flex-col items-end gap-1">
                       <span className="font-semibold text-[#fbbf24]">~{capacity.toLocaleString('fr-FR')}</span>
                       <span className="h-1 w-full min-w-[3rem] overflow-hidden rounded-full bg-[#261838]">
