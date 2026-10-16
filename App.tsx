@@ -658,8 +658,9 @@ const appContent = (
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
           setShowSocialStats(false);
+          setShowJourDeStadeConcept(false);
         }}
-        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+        className={`${!showPhotoGallery && !showLegalNotices && !showSocialStats && !showJourDeStadeConcept && selectedGallerySlide === null ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
         Vue d&apos;ensemble
       </button>
@@ -669,11 +670,12 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowLegalNotices(false);
-          setShowSocialStats(true);
+          setShowSocialStats(false);
+          setShowJourDeStadeConcept(true);
         }}
-        className={`${showSocialStats ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
+        className={`${showJourDeStadeConcept ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
       >
-        Stats réseaux sociaux
+        {translate('Le Concept', language)}
       </button>
       <button
         type="button"
@@ -681,6 +683,7 @@ const appContent = (
           setSelectedGallerySlide(null);
           setShowPhotoGallery(false);
           setShowSocialStats(false);
+          setShowJourDeStadeConcept(false);
           setShowLegalNotices(true);
         }}
         className={`${showLegalNotices ? 'text-[#fbbf24] border-b-2 border-[#fbbf24]' : 'hover:text-white'} pb-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300`}
@@ -836,6 +839,217 @@ const appContent = (
   <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
     <div className="mx-auto max-w-xl">
       <SocialStatsPanel stats={liveStats} language={language} className="flex flex-col justify-between" />
+    </div>
+  </main>
+  ) : showJourDeStadeConcept ? (
+  <main className="flex-1 rounded-xl border border-violet-500/30 bg-[#0f1021] p-4 shadow-xl sm:p-6">
+    <div className="mx-auto max-w-4xl">
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-white sm:text-3xl mb-4">{translate('Le Concept', language)}</h1>
+        <div className="relative overflow-hidden rounded-lg border border-violet-400/20 bg-[#150d21] aspect-square w-full max-w-xs mx-auto mb-4">
+          <img
+            src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&h=400&fit=crop"
+            alt="Jour de Stade Concept"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#150d21]/80 to-transparent" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-4xl">⚽</span>
+          </div>
+        </div>
+      </div>
+
+      {/* TikTok Video */}
+      <div className="mb-6 rounded-lg border border-violet-400/20 bg-[#150d21] p-4 overflow-hidden">
+        <iframe
+          src="https://www.tiktok.com/player/v1/7516662567851412741?autoplay=1&muted=1&controls=1&volume_control=0&description=0&music_info=0&rel=0"
+          title="Vidéo TikTok de Jour de Stade"
+          className="w-full max-h-[600px] aspect-[9/16] rounded-lg border border-[#261838]"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      </div>
+
+      {/* Discover Method Button */}
+      <div className="mb-8 text-center">
+        <button
+          type="button"
+          onClick={() => {
+            document.querySelector('[data-concept-sections]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
+          className="inline-flex items-center justify-center rounded-lg bg-violet-500 hover:bg-violet-600 text-white font-bold px-6 py-3 transition-colors"
+        >
+          {translate('Découvrir la méthode', language)}
+        </button>
+      </div>
+
+      {/* Expandable Sections */}
+      <div data-concept-sections className="space-y-3">
+        {/* Section 1: L'idée */}
+        <div className="rounded-lg border border-violet-400/20 bg-[#150d21] overflow-hidden">
+          <button
+            type="button"
+            onClick={() => {
+              setExpandedConceptSections((prev) => {
+                const newSet = new Set(prev);
+                if (newSet.has(0)) newSet.delete(0);
+                else newSet.add(0);
+                return newSet;
+              });
+            }}
+            className="w-full flex items-center justify-between p-4 hover:bg-[#1a0f2e] transition-colors"
+          >
+            <span className="flex items-center gap-3 font-bold text-white">
+              <span className="text-2xl">💡</span>
+              <span>{translate('L\'idée', language)}</span>
+            </span>
+            <span className={`text-xl transition-transform ${expandedConceptSections.has(0) ? 'rotate-180' : ''}`}>
+              ▼
+            </span>
+          </button>
+          {expandedConceptSections.has(0) && (
+            <div className="border-t border-violet-400/10 p-4 bg-[#0b0713]/50 text-[#e2d9f3] text-sm leading-relaxed">
+              {translate('Passionné de football et d\'histoire, j\'ai créé Jour de Stade afin de faire connaître le football chilien au public français, et par la même occasion, sa culture et son histoire. O\'Higgins, Palestino, Colo-Colo, l\'Audax Italiano, la Universidad de Chile... Chaque club raconte une partie de la riche histoire du Chili. Par la même occasion, j\'ai souhaité faire connaître Marseille via l\'OM, aux chiliens, de la même manière. Afin de créé du contenu régulièrement, des trends et vidéo récréatives viennent compléter le compte.', language)}
+            </div>
+          )}
+        </div>
+
+        {/* Section 2: L'écriture */}
+        <div className="rounded-lg border border-violet-400/20 bg-[#150d21] overflow-hidden">
+          <button
+            type="button"
+            onClick={() => {
+              setExpandedConceptSections((prev) => {
+                const newSet = new Set(prev);
+                if (newSet.has(1)) newSet.delete(1);
+                else newSet.add(1);
+                return newSet;
+              });
+            }}
+            className="w-full flex items-center justify-between p-4 hover:bg-[#1a0f2e] transition-colors"
+          >
+            <span className="flex items-center gap-3 font-bold text-white">
+              <span className="text-2xl">✏️</span>
+              <span>{translate('L\'écriture', language)}</span>
+            </span>
+            <span className={`text-xl transition-transform ${expandedConceptSections.has(1) ? 'rotate-180' : ''}`}>
+              ▼
+            </span>
+          </button>
+          {expandedConceptSections.has(1) && (
+            <div className="border-t border-violet-400/10 p-4 bg-[#0b0713]/50 text-[#e2d9f3] text-sm leading-relaxed">
+              {translate('Pour chaque vidéo explicative est écrit au préalable un script avec deux ou trois parties maximum. Pour les clubs chiliens, la langue parlée est le français, pour la vidéo explicative sur l\'OM, elle est écrite en espagnole. Chaque vidéo contient des sous-titre français et espagnol.', language)}
+            </div>
+          )}
+        </div>
+
+        {/* Section 3: Tournage/Montage */}
+        <div className="rounded-lg border border-violet-400/20 bg-[#150d21] overflow-hidden">
+          <button
+            type="button"
+            onClick={() => {
+              setExpandedConceptSections((prev) => {
+                const newSet = new Set(prev);
+                if (newSet.has(2)) newSet.delete(2);
+                else newSet.add(2);
+                return newSet;
+              });
+            }}
+            className="w-full flex items-center justify-between p-4 hover:bg-[#1a0f2e] transition-colors"
+          >
+            <span className="flex items-center gap-3 font-bold text-white">
+              <span className="text-2xl">📹</span>
+              <span>{translate('Tournage/Montage', language)}</span>
+            </span>
+            <span className={`text-xl transition-transform ${expandedConceptSections.has(2) ? 'rotate-180' : ''}`}>
+              ▼
+            </span>
+          </button>
+          {expandedConceptSections.has(2) && (
+            <div className="border-t border-violet-400/10 p-4 bg-[#0b0713]/50 text-[#e2d9f3] text-sm leading-relaxed">
+              {translate('Le tournage est réalisé en fonction du script et du type de vidéo finale souhaitée. Facecam, prompteur, extrait, photographie. L\'idée est de retranscrire l\'émotion de la vidéo, qu\'elle soit humoristique, immersive ou explicative. Le montage est fait dans les codes des réseaux sociaux : dynamique. (cut, habillage, sound design).', language)}
+            </div>
+          )}
+        </div>
+
+        {/* Section 4: Publication */}
+        <div className="rounded-lg border border-violet-400/20 bg-[#150d21] overflow-hidden">
+          <button
+            type="button"
+            onClick={() => {
+              setExpandedConceptSections((prev) => {
+                const newSet = new Set(prev);
+                if (newSet.has(3)) newSet.delete(3);
+                else newSet.add(3);
+                return newSet;
+              });
+            }}
+            className="w-full flex items-center justify-between p-4 hover:bg-[#1a0f2e] transition-colors"
+          >
+            <span className="flex items-center gap-3 font-bold text-white">
+              <span className="text-2xl">📤</span>
+              <span>{translate('Publication', language)}</span>
+            </span>
+            <span className={`text-xl transition-transform ${expandedConceptSections.has(3) ? 'rotate-180' : ''}`}>
+              ▼
+            </span>
+          </button>
+          {expandedConceptSections.has(3) && (
+            <div className="border-t border-violet-400/10 p-4 bg-[#0b0713]/50 text-[#e2d9f3] text-sm leading-relaxed">
+              {translate('La vidéo est postée avec une description faite pour inciter le plus possible à l\'interaction. L\'alliance d\'un hook percutant, d\'une vignette captivante et d\'un référencement ciblé par hashtags pour maximiser la portée.', language)}
+            </div>
+          )}
+        </div>
+
+        {/* Section 5: Outils utilisés */}
+        <div className="rounded-lg border border-violet-400/20 bg-[#150d21] overflow-hidden">
+          <button
+            type="button"
+            onClick={() => {
+              setExpandedConceptSections((prev) => {
+                const newSet = new Set(prev);
+                if (newSet.has(4)) newSet.delete(4);
+                else newSet.add(4);
+                return newSet;
+              });
+            }}
+            className="w-full flex items-center justify-between p-4 hover:bg-[#1a0f2e] transition-colors"
+          >
+            <span className="flex items-center gap-3 font-bold text-white">
+              <span className="text-2xl">🛠️</span>
+              <span>{translate('Outils utilisés', language)}</span>
+            </span>
+            <span className={`text-xl transition-transform ${expandedConceptSections.has(4) ? 'rotate-180' : ''}`}>
+              ▼
+            </span>
+          </button>
+          {expandedConceptSections.has(4) && (
+            <div className="border-t border-violet-400/10 p-4 bg-[#0b0713]/50">
+              <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {['Smartphone', 'Micro-Cravate', 'CapCut', 'Canva', 'Veed.io', 'Appareil photo', 'TikTok'].map((tool) => (
+                  <li key={tool} className="flex items-center gap-2 text-[#e2d9f3] text-sm">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-violet-400" />
+                    {tool}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Back Button */}
+      <div className="mt-8 text-center">
+        <button
+          type="button"
+          onClick={() => setShowJourDeStadeConcept(false)}
+          className="rounded-lg border border-violet-400/30 px-4 py-2 text-xs font-semibold text-[#e9d5ff] transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+        >
+          {translate('Retour à l\'accueil', language)}
+        </button>
+      </div>
     </div>
   </main>
   ) : (
