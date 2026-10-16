@@ -1173,7 +1173,7 @@ const appContent = (
           <img
             src="/photos/methode-tournage.jpg"
             alt={translate('Benjamin Bigot en plein tournage avec un prompteur devant les écharpes de clubs chiliens', language)}
-            className="mb-5 aspect-[4/3] w-full rounded-2xl border border-violet-400/30 object-cover object-[50%_30%] shadow-lg"
+            className="mx-auto mb-5 aspect-[4/3] w-full max-w-xs rounded-2xl border border-violet-400/30 object-cover object-[50%_30%] shadow-lg"
           />
           <div className="space-y-4">
             {[
