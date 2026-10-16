@@ -430,14 +430,14 @@ export default function App() {
                       aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
                       aria-pressed={selectedStadium === stadiumIndex}
                       title={`${stadium.name} - ${stadium.city}`}
-                      className="group absolute z-10 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-black/30 transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                      className="group absolute z-10 flex h-2 w-2 items-center justify-center rounded-full transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
                       style={{
                         left: width / 2 + stadiumX - centerX,
                         top: height / 2 + stadiumY - centerY,
                         transform: 'translate(-50%, -50%)',
                       }}
                     >
-                      <span className={`block rounded-full border border-white shadow-[0_0_4px_rgba(0,0,0,0.9)] ${selectedStadium === stadiumIndex ? 'h-2 w-2 bg-red-500 ring-1 ring-red-300/70' : 'h-1.5 w-1.5 bg-red-500'}`} />
+                      <span className={`block rounded-full border-white shadow-[0_0_3px_rgba(0,0,0,0.9)] transition-all duration-200 ${selectedStadium === stadiumIndex ? 'h-3 w-3 border-2 bg-red-500 ring-2 ring-red-300/70' : 'h-[3px] w-[3px] border-[0.5px] bg-red-500'}`} />
                     </button>
                   );
                 })}
@@ -462,14 +462,14 @@ export default function App() {
               aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
               aria-pressed={selectedStadium === index}
               title={`${stadium.name} - ${stadium.city}`}
-              className="absolute z-10 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-black/30 transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+              className="absolute z-10 flex h-2 w-2 items-center justify-center rounded-full transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
               style={{
                 left: `${((stadium.lon + 180) / 360) * 100}%`,
                 top: `${((90 - stadium.lat) / 180) * 100}%`,
                 transform: 'translate(-50%, -50%)',
               }}
             >
-              <span className={`block rounded-full border border-white shadow-[0_0_4px_rgba(0,0,0,0.9)] ${selectedStadium === index ? 'h-2 w-2 bg-red-500 ring-1 ring-red-300/70' : 'h-1.5 w-1.5 bg-red-500'}`} />
+              <span className={`block rounded-full border-white shadow-[0_0_3px_rgba(0,0,0,0.9)] transition-all duration-200 ${selectedStadium === index ? 'h-3 w-3 border-2 bg-red-500 ring-2 ring-red-300/70' : 'h-[3px] w-[3px] border-[0.5px] bg-red-500'}`} />
             </button>
           ))}
         </div>
@@ -495,14 +495,14 @@ export default function App() {
           aria-label={`${stadium.name}, ${stadium.city}, ${stadium.country}`}
           aria-pressed={selectedStadium === index}
           title={`${stadium.name} - ${stadium.city}`}
-          className="absolute z-10 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-black/30 transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+          className="absolute z-10 flex h-2 w-2 items-center justify-center rounded-full transition-transform hover:scale-125 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
           style={{
             left: `${((stadium.lon + 180) / 360) * 100}%`,
             top: `${((90 - stadium.lat) / 180) * 100}%`,
             transform: 'translate(-50%, -50%)',
           }}
         >
-          <span className={`block rounded-full border border-white shadow-[0_0_4px_rgba(0,0,0,0.9)] ${selectedStadium === index ? 'h-2 w-2 bg-red-500 ring-1 ring-red-300/70' : 'h-1.5 w-1.5 bg-red-500'}`} />
+          <span className={`block rounded-full border-white shadow-[0_0_3px_rgba(0,0,0,0.9)] transition-all duration-200 ${selectedStadium === index ? 'h-3 w-3 border-2 bg-red-500 ring-2 ring-red-300/70' : 'h-[3px] w-[3px] border-[0.5px] bg-red-500'}`} />
         </button>
       ))}
       {expanded && (
