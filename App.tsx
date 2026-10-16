@@ -139,6 +139,15 @@ export default function App() {
     { name: 'Stadion Bâlgarska Armija', city: 'Sofia', country: 'Bulgarie', lat: 42.6842389, lon: 23.339692 },
     { name: 'Stadio Giuseppe Meazza', city: 'Milan', country: 'Italie', lat: 45.4782003, lon: 9.123964 },
   ];
+  const stadiumCapacities: Record<string, number> = {
+    'Stade Vélodrome': 67400, 'Stade de France': 80000, "Stade Michel d'Ornano": 20300, 'Roazhon Park': 29700,
+    'Stade Marie-Marvingt': 25000, 'Stade de la Beaujoire': 35300, 'Stade du Moustoir': 18500, 'Stade Gerland': 35000,
+    'Stade du Hazé': 3500, 'Estadio Regional Calvo y Bascuñán': 21100, 'Estadio Monumental David Arellano': 47000,
+    'Estadio Nacional Julio Martínez Prádanos': 48600, 'Estadio Bicentenario de La Florida': 12000,
+    'Estadio Municipal de La Cisterna': 6000, 'Estadio Zorros del Desierto': 12100, 'Stadion Bâlgarska Armija': 22000,
+    'Stadio Giuseppe Meazza': 75800,
+  };
+  const countryFlags: Record<string, string> = { France: '🇫🇷', Chili: '🇨🇱', Italie: '🇮🇹', Bulgarie: '🇧🇬' };
   const photoGalleryImages = [
     { src: '/photos/visiter-01.jpg', alt: 'Coucher de soleil sur Santiago' },
     { src: '/photos/visiter-02.jpg', alt: 'Rue de Santiago photographiée de nuit en noir et blanc' },
@@ -1022,6 +1031,51 @@ const appContent = (
         <span className="inline-block h-2 w-2 rounded-full border border-white bg-red-500 align-middle shadow-[0_0_5px_rgba(239,68,68,0.8)]" />{' '}
         Point rouge : stade visité · {visitedStadiums.length} au total
       </p>
+      <div className="mt-3 max-h-80 overflow-y-auto rounded-lg border border-violet-400/20 bg-[#0f1021]">
+        <table className="w-full text-left text-[11px]">
+          <caption className="sr-only">{translate('Tableau des stades visités', language)}</caption>
+          <thead className="sticky top-0 bg-[#1a1030] text-[#8e7dae]">
+            <tr>
+              <th scope="col" className="px-2 py-1.5 font-bold">{translate('Stade', language)}</th>
+              <th scope="col" className="px-2 py-1.5 font-bold">{translate('Ville / Pays', language)}</th>
+              <th scope="col" className="px-2 py-1.5 text-right font-bold">{translate('Capacité', language)}</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-purple-900/30">
+            {visitedStadiums.map((stadium, index) => {
+              const capacity = stadiumCapacities[stadium.name] ?? 0;
+              const isSelected = selectedStadium === index;
+              return (
+                <tr
+                  key={stadium.name}
+                  onClick={() => setSelectedStadium(index)}
+                  className={`cursor-pointer transition-colors hover:bg-violet-500/15 ${isSelected ? 'bg-violet-500/25' : ''}`}
+                >
+                  <td className="px-2 py-1.5 font-bold text-white">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedStadium(index)}
+                      aria-pressed={isSelected}
+                      className="text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300"
+                    >
+                      {stadium.name}
+                    </button>
+                  </td>
+                  <td className="px-2 py-1.5 text-[#e2d9f3]">{stadium.city.split(', ').pop()}, {stadium.country.replace(' ', '\u00a0')} {countryFlags[stadium.country]}</td>
+                  <td className="px-2 py-1.5">
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="font-semibold text-[#fbbf24]">~{capacity.toLocaleString('fr-FR')}</span>
+                      <span className="h-1 w-full min-w-[3rem] overflow-hidden rounded-full bg-[#261838]">
+                        <span className="block h-full rounded-full bg-gradient-to-r from-[#a855f7] to-[#fbbf24]" style={{ width: `${Math.max(4, (capacity / 80000) * 100)}%` }} />
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </section>
     {/* CARD 4: MON HISTORIQUE */}
     <section className="order-5 lg:col-span-4 bg-[#150d21] border border-[#261838] rounded-lg p-4 pb-2 shadow-xl flex flex-col">

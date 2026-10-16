@@ -188,6 +188,10 @@ export const spanishTranslations: Record<string, string> = {
   'Rigueur, organisation et culture du résultat issues du secteur bancaire et du retail.': 'Rigor, organización y cultura de resultados procedentes del sector bancario y del retail.',
   'Adaptabilité & International': 'Adaptabilidad e internacional',
   'Expériences terrain et bilingues au Chili (Santiago, Antofagasta) et en retail (Decathlon, Sport 2000).': 'Experiencias sobre el terreno y bilingües en Chile (Santiago, Antofagasta) y en retail (Decathlon, Sport 2000).',
+  'Tableau des stades visités': 'Tabla de estadios visitados',
+  'Stade': 'Estadio',
+  'Ville / Pays': 'Ciudad / País',
+  'Capacité': 'Capacidad',
   'Publication 📣': 'Publicación 📣',
   'Outils utilisés 🛠️': 'Herramientas utilizadas 🛠️',
 };
