@@ -588,7 +588,8 @@ const appContent = (
 <div lang={language === 'FR' ? 'fr' : 'es'} className="min-h-screen bg-[#0b0713] text-[#e2d9f3] font-sans text-xs p-3 leading-normal flex flex-col justify-between" onClick={() => showFollowMenu && setShowFollowMenu(false)}>
 {/* Top Navigation Bar */}
 <header className="bg-[#150d21] border-b border-[#261838] px-4 py-2 flex flex-wrap items-center justify-between gap-2 rounded-t-lg shadow-inner relative">
-  <div className="flex items-center gap-4">
+  <div aria-hidden="true" className="logo-marquee pointer-events-none absolute inset-0 overflow-hidden rounded-t-lg"><div className="logo-marquee-track">{Array.from({ length: 80 }).map((_, i) => (<img key={i} src="/photos/logo-jds-small.png" alt="" className="mr-10 h-6 w-6 shrink-0 rounded-full opacity-25" />))}</div></div>
+  <div className="relative z-10 flex items-center gap-4">
     <div className="w-9 h-9 bg-[#f59e0b] rounded flex items-center justify-center font-bold text-[#0b0713] text-base border border-[#fef08a] shadow-md">
       BB
     </div>
@@ -597,7 +598,7 @@ const appContent = (
     </nav>
   </div>
 
-  <div className="order-3 flex w-full items-center justify-center gap-2 text-[10px] font-semibold text-[#a799c4] md:order-none md:absolute md:left-1/2 md:w-auto md:-translate-x-1/2">
+  <div className="relative z-10 order-3 flex w-full items-center justify-center gap-2 text-[10px] font-semibold text-[#a799c4] md:order-none md:absolute md:left-1/2 md:w-auto md:-translate-x-1/2">
     <span>langue</span>
     <button type="button" onClick={() => setLanguage('FR')} aria-label="Français" aria-pressed={language === 'FR'} className={`rounded px-1.5 py-1 leading-none transition-colors hover:bg-violet-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-300 ${language === 'FR' ? 'bg-violet-500/20 ring-1 ring-violet-300/50' : ''}`}>
       🇫🇷
@@ -609,7 +610,7 @@ const appContent = (
     <span>idioma</span>
   </div>
 
-    <div className="flex items-center gap-4 relative">
+    <div className="flex items-center gap-4 relative z-10">
       <div className="bg-[#0b0713] border border-[#261838] px-3 py-1 rounded text-center min-w-[100px]">
         <div className="text-[10px] text-[#8e7dae]">{formatDate(time)}</div>
         <div className="font-bold text-[#fbbf24] text-xs">{formatTime(time)}</div>
